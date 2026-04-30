@@ -1,13 +1,17 @@
 import Link from "next/link";
 import { AppHeader } from "@/components/AppHeader";
 import { PaletteSwatches } from "@/components/PaletteSwatches";
+import { RealisticModelPreview } from "@/components/RealisticModelPreview";
 import { ScoreBreakdown } from "@/components/ScoreBreakdown";
-import { VirtualModel } from "@/components/VirtualModel";
 import {
   getSelectionLabels,
-  normalizeSelections,
-  selectionsToSearchParams
+  normalizeSelections
 } from "@/lib/attributes";
+import {
+  modelStateFromSearchParams,
+  modelStateToSearchParams,
+  modelStateToSelections
+} from "@/lib/modelState";
 import { buildResultExplanation, getSeasonMatches } from "@/lib/scoring";
 import type { AttributeKey } from "@/lib/types";
 
@@ -17,9 +21,13 @@ interface ResultsPageProps {
 
 export default async function ResultsPage({ searchParams }: ResultsPageProps) {
   const resolvedSearchParams = await searchParams;
-  const selections = normalizeSelections(resolvedSearchParams);
+  const modelState = modelStateFromSearchParams(resolvedSearchParams);
+  const selections = normalizeSelections({
+    ...resolvedSearchParams,
+    ...modelStateToSelections(modelState)
+  });
   const [topMatch, ...alternateMatches] = getSeasonMatches(selections, 3);
-  const query = selectionsToSearchParams(selections);
+  const query = modelStateToSearchParams(modelState);
 
   return (
     <main className="min-h-screen bg-paper">
@@ -50,10 +58,7 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
 
             <div className="mt-8 grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
               <div>
-                <VirtualModel
-                  selections={selections}
-                  palette={topMatch.season.palette}
-                />
+                <RealisticModelPreview state={modelState} />
               </div>
               <div className="space-y-6">
                 <div>

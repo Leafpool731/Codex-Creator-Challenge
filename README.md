@@ -28,9 +28,29 @@ Deploy to Cloudflare Workers with:
 npm run deploy
 ```
 
-For Cloudflare's hosted build/deploy pipelines, set the deploy command to
-`npm run deploy` (not `npx wrangler deploy`) so the OpenNext build runs before
-deploy.
+`wrangler.jsonc` includes a custom build hook so `npx wrangler deploy` runs the
+OpenNext build before uploading. In Cloudflare's hosted Workers Builds, you can
+keep the deploy command as:
+
+```bash
+npx wrangler deploy
+```
+
+If you prefer explicit dashboard build settings, use:
+
+```bash
+# Build command
+npm run worker:build
+
+# Deploy command
+npx wrangler deploy
+```
+
+or set the deploy command to:
+
+```bash
+npm run deploy
+```
 
 The Worker entrypoint is generated at `.open-next/worker.js`, and static assets
 are generated into `.open-next/assets`. Both are build artifacts and are ignored

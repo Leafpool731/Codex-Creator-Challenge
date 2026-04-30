@@ -5,7 +5,17 @@
   "compatibility_date": "2026-04-30",
   "compatibility_flags": ["nodejs_compat"],
   "build": {
-    "command": "npm run worker:build"
+    "command": "npm run worker:build",
+    "watch_dir": [
+      "app",
+      "components",
+      "data",
+      "lib",
+      "next.config.mjs",
+      "package.json",
+      "tailwind.config.ts",
+      "tsconfig.json"
+    ]
   },
   "assets": {
     "directory": ".open-next/assets",
