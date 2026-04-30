@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AppHeader } from "@/components/AppHeader";
 import { PaletteSwatches } from "@/components/PaletteSwatches";
-import { RealisticModelPreview } from "@/components/RealisticModelPreview";
+import { ResultPortraitPreview } from "@/components/ResultPortraitPreview";
 import { ScoreBreakdown } from "@/components/ScoreBreakdown";
 import {
   getSelectionLabels,
@@ -58,7 +58,7 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
 
             <div className="mt-8 grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
               <div>
-                <RealisticModelPreview state={modelState} />
+                <ResultPortraitPreview state={modelState} />
               </div>
               <div className="space-y-6">
                 <div>

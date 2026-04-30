@@ -22,6 +22,7 @@ export function LightingRail() {
             key={preset.id}
             type="button"
             onClick={() => setLightingPreset(preset.id)}
+            aria-pressed={active}
             className={`rounded-xl px-3 py-2 text-xs font-medium transition ${
               active
                 ? "bg-[#f0e4d8] text-[#2f2723] shadow-sm"

@@ -2,40 +2,51 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { quickLookOptions } from "@/lib/portraitStudioStore";
+import { quickLookOptions, usePortraitStudio } from "@/lib/portraitStudioStore";
 
 export function QuickLooks() {
+  const { state, setState } = usePortraitStudio();
   const [failedIds, setFailedIds] = useState<string[]>([]);
 
   return (
     <div className="space-y-2">
       <p className="text-sm font-medium text-[#4f443f]">Quick looks</p>
-      <div className="grid grid-cols-4 gap-2">
+      <div className="flex gap-2 overflow-x-auto pb-1" aria-label="Quick look presets">
         {quickLookOptions.map((look) => {
           const failed = failedIds.includes(look.id);
+          const active = look.id === state.modelId;
+
           return (
-            <div
+            <button
               key={look.id}
-              className="overflow-hidden rounded-xl border border-[#d9cec5] bg-[#ece3da]"
+              type="button"
+              onClick={() => setState(look.state)}
+              aria-label={`Apply ${look.label} preset`}
+              aria-pressed={active}
+              className={`relative h-20 w-16 shrink-0 overflow-hidden rounded-xl border bg-[#ece3da] transition ${
+                active
+                  ? "border-[#3d322c] ring-2 ring-[#d7cab8]"
+                  : "border-[#d9cec5] hover:border-[#9f896d]"
+              }`}
               title={look.label}
             >
               {failed ? (
-                <div className="grid h-16 place-items-center text-[10px] text-[#7d7069]">
+                <span className="grid h-full place-items-center px-1 text-center text-[10px] leading-3 text-[#7d7069]">
                   Missing
-                </div>
+                </span>
               ) : (
                 <Image
                   src={look.src}
                   alt={look.label}
-                  width={90}
-                  height={78}
-                  className="h-16 w-full object-cover"
+                  fill
+                  sizes="64px"
+                  className="object-cover object-top"
                   onError={() =>
                     setFailedIds((current) => [...new Set([...current, look.id])])
                   }
                 />
               )}
-            </div>
+            </button>
           );
         })}
       </div>

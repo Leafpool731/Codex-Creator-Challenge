@@ -9,20 +9,20 @@ import { PortraitStudioProvider } from "@/lib/portraitStudioStore";
 export function ShadeSeasonPage() {
   return (
     <PortraitStudioProvider>
-      <main className="min-h-screen bg-[linear-gradient(130deg,#fbf5ef_0%,#f4e8dd_52%,#efddd0_100%)] px-4 py-4 sm:px-6 lg:px-8">
-        <div className="mx-auto grid w-full max-w-[92rem] gap-5 xl:grid-cols-[0.88fr_1.24fr_0.98fr]">
-          <section className="rounded-2xl border border-[#e2d7ce] bg-[#fbf7f1]/94 p-5 shadow-[0_24px_60px_rgba(85,63,50,0.09)]">
+      <main className="min-h-screen bg-[linear-gradient(130deg,#fff9f3_0%,#f6ebe2_52%,#ecd9cf_100%)] px-4 py-4 sm:px-6 lg:px-8">
+        <div className="mx-auto grid w-full max-w-[94rem] gap-5 xl:grid-cols-[0.82fr_1.34fr_0.98fr]">
+          <section className="flex min-h-full flex-col px-1 py-2 sm:px-3 lg:py-5">
             <p className="text-[2rem] font-medium leading-none text-[#2f2723]">
-              <span className="[font-family:Georgia,Times,serif]">ShadeSeason</span> ✦
+              <span className="[font-family:Georgia,Times,serif]">ShadeSeason</span> *
             </p>
             <p className="mt-3 inline-flex rounded-full border border-[#e2d7ce] bg-[#f5eee8] px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-[#756860]">
-              Image-free color analysis
+              IMAGE-FREE COLOR ANALYSIS
             </p>
 
             <h1 className="mt-6 text-[2.8rem] leading-[1.02] text-[#2f2723] [font-family:Georgia,Times,serif]">
               Find your most flattering colors.
             </h1>
-            <p className="mt-1 text-[2.35rem] italic leading-[1.02] text-[#7f7066] [font-family:Georgia,Times,serif]">
+            <p className="mt-1 text-[2.35rem] italic leading-[1.02] text-[#8f776d] [font-family:Georgia,Times,serif]">
               No selfie required.
             </p>
 
@@ -34,13 +34,13 @@ export function ShadeSeasonPage() {
             <div className="mt-6 space-y-2">
               <Link
                 href="/studio"
-                className="flex w-fit items-center gap-2 rounded-xl bg-[#2f2723] px-5 py-3 text-sm font-semibold text-[#fff8f1] shadow-[0_16px_36px_rgba(47,39,35,0.25)]"
+                className="flex w-fit items-center gap-2 rounded-xl bg-[#2f2723] px-5 py-3 text-sm font-semibold text-[#fff8f1] shadow-[0_16px_36px_rgba(47,39,35,0.25)] transition hover:bg-[#463a33]"
               >
-                Start analysis <span aria-hidden="true">→</span>
+                Start analysis <span aria-hidden="true">-&gt;</span>
               </Link>
               <Link
                 href="/results"
-                className="inline-flex rounded-xl border border-[#ddd2c9] bg-[#f7efe8] px-5 py-3 text-sm font-semibold text-[#3f3530]"
+                className="inline-flex rounded-xl border border-[#ddd2c9] bg-[#f7efe8] px-5 py-3 text-sm font-semibold text-[#3f3530] shadow-sm transition hover:bg-white/80"
               >
                 View sample result
               </Link>
@@ -60,6 +60,10 @@ export function ShadeSeasonPage() {
                 description="Colors, makeup, hair, and jewelry for you"
               />
             </div>
+
+            <p className="mt-auto pt-8 text-xs text-[#9a8e86]">
+              (c) 2026 ShadeSeason
+            </p>
           </section>
 
           <PortraitStudio />

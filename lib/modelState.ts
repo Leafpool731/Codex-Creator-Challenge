@@ -4,6 +4,7 @@ import type { ContrastValue, UserSelections } from "@/lib/types";
 export type LightingPresetId = "daylight" | "warm" | "cool" | "soft" | "evening";
 
 export interface ModelState {
+  modelId: string;
   skinTone: string;
   undertone: number;
   skinDepth: number;
@@ -133,6 +134,7 @@ export const lightingPresets: LightingPreset[] = [
 ];
 
 export const defaultModelState: ModelState = {
+  modelId: "model-01",
   skinTone: "light",
   undertone: 58,
   skinDepth: 2,
@@ -221,6 +223,7 @@ const numberKeys = [
 ] as const;
 
 const stringKeys = [
+  "modelId",
   "skinTone",
   "hairColor",
   "eyeColor",
@@ -255,6 +258,10 @@ function chromaToSelection(chroma: number): string {
 function undertoneToSelection(undertone: number): string {
   if (undertone <= 18) {
     return "cool";
+  }
+
+  if (undertone >= 51 && undertone <= 53) {
+    return "olive";
   }
 
   if (undertone <= 40) {
