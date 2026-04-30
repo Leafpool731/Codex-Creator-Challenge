@@ -1,0 +1,371 @@
+{
+  "groups": [
+    {
+      "id": "skinDepth",
+      "label": "Skin depth",
+      "helper": "Choose the closest overall depth for the virtual model.",
+      "defaultOption": "light",
+      "options": [
+        {
+          "id": "porcelain",
+          "label": "Porcelain",
+          "description": "Very light depth",
+          "hex": "#f3d8cf",
+          "depthValue": 0
+        },
+        {
+          "id": "fair",
+          "label": "Fair",
+          "description": "Light depth",
+          "hex": "#e8c1ad",
+          "depthValue": 1
+        },
+        {
+          "id": "light",
+          "label": "Light",
+          "description": "Light-medium depth",
+          "hex": "#d8a47f",
+          "depthValue": 2
+        },
+        {
+          "id": "medium",
+          "label": "Medium",
+          "description": "Balanced depth",
+          "hex": "#b97857",
+          "depthValue": 3
+        },
+        {
+          "id": "tan",
+          "label": "Tan",
+          "description": "Medium-deep depth",
+          "hex": "#935c3f",
+          "depthValue": 4
+        },
+        {
+          "id": "deep",
+          "label": "Deep",
+          "description": "Deep depth",
+          "hex": "#673c2d",
+          "depthValue": 5
+        },
+        {
+          "id": "rich-deep",
+          "label": "Rich deep",
+          "description": "Very deep depth",
+          "hex": "#3d241f",
+          "depthValue": 6
+        }
+      ]
+    },
+    {
+      "id": "undertone",
+      "label": "Undertone",
+      "helper": "Set the temperature cast that feels most harmonious.",
+      "defaultOption": "neutral-warm",
+      "options": [
+        {
+          "id": "cool",
+          "label": "Cool",
+          "description": "Blue, rose, or violet cast",
+          "hex": "#d6c8e8",
+          "temperature": "cool"
+        },
+        {
+          "id": "neutral-cool",
+          "label": "Neutral cool",
+          "description": "Balanced with a cool lean",
+          "hex": "#d8d9e8",
+          "temperature": "neutral-cool"
+        },
+        {
+          "id": "neutral",
+          "label": "Neutral",
+          "description": "Even warm and cool cues",
+          "hex": "#ded4c8",
+          "temperature": "neutral"
+        },
+        {
+          "id": "neutral-warm",
+          "label": "Neutral warm",
+          "description": "Balanced with a warm lean",
+          "hex": "#ecd0ac",
+          "temperature": "neutral-warm"
+        },
+        {
+          "id": "warm",
+          "label": "Warm",
+          "description": "Golden, peach, or bronze cast",
+          "hex": "#efb56d",
+          "temperature": "warm"
+        },
+        {
+          "id": "olive",
+          "label": "Olive",
+          "description": "Green-gold or muted neutral cast",
+          "hex": "#b9ad79",
+          "temperature": "neutral"
+        }
+      ]
+    },
+    {
+      "id": "chroma",
+      "label": "Chroma",
+      "helper": "Control how clear or muted the overall coloring appears.",
+      "defaultOption": "medium",
+      "options": [
+        {
+          "id": "soft",
+          "label": "Soft",
+          "description": "Blended and muted",
+          "hex": "#9aa18a",
+          "value": "soft",
+          "chroma": "soft"
+        },
+        {
+          "id": "medium",
+          "label": "Medium",
+          "description": "Balanced saturation",
+          "hex": "#c96372",
+          "value": "medium",
+          "chroma": "medium"
+        },
+        {
+          "id": "bright",
+          "label": "Bright",
+          "description": "Clear and luminous",
+          "hex": "#2f9ea0",
+          "value": "bright",
+          "chroma": "bright"
+        }
+      ]
+    },
+    {
+      "id": "contrast",
+      "label": "Contrast",
+      "helper": "Set the difference between hair, skin, and eye depth.",
+      "defaultOption": "medium",
+      "options": [
+        {
+          "id": "low",
+          "label": "Low",
+          "description": "Gentle value shifts",
+          "hex": "#bba99d",
+          "value": "low",
+          "contrast": "low"
+        },
+        {
+          "id": "medium",
+          "label": "Medium",
+          "description": "Noticeable definition",
+          "hex": "#8c6b5d",
+          "value": "medium",
+          "contrast": "medium"
+        },
+        {
+          "id": "high",
+          "label": "High",
+          "description": "Sharp light-dark separation",
+          "hex": "#2e2932",
+          "value": "high",
+          "contrast": "high"
+        }
+      ]
+    },
+    {
+      "id": "eyeColor",
+      "label": "Eye color",
+      "helper": "Pick the closest eye depth, temperature, and clarity.",
+      "defaultOption": "hazel",
+      "options": [
+        {
+          "id": "light-blue",
+          "label": "Light blue",
+          "description": "Pale and cool",
+          "hex": "#8fb4cb",
+          "depthValue": 0,
+          "temperature": "cool",
+          "chroma": "soft"
+        },
+        {
+          "id": "clear-blue",
+          "label": "Clear blue",
+          "description": "Bright and cool",
+          "hex": "#3e92c5",
+          "depthValue": 1,
+          "temperature": "cool",
+          "chroma": "bright"
+        },
+        {
+          "id": "blue-gray",
+          "label": "Blue gray",
+          "description": "Smoky and cool",
+          "hex": "#8294a0",
+          "depthValue": 1,
+          "temperature": "neutral-cool",
+          "chroma": "soft"
+        },
+        {
+          "id": "green",
+          "label": "Green",
+          "description": "Fresh and balanced",
+          "hex": "#6f966e",
+          "depthValue": 2,
+          "temperature": "neutral-warm",
+          "chroma": "medium"
+        },
+        {
+          "id": "hazel",
+          "label": "Hazel",
+          "description": "Gold and green mix",
+          "hex": "#8b7a43",
+          "depthValue": 3,
+          "temperature": "neutral-warm",
+          "chroma": "medium"
+        },
+        {
+          "id": "amber",
+          "label": "Amber",
+          "description": "Clear golden brown",
+          "hex": "#b06b2c",
+          "depthValue": 3,
+          "temperature": "warm",
+          "chroma": "bright"
+        },
+        {
+          "id": "warm-brown",
+          "label": "Warm brown",
+          "description": "Golden brown",
+          "hex": "#70472b",
+          "depthValue": 4,
+          "temperature": "warm",
+          "chroma": "medium"
+        },
+        {
+          "id": "deep-brown",
+          "label": "Deep brown",
+          "description": "Rich neutral brown",
+          "hex": "#3b261d",
+          "depthValue": 5,
+          "temperature": "neutral",
+          "chroma": "medium"
+        },
+        {
+          "id": "black-brown",
+          "label": "Black brown",
+          "description": "Deep and defined",
+          "hex": "#181315",
+          "depthValue": 6,
+          "temperature": "neutral-cool",
+          "chroma": "bright"
+        },
+        {
+          "id": "gray",
+          "label": "Gray",
+          "description": "Soft and cool",
+          "hex": "#9ea0a4",
+          "depthValue": 1,
+          "temperature": "cool",
+          "chroma": "soft"
+        }
+      ]
+    },
+    {
+      "id": "hairColor",
+      "label": "Hair color",
+      "helper": "Tune the virtual hair shade and its seasonal cues.",
+      "defaultOption": "chestnut",
+      "options": [
+        {
+          "id": "platinum-blonde",
+          "label": "Platinum blonde",
+          "description": "Light and cool",
+          "hex": "#eee6d2",
+          "depthValue": 0,
+          "temperature": "cool",
+          "chroma": "bright"
+        },
+        {
+          "id": "ash-blonde",
+          "label": "Ash blonde",
+          "description": "Muted cool blonde",
+          "hex": "#c5bca6",
+          "depthValue": 1,
+          "temperature": "cool",
+          "chroma": "soft"
+        },
+        {
+          "id": "beige-blonde",
+          "label": "Beige blonde",
+          "description": "Balanced blonde",
+          "hex": "#d2ba8e",
+          "depthValue": 1,
+          "temperature": "neutral",
+          "chroma": "medium"
+        },
+        {
+          "id": "golden-blonde",
+          "label": "Golden blonde",
+          "description": "Warm blonde",
+          "hex": "#d9a953",
+          "depthValue": 2,
+          "temperature": "warm",
+          "chroma": "bright"
+        },
+        {
+          "id": "copper",
+          "label": "Copper",
+          "description": "Bright warm red",
+          "hex": "#b85a32",
+          "depthValue": 3,
+          "temperature": "warm",
+          "chroma": "bright"
+        },
+        {
+          "id": "auburn",
+          "label": "Auburn",
+          "description": "Warm red brown",
+          "hex": "#7c3829",
+          "depthValue": 4,
+          "temperature": "warm",
+          "chroma": "medium"
+        },
+        {
+          "id": "chestnut",
+          "label": "Chestnut",
+          "description": "Neutral warm brown",
+          "hex": "#5e392c",
+          "depthValue": 4,
+          "temperature": "neutral-warm",
+          "chroma": "medium"
+        },
+        {
+          "id": "espresso",
+          "label": "Espresso",
+          "description": "Deep neutral brown",
+          "hex": "#2f211d",
+          "depthValue": 5,
+          "temperature": "neutral-cool",
+          "chroma": "medium"
+        },
+        {
+          "id": "soft-black",
+          "label": "Soft black",
+          "description": "Deep and cool",
+          "hex": "#141217",
+          "depthValue": 6,
+          "temperature": "cool",
+          "chroma": "bright"
+        },
+        {
+          "id": "silver",
+          "label": "Silver",
+          "description": "Light cool gray",
+          "hex": "#c8c8c5",
+          "depthValue": 1,
+          "temperature": "cool",
+          "chroma": "soft"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,546 @@
+[
+  {
+    "id": "light-spring",
+    "name": "Light Spring",
+    "family": "Spring",
+    "headline": "Airy warmth with delicate brightness",
+    "profile": {
+      "temperature": "neutral-warm",
+      "undertones": ["neutral-warm", "warm", "neutral"],
+      "depthRange": [0, 2],
+      "idealDepth": 1,
+      "hairDepthRange": [0, 2],
+      "eyeDepthRange": [0, 3],
+      "chroma": "medium",
+      "contrast": "low"
+    },
+    "palette": [
+      { "name": "Peach cloud", "hex": "#f8c8b8" },
+      { "name": "Warm ivory", "hex": "#fff2d7" },
+      { "name": "Apricot", "hex": "#f3a45d" },
+      { "name": "Mint leaf", "hex": "#a7d8ad" },
+      { "name": "Clear aqua", "hex": "#72c7c8" },
+      { "name": "Melon", "hex": "#f27f79" },
+      { "name": "Light camel", "hex": "#c99b5d" },
+      { "name": "Soft navy", "hex": "#446a86" }
+    ],
+    "makeup": {
+      "lips": ["peach balm", "warm pink gloss", "light coral stain"],
+      "cheeks": ["apricot cream", "fresh peach"],
+      "eyes": ["champagne shimmer", "soft warm brown liner"],
+      "avoid": ["blackened plum", "muddy taupe", "blue-red matte lip"]
+    },
+    "jewelry": "Light yellow gold, peach pearls, warm ivory enamel, and airy translucent stones.",
+    "rationale": "Light Spring is chosen when the coloring reads warm, fresh, and lower in contrast, with brightness that still needs to stay delicate."
+  },
+  {
+    "id": "true-spring",
+    "name": "True Spring",
+    "family": "Spring",
+    "headline": "Sunny warmth with lively saturation",
+    "profile": {
+      "temperature": "warm",
+      "undertones": ["warm", "neutral-warm"],
+      "depthRange": [1, 4],
+      "idealDepth": 2,
+      "hairDepthRange": [1, 4],
+      "eyeDepthRange": [1, 4],
+      "chroma": "bright",
+      "contrast": "medium"
+    },
+    "palette": [
+      { "name": "Marigold", "hex": "#f4b23f" },
+      { "name": "Tomato coral", "hex": "#ee674f" },
+      { "name": "Leaf green", "hex": "#78a95e" },
+      { "name": "Warm aqua", "hex": "#3fb7b5" },
+      { "name": "Cream", "hex": "#fff0c6" },
+      { "name": "Papaya", "hex": "#f8994b" },
+      { "name": "Geranium", "hex": "#df4e53" },
+      { "name": "Golden tan", "hex": "#b98442" }
+    ],
+    "makeup": {
+      "lips": ["clear coral", "warm watermelon", "tomato gloss"],
+      "cheeks": ["golden peach", "warm coral"],
+      "eyes": ["gold wash", "warm chocolate mascara"],
+      "avoid": ["dusty mauve", "charcoal smoke", "icy silver"]
+    },
+    "jewelry": "Polished yellow gold, warm pearls, citrine, peridot, and coral-toned accents.",
+    "rationale": "True Spring appears when warmth and clarity both score high, especially when the features look animated by golden color rather than softened neutrals."
+  },
+  {
+    "id": "bright-spring",
+    "name": "Bright Spring",
+    "family": "Spring",
+    "headline": "High clarity with sparkling warm-neutral energy",
+    "profile": {
+      "temperature": "neutral-warm",
+      "undertones": ["neutral-warm", "warm", "neutral"],
+      "depthRange": [1, 4],
+      "idealDepth": 2,
+      "hairDepthRange": [1, 5],
+      "eyeDepthRange": [1, 5],
+      "chroma": "bright",
+      "contrast": "high"
+    },
+    "palette": [
+      { "name": "Hot coral", "hex": "#f0525f" },
+      { "name": "Clear teal", "hex": "#009c9a" },
+      { "name": "Lime zest", "hex": "#b8ce3a" },
+      { "name": "Electric peach", "hex": "#ff8f5f" },
+      { "name": "Bright navy", "hex": "#173f6f" },
+      { "name": "Orchid pop", "hex": "#b85aa9" },
+      { "name": "Clear cream", "hex": "#fff7d8" },
+      { "name": "Fresh red", "hex": "#e43f3b" }
+    ],
+    "makeup": {
+      "lips": ["bright coral", "clear poppy", "watermelon lacquer"],
+      "cheeks": ["clear peach", "bright apricot"],
+      "eyes": ["clean espresso liner", "champagne highlight"],
+      "avoid": ["matte dusty rose", "flat beige", "ashy gray"]
+    },
+    "jewelry": "Shiny yellow gold, polished rose gold, bright enamel, and crisp high-shine stones.",
+    "rationale": "Bright Spring wins when the scoring finds both chroma and contrast at the clear end, while the undertone stays warm or warm-neutral."
+  },
+  {
+    "id": "warm-spring",
+    "name": "Warm Spring",
+    "family": "Spring",
+    "headline": "Golden warmth with sunlit mid-depth",
+    "profile": {
+      "temperature": "warm",
+      "undertones": ["warm", "neutral-warm", "olive"],
+      "depthRange": [2, 4],
+      "idealDepth": 3,
+      "hairDepthRange": [2, 5],
+      "eyeDepthRange": [2, 5],
+      "chroma": "medium",
+      "contrast": "medium"
+    },
+    "palette": [
+      { "name": "Goldenrod", "hex": "#d69f2a" },
+      { "name": "Terracotta peach", "hex": "#d8744f" },
+      { "name": "Grass", "hex": "#6d9347" },
+      { "name": "Marine teal", "hex": "#2f8786" },
+      { "name": "Honey", "hex": "#d7a853" },
+      { "name": "Warm cream", "hex": "#f5dfb3" },
+      { "name": "Paprika", "hex": "#bd5239" },
+      { "name": "Bronze brown", "hex": "#7a5134" }
+    ],
+    "makeup": {
+      "lips": ["spiced coral", "peach brick", "warm rose"],
+      "cheeks": ["ginger peach", "sunlit bronze"],
+      "eyes": ["bronze satin", "olive brown liner"],
+      "avoid": ["blue pink", "black cherry", "cool ash"]
+    },
+    "jewelry": "Yellow gold, bronze, warm rose gold, citrine, amber, and golden freshwater pearls.",
+    "rationale": "Warm Spring is selected when golden undertone is the dominant clue and the rest of the coloring supports moderate clarity instead of extreme softness or contrast."
+  },
+  {
+    "id": "light-summer",
+    "name": "Light Summer",
+    "family": "Summer",
+    "headline": "Cool lightness with watercolor softness",
+    "profile": {
+      "temperature": "neutral-cool",
+      "undertones": ["neutral-cool", "cool", "neutral"],
+      "depthRange": [0, 2],
+      "idealDepth": 1,
+      "hairDepthRange": [0, 2],
+      "eyeDepthRange": [0, 2],
+      "chroma": "soft",
+      "contrast": "low"
+    },
+    "palette": [
+      { "name": "Powder pink", "hex": "#e8b9c8" },
+      { "name": "Misty blue", "hex": "#9fc3d2" },
+      { "name": "Lavender gray", "hex": "#b8accf" },
+      { "name": "Soft raspberry", "hex": "#c76d86" },
+      { "name": "Seafoam", "hex": "#a7c9bf" },
+      { "name": "Cocoa rose", "hex": "#9b7277" },
+      { "name": "Cloud white", "hex": "#f4edf0" },
+      { "name": "Blue slate", "hex": "#5f7890" }
+    ],
+    "makeup": {
+      "lips": ["cool pink balm", "soft raspberry stain", "rose milk gloss"],
+      "cheeks": ["baby rose", "cool petal"],
+      "eyes": ["taupe wash", "soft navy mascara"],
+      "avoid": ["orange coral", "deep black liner", "gold glitter"]
+    },
+    "jewelry": "Silver, white gold, rose pearl, moonstone, and low-shine cool metals.",
+    "rationale": "Light Summer rises when the scoring sees cool-leaning undertone, low contrast, and light feature depth with a softened finish."
+  },
+  {
+    "id": "true-summer",
+    "name": "True Summer",
+    "family": "Summer",
+    "headline": "Cool blue balance with refined softness",
+    "profile": {
+      "temperature": "cool",
+      "undertones": ["cool", "neutral-cool"],
+      "depthRange": [1, 4],
+      "idealDepth": 2,
+      "hairDepthRange": [1, 4],
+      "eyeDepthRange": [1, 4],
+      "chroma": "soft",
+      "contrast": "medium"
+    },
+    "palette": [
+      { "name": "Rose", "hex": "#b95f78" },
+      { "name": "Denim", "hex": "#496f93" },
+      { "name": "Plum smoke", "hex": "#766180" },
+      { "name": "Blue spruce", "hex": "#4f7f83" },
+      { "name": "Soft white", "hex": "#eee9e8" },
+      { "name": "Cranberry milk", "hex": "#a94d68" },
+      { "name": "Dusty lilac", "hex": "#9b8bb2" },
+      { "name": "Pewter", "hex": "#6b7077" }
+    ],
+    "makeup": {
+      "lips": ["blue rose", "berry stain", "muted raspberry"],
+      "cheeks": ["cool rose", "plum pink"],
+      "eyes": ["slate liner", "soft plum shadow"],
+      "avoid": ["warm brick", "yellow gold shimmer", "neon orange"]
+    },
+    "jewelry": "Brushed silver, white gold, rose quartz, amethyst, and cool pearls.",
+    "rationale": "True Summer is the cool and softened anchor of the Summer family, favored when blue-based temperature and moderate contrast score together."
+  },
+  {
+    "id": "soft-summer",
+    "name": "Soft Summer",
+    "family": "Summer",
+    "headline": "Muted cool-neutral harmony",
+    "profile": {
+      "temperature": "neutral-cool",
+      "undertones": ["neutral-cool", "neutral", "cool", "olive"],
+      "depthRange": [1, 4],
+      "idealDepth": 3,
+      "hairDepthRange": [2, 5],
+      "eyeDepthRange": [1, 4],
+      "chroma": "soft",
+      "contrast": "low"
+    },
+    "palette": [
+      { "name": "Mauve", "hex": "#a87986" },
+      { "name": "Sage gray", "hex": "#8a9b8b" },
+      { "name": "Soft teal", "hex": "#5d8d91" },
+      { "name": "Mushroom", "hex": "#9a8175" },
+      { "name": "Blue pewter", "hex": "#65788a" },
+      { "name": "Dusty plum", "hex": "#7c657a" },
+      { "name": "Rose beige", "hex": "#c5a4a0" },
+      { "name": "Charcoal taupe", "hex": "#4a4548" }
+    ],
+    "makeup": {
+      "lips": ["mauve rose", "soft berry", "cool nude"],
+      "cheeks": ["dusty rose", "muted mauve"],
+      "eyes": ["mushroom taupe", "charcoal brown liner"],
+      "avoid": ["clear scarlet", "bright yellow", "orange bronzer"]
+    },
+    "jewelry": "Antiqued silver, pewter, muted rose gold, labradorite, and gray pearls.",
+    "rationale": "Soft Summer is selected when muted chroma is the strongest signal and the temperature leans cool without demanding icy contrast."
+  },
+  {
+    "id": "cool-summer",
+    "name": "Cool Summer",
+    "family": "Summer",
+    "headline": "Blue-cool color with graceful definition",
+    "profile": {
+      "temperature": "cool",
+      "undertones": ["cool", "neutral-cool"],
+      "depthRange": [1, 5],
+      "idealDepth": 3,
+      "hairDepthRange": [2, 5],
+      "eyeDepthRange": [1, 5],
+      "chroma": "medium",
+      "contrast": "medium"
+    },
+    "palette": [
+      { "name": "Blue raspberry", "hex": "#a93d65" },
+      { "name": "Cool navy", "hex": "#274b73" },
+      { "name": "Iris", "hex": "#6861a7" },
+      { "name": "Pine blue", "hex": "#2d6c79" },
+      { "name": "Rose quartz", "hex": "#d8a8b7" },
+      { "name": "Blue red", "hex": "#b53945" },
+      { "name": "Pearl", "hex": "#f0edf0" },
+      { "name": "Storm gray", "hex": "#555d68" }
+    ],
+    "makeup": {
+      "lips": ["blue red", "cool berry", "rosewood"],
+      "cheeks": ["cool pink", "rose plum"],
+      "eyes": ["navy liner", "cool gray satin"],
+      "avoid": ["terracotta", "mustard", "orange tan"]
+    },
+    "jewelry": "Silver, white gold, platinum, sapphire, garnet, and blue-toned pearls.",
+    "rationale": "Cool Summer wins when cool undertone is clear and the rest of the features sit at controlled, medium contrast rather than Winter intensity."
+  },
+  {
+    "id": "soft-autumn",
+    "name": "Soft Autumn",
+    "family": "Autumn",
+    "headline": "Muted warmth with earthy polish",
+    "profile": {
+      "temperature": "neutral-warm",
+      "undertones": ["neutral-warm", "neutral", "olive", "warm"],
+      "depthRange": [2, 5],
+      "idealDepth": 3,
+      "hairDepthRange": [2, 5],
+      "eyeDepthRange": [2, 5],
+      "chroma": "soft",
+      "contrast": "low"
+    },
+    "palette": [
+      { "name": "Olive", "hex": "#7b7a45" },
+      { "name": "Spiced rose", "hex": "#b36b5b" },
+      { "name": "Camel", "hex": "#b98b55" },
+      { "name": "Moss", "hex": "#687a54" },
+      { "name": "Muted teal", "hex": "#4e8580" },
+      { "name": "Cinnamon", "hex": "#9a5b3d" },
+      { "name": "Oat", "hex": "#d7c2a0" },
+      { "name": "Warm charcoal", "hex": "#504641" }
+    ],
+    "makeup": {
+      "lips": ["spiced nude", "soft terracotta", "warm rose brown"],
+      "cheeks": ["muted apricot", "soft bronze"],
+      "eyes": ["olive taupe", "warm brown liner"],
+      "avoid": ["icy pink", "black liquid liner", "clear fuchsia"]
+    },
+    "jewelry": "Antique gold, brushed bronze, warm pewter, amber, jade, and smoky quartz.",
+    "rationale": "Soft Autumn is chosen when warmth is present but softened by muted chroma, olive-neutral undertone, and gentle contrast."
+  },
+  {
+    "id": "true-autumn",
+    "name": "True Autumn",
+    "family": "Autumn",
+    "headline": "Rich golden earth tones",
+    "profile": {
+      "temperature": "warm",
+      "undertones": ["warm", "neutral-warm", "olive"],
+      "depthRange": [2, 5],
+      "idealDepth": 4,
+      "hairDepthRange": [3, 6],
+      "eyeDepthRange": [3, 6],
+      "chroma": "medium",
+      "contrast": "medium"
+    },
+    "palette": [
+      { "name": "Rust", "hex": "#a94f2b" },
+      { "name": "Mustard", "hex": "#c79a2c" },
+      { "name": "Forest olive", "hex": "#596d3a" },
+      { "name": "Petrol teal", "hex": "#306f71" },
+      { "name": "Cream", "hex": "#ead5a6" },
+      { "name": "Pumpkin", "hex": "#c8672f" },
+      { "name": "Warm burgundy", "hex": "#7b3330" },
+      { "name": "Chocolate", "hex": "#4a2f24" }
+    ],
+    "makeup": {
+      "lips": ["brick", "cinnamon", "warm terracotta"],
+      "cheeks": ["burnished peach", "copper rose"],
+      "eyes": ["bronze", "deep olive", "espresso brown"],
+      "avoid": ["silver frost", "blue pink", "cool lavender"]
+    },
+    "jewelry": "Yellow gold, bronze, copper, amber, tiger eye, and warm mixed metals.",
+    "rationale": "True Autumn is the warm earthy center, selected when golden undertone, medium depth, and grounded saturation all agree."
+  },
+  {
+    "id": "dark-autumn",
+    "name": "Dark Autumn",
+    "family": "Autumn",
+    "headline": "Deep warmth with dramatic earthiness",
+    "profile": {
+      "temperature": "neutral-warm",
+      "undertones": ["neutral-warm", "warm", "olive", "neutral"],
+      "depthRange": [4, 6],
+      "idealDepth": 5,
+      "hairDepthRange": [4, 6],
+      "eyeDepthRange": [4, 6],
+      "chroma": "medium",
+      "contrast": "high"
+    },
+    "palette": [
+      { "name": "Black coffee", "hex": "#241714" },
+      { "name": "Deep teal", "hex": "#0f5f60" },
+      { "name": "Oxblood", "hex": "#63272d" },
+      { "name": "Burnt orange", "hex": "#b8562a" },
+      { "name": "Olive black", "hex": "#373b24" },
+      { "name": "Aged gold", "hex": "#b38a3c" },
+      { "name": "Warm ivory", "hex": "#ead7b4" },
+      { "name": "Fig brown", "hex": "#4a2624" }
+    ],
+    "makeup": {
+      "lips": ["deep brick", "warm wine", "espresso nude"],
+      "cheeks": ["burnt rose", "warm cocoa"],
+      "eyes": ["deep bronze", "blackened brown liner"],
+      "avoid": ["pale icy nude", "pastel lavender", "chalk white"]
+    },
+    "jewelry": "Deep yellow gold, bronze, blackened gold, garnet, amber, and smoky topaz.",
+    "rationale": "Dark Autumn rises when the coloring has depth and contrast, but the undertone and best neutrals stay warm, rich, and earthy."
+  },
+  {
+    "id": "warm-autumn",
+    "name": "Warm Autumn",
+    "family": "Autumn",
+    "headline": "Copper warmth with saturated spice",
+    "profile": {
+      "temperature": "warm",
+      "undertones": ["warm", "neutral-warm", "olive"],
+      "depthRange": [3, 5],
+      "idealDepth": 4,
+      "hairDepthRange": [3, 6],
+      "eyeDepthRange": [2, 6],
+      "chroma": "bright",
+      "contrast": "medium"
+    },
+    "palette": [
+      { "name": "Copper", "hex": "#b95b2d" },
+      { "name": "Saffron", "hex": "#d49b24" },
+      { "name": "Avocado", "hex": "#7e8b39" },
+      { "name": "Warm turquoise", "hex": "#1f8d86" },
+      { "name": "Paprika", "hex": "#c9492f" },
+      { "name": "Honey cream", "hex": "#f1d69a" },
+      { "name": "Nutmeg", "hex": "#7b4328" },
+      { "name": "Pine", "hex": "#35583e" }
+    ],
+    "makeup": {
+      "lips": ["copper red", "spiced coral", "burnt peach"],
+      "cheeks": ["warm apricot", "terra bronze"],
+      "eyes": ["copper foil", "moss liner"],
+      "avoid": ["cool mauve", "blue red", "silver gray"]
+    },
+    "jewelry": "Copper, yellow gold, bronze, amber, citrine, and warm green stones.",
+    "rationale": "Warm Autumn is selected when strong golden warmth pairs with richer spice tones and more saturation than Soft or True Autumn."
+  },
+  {
+    "id": "dark-winter",
+    "name": "Dark Winter",
+    "family": "Winter",
+    "headline": "Deep cool-neutral contrast",
+    "profile": {
+      "temperature": "neutral-cool",
+      "undertones": ["neutral-cool", "cool", "neutral"],
+      "depthRange": [4, 6],
+      "idealDepth": 5,
+      "hairDepthRange": [4, 6],
+      "eyeDepthRange": [4, 6],
+      "chroma": "medium",
+      "contrast": "high"
+    },
+    "palette": [
+      { "name": "Black cherry", "hex": "#42182b" },
+      { "name": "Pine black", "hex": "#173c3a" },
+      { "name": "Charcoal", "hex": "#25262c" },
+      { "name": "Sangria", "hex": "#8d1f46" },
+      { "name": "Deep sapphire", "hex": "#173d75" },
+      { "name": "Icy pink", "hex": "#f0dce6" },
+      { "name": "Plum", "hex": "#4f315f" },
+      { "name": "Cool white", "hex": "#f7f6f3" }
+    ],
+    "makeup": {
+      "lips": ["black cherry", "cool wine", "deep berry"],
+      "cheeks": ["berry rose", "cool plum"],
+      "eyes": ["espresso black liner", "sapphire smoke"],
+      "avoid": ["orange bronze", "tan nude", "mustard"]
+    },
+    "jewelry": "Silver, white gold, gunmetal, black diamond, garnet, and deep sapphire.",
+    "rationale": "Dark Winter wins when the feature depth and contrast are high, while the undertone points cool-neutral rather than golden."
+  },
+  {
+    "id": "true-winter",
+    "name": "True Winter",
+    "family": "Winter",
+    "headline": "Pure cool contrast with crisp color",
+    "profile": {
+      "temperature": "cool",
+      "undertones": ["cool", "neutral-cool"],
+      "depthRange": [2, 6],
+      "idealDepth": 4,
+      "hairDepthRange": [3, 6],
+      "eyeDepthRange": [2, 6],
+      "chroma": "bright",
+      "contrast": "high"
+    },
+    "palette": [
+      { "name": "True red", "hex": "#c41230" },
+      { "name": "Cobalt", "hex": "#0047ab" },
+      { "name": "Emerald", "hex": "#00845e" },
+      { "name": "Magenta", "hex": "#c0007a" },
+      { "name": "Black", "hex": "#070707" },
+      { "name": "Optic white", "hex": "#ffffff" },
+      { "name": "Icy lemon", "hex": "#f7f2a8" },
+      { "name": "Royal purple", "hex": "#4d2f91" }
+    ],
+    "makeup": {
+      "lips": ["blue red", "raspberry", "cool fuchsia"],
+      "cheeks": ["clear cool pink", "berry flush"],
+      "eyes": ["black liner", "white pearl highlight"],
+      "avoid": ["peach beige", "warm brown", "muted olive"]
+    },
+    "jewelry": "Platinum, silver, white gold, diamonds, clear crystals, and saturated cool gems.",
+    "rationale": "True Winter is selected when cool temperature, sharp contrast, and crisp chroma all score strongly together."
+  },
+  {
+    "id": "bright-winter",
+    "name": "Bright Winter",
+    "family": "Winter",
+    "headline": "Electric clarity with cool-neutral contrast",
+    "profile": {
+      "temperature": "neutral-cool",
+      "undertones": ["neutral-cool", "cool", "neutral"],
+      "depthRange": [1, 6],
+      "idealDepth": 4,
+      "hairDepthRange": [3, 6],
+      "eyeDepthRange": [1, 6],
+      "chroma": "bright",
+      "contrast": "high"
+    },
+    "palette": [
+      { "name": "Acid pink", "hex": "#e23d8f" },
+      { "name": "Icy aqua", "hex": "#8de7e2" },
+      { "name": "Black violet", "hex": "#201439" },
+      { "name": "Clear emerald", "hex": "#00a36c" },
+      { "name": "Blue red", "hex": "#d20f3b" },
+      { "name": "Electric blue", "hex": "#0057d8" },
+      { "name": "White", "hex": "#ffffff" },
+      { "name": "Lime ice", "hex": "#d9ef45" }
+    ],
+    "makeup": {
+      "lips": ["clear raspberry", "patent blue red", "bright pink"],
+      "cheeks": ["clear pink", "cool watermelon"],
+      "eyes": ["black brown liner", "icy shimmer"],
+      "avoid": ["dusty rose", "camel", "matte terracotta"]
+    },
+    "jewelry": "High-shine silver, white gold, patent enamel, crystal, emerald, and cool bright stones.",
+    "rationale": "Bright Winter rises when the clearest, highest contrast cues dominate and the temperature is cool-neutral rather than golden."
+  },
+  {
+    "id": "cool-winter",
+    "name": "Cool Winter",
+    "family": "Winter",
+    "headline": "Blue-cool depth with polished intensity",
+    "profile": {
+      "temperature": "cool",
+      "undertones": ["cool", "neutral-cool"],
+      "depthRange": [2, 6],
+      "idealDepth": 4,
+      "hairDepthRange": [3, 6],
+      "eyeDepthRange": [2, 6],
+      "chroma": "medium",
+      "contrast": "high"
+    },
+    "palette": [
+      { "name": "Blue plum", "hex": "#5d2a72" },
+      { "name": "Ruby", "hex": "#a80f3c" },
+      { "name": "Cool navy", "hex": "#10294d" },
+      { "name": "Pine jewel", "hex": "#00606a" },
+      { "name": "Icy lavender", "hex": "#dcd6ee" },
+      { "name": "Steel", "hex": "#59606b" },
+      { "name": "Rose red", "hex": "#bd2348" },
+      { "name": "Soft black", "hex": "#111116" }
+    ],
+    "makeup": {
+      "lips": ["ruby", "cool plum", "deep rose"],
+      "cheeks": ["cool rose", "berry pink"],
+      "eyes": ["charcoal liner", "cool navy shadow"],
+      "avoid": ["gold bronze", "orange red", "warm taupe"]
+    },
+    "jewelry": "Silver, platinum, white gold, hematite, ruby, sapphire, and cool polished stones.",
+    "rationale": "Cool Winter is chosen when the scores point clearly cool and high contrast, but slightly less neon clarity than Bright or True Winter."
+  }
+]
