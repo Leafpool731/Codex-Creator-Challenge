@@ -80,36 +80,31 @@ function regionStyle(region: FeatureMaskRegion): CSSProperties {
 export function getUndertoneOverlay(undertone: Undertone): {
   primary: string;
   secondary: string;
-  filter: string;
 } {
   if (undertone === "cool") {
     return {
       primary: "rgba(214, 164, 178, 0.18)",
-      secondary: "rgba(180, 200, 235, 0.10)",
-      filter: "hue-rotate(-4deg)"
+      secondary: "rgba(180, 200, 235, 0.10)"
     };
   }
 
   if (undertone === "warm") {
     return {
       primary: "rgba(226, 174, 104, 0.18)",
-      secondary: "rgba(255, 210, 145, 0.10)",
-      filter: "hue-rotate(4deg)"
+      secondary: "rgba(255, 210, 145, 0.10)"
     };
   }
 
   if (undertone === "olive") {
     return {
       primary: "rgba(166, 155, 105, 0.18)",
-      secondary: "rgba(120, 125, 95, 0.10)",
-      filter: "hue-rotate(8deg) saturate(0.88) sepia(0.08)"
+      secondary: "rgba(120, 125, 95, 0.10)"
     };
   }
 
   return {
     primary: "rgba(214, 184, 160, 0.10)",
-    secondary: "rgba(214, 184, 160, 0.05)",
-    filter: "hue-rotate(0deg)"
+    secondary: "rgba(214, 184, 160, 0.05)"
   };
 }
 
@@ -184,14 +179,13 @@ export function getLightingOverlay(
 
 export function getPortraitFilter(settings: Pick<
   PortraitOverlaysProps,
-  "depth" | "saturation" | "undertone" | "lightingPreset"
+  "depth" | "saturation" | "lightingPreset"
 >): string {
   const depth = clamp(settings.depth);
   const saturation = clamp(settings.saturation);
   const depthBrightness = 1.08 - depth * 0.0035;
   const depthContrast = 0.96 + depth * 0.004;
   const saturationValue = 0.75 + saturation * 0.008;
-  const undertoneFilter = getUndertoneOverlay(settings.undertone).filter;
   const presetFilter =
     settings.lightingPreset === "warm"
       ? "sepia(0.08)"
@@ -205,7 +199,6 @@ export function getPortraitFilter(settings: Pick<
     `brightness(${depthBrightness.toFixed(3)})`,
     `contrast(${depthContrast.toFixed(3)})`,
     `saturate(${saturationValue.toFixed(3)})`,
-    undertoneFilter,
     presetFilter
   ].join(" ");
 }

@@ -46,7 +46,6 @@ export function ResultPortraitPreview({ state }: ResultPortraitPreviewProps) {
   const portraitFilter = getPortraitFilter({
     depth,
     saturation: state.chroma,
-    undertone,
     lightingPreset: state.lightingPreset
   });
 

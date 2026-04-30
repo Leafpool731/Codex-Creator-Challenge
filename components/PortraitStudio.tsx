@@ -28,7 +28,6 @@ export function PortraitStudio() {
   const portraitFilter = getPortraitFilter({
     depth: state.depth,
     saturation: state.saturation,
-    undertone: state.undertone,
     lightingPreset: state.lightingPreset
   });
 
