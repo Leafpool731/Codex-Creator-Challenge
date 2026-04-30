@@ -28,6 +28,10 @@ Deploy to Cloudflare Workers with:
 npm run deploy
 ```
 
+For Cloudflare's hosted build/deploy pipelines, set the deploy command to
+`npm run deploy` (not `npx wrangler deploy`) so the OpenNext build runs before
+deploy.
+
 The Worker entrypoint is generated at `.open-next/worker.js`, and static assets
 are generated into `.open-next/assets`. Both are build artifacts and are ignored
 by Git.
