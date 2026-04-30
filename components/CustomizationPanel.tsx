@@ -1,12 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { QuickLooks } from "@/components/QuickLooks";
 import { SegmentedControl } from "@/components/SegmentedControl";
 import { SliderControl } from "@/components/SliderControl";
 import { SwatchSelector } from "@/components/SwatchSelector";
+import { preloadPortraitEdit } from "@/hooks/usePortraitEdit";
+import { PORTRAIT_BASE_IMAGE_VERSION } from "@/lib/cache/cacheKey";
 import {
+  getPortraitSrc,
   studioStateToSearchParams,
   usePortraitStudio,
   type Undertone
@@ -33,6 +36,52 @@ export function CustomizationPanel() {
   } = usePortraitStudio();
   const [activeTab, setActiveTab] = useState<Tab>("Skin");
   const resultQuery = useMemo(() => studioStateToSearchParams(state), [state]);
+
+  useEffect(() => {
+    const base = {
+      modelId: state.modelId,
+      baseImageVersion: PORTRAIT_BASE_IMAGE_VERSION,
+      lightingPreset: state.lightingPreset,
+      currentImageUrl: getPortraitSrc(state.modelId)
+    };
+
+    if (activeTab === "Hair") {
+      ["black", "espresso", "chestnut", "golden-blonde"]
+        .map((id) => hairColors.find((option) => option.id === id))
+        .filter((option): option is NonNullable<typeof option> => Boolean(option))
+        .forEach((option) =>
+          preloadPortraitEdit({
+            ...base,
+            editType: "hair",
+            valueName: option.label,
+            valueHex: option.hex,
+            intensity: state.hairIntensity
+          })
+        );
+    }
+
+    if (activeTab === "Eyes") {
+      ["brown", "hazel", "green", "clear-blue", "gray"]
+        .map((id) => eyeColors.find((option) => option.id === id))
+        .filter((option): option is NonNullable<typeof option> => Boolean(option))
+        .forEach((option) =>
+          preloadPortraitEdit({
+            ...base,
+            editType: "eyes",
+            valueName: option.label,
+            valueHex: option.hex,
+            intensity: 75
+          })
+        );
+    }
+  }, [
+    activeTab,
+    eyeColors,
+    hairColors,
+    state.hairIntensity,
+    state.lightingPreset,
+    state.modelId
+  ]);
 
   return (
     <aside className="rounded-2xl border border-[#ddd2c9] bg-[#fcf8f3]/96 p-4 shadow-[0_18px_44px_rgba(85,63,50,0.1)] backdrop-blur">

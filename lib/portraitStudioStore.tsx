@@ -10,6 +10,7 @@ import {
   type ColorOption,
   type ModelState
 } from "@/lib/modelState";
+import type { PortraitEditType } from "@/lib/cache/cacheKey";
 
 export type Undertone = "cool" | "neutral" | "warm" | "olive";
 export type LightingPreset = "daylight" | "warm" | "cool" | "soft" | "evening";
@@ -27,6 +28,7 @@ export interface StudioState {
   eyeColor: string;
   lipColor: string;
   lipTint: number;
+  lastEditType: PortraitEditType | null;
   lightingPreset: LightingPreset;
   lightIntensity: number;
   environment: number;
@@ -79,6 +81,7 @@ const defaultState: StudioState = {
   eyeColor: "hazel",
   lipColor: "rose-balm",
   lipTint: 42,
+  lastEditType: null,
   lightingPreset: "daylight",
   lightIntensity: 72,
   environment: 68,
@@ -242,6 +245,30 @@ function undertoneToNumber(undertone: Undertone): number {
   return values[undertone];
 }
 
+function getPatchEditType(patch: Partial<StudioState>): PortraitEditType | null {
+  if ("hairColor" in patch || "hairIntensity" in patch) {
+    return "hair";
+  }
+
+  if ("eyeColor" in patch) {
+    return "eyes";
+  }
+
+  if ("lipColor" in patch || "lipTint" in patch) {
+    return "lips";
+  }
+
+  if ("blush" in patch) {
+    return "blush";
+  }
+
+  if ("freckles" in patch) {
+    return "freckles";
+  }
+
+  return null;
+}
+
 export function studioStateToModelState(state: StudioState): ModelState {
   return {
     modelId: state.modelId,
@@ -281,10 +308,15 @@ export function PortraitStudioProvider({
       eyeColors: eyeColorOptions,
       lipColors: lipColorOptions,
       setState: (patch) =>
-        setLocalState((current) => ({
-          ...current,
-          ...patch
-        })),
+        setLocalState((current) => {
+          const lastEditType = getPatchEditType(patch);
+
+          return {
+            ...current,
+            ...patch,
+            lastEditType: lastEditType ?? current.lastEditType
+          };
+        }),
       setLightingPreset: (lightingPreset) =>
         setLocalState((current) => ({
           ...current,

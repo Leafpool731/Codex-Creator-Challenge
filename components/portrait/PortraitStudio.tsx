@@ -1,13 +1,83 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { LightingRail } from "@/components/LightingRail";
+import { AIGenerationStatus } from "@/components/portrait/AIGenerationStatus";
 import { PortraitImage } from "@/components/portrait/PortraitImage";
 import { StudioControls } from "@/components/StudioControls";
-import { usePortraitStudio } from "@/lib/portraitStudioStore";
+import { usePortraitEdit } from "@/hooks/usePortraitEdit";
+import { PORTRAIT_BASE_IMAGE_VERSION } from "@/lib/cache/cacheKey";
+import { getPortraitSrc, usePortraitStudio } from "@/lib/portraitStudioStore";
+import type { ColorOption } from "@/lib/modelState";
 
 function titleCase(value: string): string {
   return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+function buildEditRequest(
+  state: ReturnType<typeof usePortraitStudio>["state"],
+  selectedHair: ColorOption,
+  selectedEye: ColorOption,
+  selectedLip: ColorOption
+) {
+  if (!state.lastEditType) {
+    return null;
+  }
+
+  const base = {
+    modelId: state.modelId,
+    baseImageVersion: PORTRAIT_BASE_IMAGE_VERSION,
+    lightingPreset: state.lightingPreset,
+    currentImageUrl: getPortraitSrc(state.modelId)
+  };
+
+  if (state.lastEditType === "hair") {
+    return {
+      ...base,
+      editType: "hair" as const,
+      valueName: selectedHair.label,
+      valueHex: selectedHair.hex,
+      intensity: state.hairIntensity
+    };
+  }
+
+  if (state.lastEditType === "eyes") {
+    return {
+      ...base,
+      editType: "eyes" as const,
+      valueName: selectedEye.label,
+      valueHex: selectedEye.hex,
+      intensity: 75
+    };
+  }
+
+  if (state.lastEditType === "lips") {
+    return {
+      ...base,
+      editType: "lips" as const,
+      valueName: selectedLip.label,
+      valueHex: selectedLip.hex,
+      intensity: state.lipTint
+    };
+  }
+
+  if (state.lastEditType === "blush") {
+    return {
+      ...base,
+      editType: "blush" as const,
+      valueName: `${state.blush}`,
+      valueHex: "#d36969",
+      intensity: state.blush
+    };
+  }
+
+  return {
+    ...base,
+    editType: "freckles" as const,
+    valueName: `${state.freckles}`,
+    valueHex: "#55321e",
+    intensity: state.freckles
+  };
 }
 
 export function PortraitStudio() {
@@ -23,12 +93,32 @@ export function PortraitStudio() {
     eyeColors.find((tone) => tone.id === state.eyeColor) ?? eyeColors[0];
   const selectedLip =
     lipColors.find((tone) => tone.id === state.lipColor) ?? lipColors[0];
+  const editRequest = useMemo(
+    () => buildEditRequest(state, selectedHair, selectedEye, selectedLip),
+    [
+      selectedEye,
+      selectedHair,
+      selectedLip,
+      state.blush,
+      state.freckles,
+      state.hairIntensity,
+      state.lastEditType,
+      state.lightingPreset,
+      state.lipTint,
+      state.modelId
+    ]
+  );
+  const portraitEdit = usePortraitEdit(editRequest, {
+    enabled: Boolean(editRequest) && !showMasks
+  });
+  const refinedImageUrl = portraitEdit.aiRefined ? portraitEdit.imageUrl : undefined;
 
   return (
     <div className="space-y-4">
       <div className="relative overflow-hidden rounded-2xl border border-[#ddd2c9] bg-[#f2e8df] shadow-[0_24px_56px_rgba(85,63,50,0.14)]">
         <LightingRail />
         <div className="absolute right-4 top-4 z-20 flex flex-wrap justify-end gap-2">
+          <AIGenerationStatus state={portraitEdit} />
           <button
             type="button"
             onClick={() => setShowMasks((current) => !current)}
@@ -63,6 +153,8 @@ export function PortraitStudio() {
           lightIntensity={state.lightIntensity}
           environment={state.environment}
           warmth={state.warmth}
+          refinedImageUrl={refinedImageUrl}
+          refinedEditType={portraitEdit.aiRefined ? portraitEdit.editType : undefined}
           showMasks={showMasks}
           fit={showFullFrame ? "contain" : "cover"}
           priority

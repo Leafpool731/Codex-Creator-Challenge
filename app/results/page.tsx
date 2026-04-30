@@ -3,6 +3,7 @@ import { AppHeader } from "@/components/AppHeader";
 import { CosmeticPalette } from "@/components/CosmeticPalette";
 import { PaletteSwatches } from "@/components/PaletteSwatches";
 import { ResultPortraitPreview } from "@/components/ResultPortraitPreview";
+import { ResultsPalettePreloader } from "@/components/portrait/ResultsPalettePreloader";
 import { ScoreBreakdown } from "@/components/ScoreBreakdown";
 import {
   getSelectionLabels,
@@ -14,6 +15,7 @@ import {
   modelStateToSelections
 } from "@/lib/modelState";
 import { buildResultExplanation, getSeasonMatches } from "@/lib/scoring";
+import { getLipColors } from "@/src/data/seasonPalettes";
 import type { AttributeKey } from "@/lib/types";
 
 interface ResultsPageProps {
@@ -29,10 +31,17 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
   });
   const [topMatch, ...alternateMatches] = getSeasonMatches(selections, 3);
   const query = modelStateToSearchParams(modelState);
+  const recommendedLipAndBlush = getLipColors(topMatch.season.name);
 
   return (
     <main className="min-h-screen bg-paper">
       <AppHeader />
+      <ResultsPalettePreloader
+        modelId={modelState.modelId}
+        lightingPreset={modelState.lightingPreset}
+        lipColors={recommendedLipAndBlush.slice(0, 3)}
+        blushColors={recommendedLipAndBlush.slice(3, 5)}
+      />
 
       <section className="mx-auto max-w-7xl px-5 pb-16 pt-6 sm:px-8">
         <div className="grid gap-8 lg:grid-cols-[1fr_0.82fr]">

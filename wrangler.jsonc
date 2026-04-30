@@ -10,9 +10,12 @@
       "app",
       "components",
       "data",
+      "hooks",
       "lib",
       "next.config.mjs",
       "package.json",
+      "public",
+      "src",
       "tailwind.config.ts",
       "tsconfig.json"
     ]

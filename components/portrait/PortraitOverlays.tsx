@@ -16,6 +16,7 @@ import {
   type LightingPreset,
   type Undertone
 } from "@/components/portrait/featureMasks";
+import type { PortraitEditType } from "@/lib/cache/cacheKey";
 
 export type { LightingPreset, Undertone } from "@/components/portrait/featureMasks";
 
@@ -36,6 +37,7 @@ export interface PortraitOverlaysProps {
   environment: number;
   warmth: number;
   showMasks?: boolean;
+  refinedEditType?: PortraitEditType;
 }
 
 export function getPortraitFilter(settings: Pick<
@@ -138,14 +140,22 @@ export function PortraitOverlays(props: PortraitOverlaysProps) {
         undertone={props.undertone}
         opacity={skinAlpha}
       />
-      <BlushOverlay blush={props.blush} />
-      <FrecklesOverlay freckles={props.freckles} />
-      <HairColorOverlay
-        color={props.hairColor ?? "#2A211D"}
-        intensity={props.hairIntensity}
-      />
-      <EyeColorOverlay color={props.eyeColor ?? "#5A3825"} />
-      <LipTintOverlay color={props.lipColor ?? "#9E484E"} tint={props.lipTint} />
+      {props.refinedEditType !== "blush" ? <BlushOverlay blush={props.blush} /> : null}
+      {props.refinedEditType !== "freckles" ? (
+        <FrecklesOverlay freckles={props.freckles} />
+      ) : null}
+      {props.refinedEditType !== "hair" ? (
+        <HairColorOverlay
+          color={props.hairColor ?? "#2A211D"}
+          intensity={props.hairIntensity}
+        />
+      ) : null}
+      {props.refinedEditType !== "eyes" ? (
+        <EyeColorOverlay color={props.eyeColor ?? "#5A3825"} />
+      ) : null}
+      {props.refinedEditType !== "lips" ? (
+        <LipTintOverlay color={props.lipColor ?? "#9E484E"} tint={props.lipTint} />
+      ) : null}
       <LightingOverlay lighting={lighting} />
       {props.showMasks ? <FeatureMaskDebug /> : null}
     </div>
