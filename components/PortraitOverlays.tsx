@@ -24,6 +24,30 @@ function clamp(value: number, min = 0, max = 100): number {
   return Math.max(min, Math.min(max, value));
 }
 
+function maskStyle(maskImage: string): CSSProperties {
+  return {
+    WebkitMaskImage: maskImage,
+    maskImage,
+    WebkitMaskRepeat: "no-repeat",
+    maskRepeat: "no-repeat",
+    WebkitMaskSize: "100% 100%",
+    maskSize: "100% 100%"
+  };
+}
+
+const masks = {
+  hair:
+    "radial-gradient(ellipse 39% 22% at 50% 12%, #000 0%, #000 58%, transparent 74%)",
+  irises:
+    "radial-gradient(circle 2.15% at 42.6% 39.5%, #000 0%, #000 48%, transparent 72%), radial-gradient(circle 2.15% at 57.4% 39.5%, #000 0%, #000 48%, transparent 72%)",
+  cheeks:
+    "radial-gradient(ellipse 18% 8.5% at 38% 52%, #000 0%, #000 44%, transparent 76%), radial-gradient(ellipse 18% 8.5% at 62% 52%, #000 0%, #000 44%, transparent 76%)",
+  freckles:
+    "radial-gradient(ellipse 34% 15% at 50% 47%, #000 0%, #000 58%, transparent 100%)",
+  lips:
+    "radial-gradient(ellipse 13.5% 4.3% at 50% 62.6%, #000 0%, #000 48%, transparent 76%)"
+};
+
 export function getUndertoneOverlay(undertone: Undertone): {
   primary: string;
   secondary: string;
@@ -219,11 +243,11 @@ export function PortraitOverlays(props: PortraitOverlaysProps) {
         className="absolute inset-0"
         style={{
           borderRadius: "inherit",
-          backgroundImage:
-            "radial-gradient(ellipse at 38% 52%, rgba(211, 105, 105, 1), transparent 45%), radial-gradient(ellipse at 62% 52%, rgba(211, 105, 105, 1), transparent 45%)",
+          backgroundColor: "rgba(211, 105, 105, 1)",
           opacity: blushOpacity,
           mixBlendMode: "soft-light",
-          filter: "blur(18px)"
+          filter: "blur(18px)",
+          ...maskStyle(masks.cheeks)
         }}
       />
       <div
@@ -236,10 +260,7 @@ export function PortraitOverlays(props: PortraitOverlaysProps) {
           backgroundPosition: "center center",
           opacity: freckleOpacity,
           mixBlendMode: "multiply",
-          WebkitMaskImage:
-            "radial-gradient(ellipse 42% 20% at 50% 47%, rgba(0,0,0,0.94) 0%, rgba(0,0,0,0.9) 58%, transparent 100%)",
-          maskImage:
-            "radial-gradient(ellipse 42% 20% at 50% 47%, rgba(0,0,0,0.94) 0%, rgba(0,0,0,0.9) 58%, transparent 100%)"
+          ...maskStyle(masks.freckles)
         }}
       />
       <div
@@ -250,10 +271,7 @@ export function PortraitOverlays(props: PortraitOverlaysProps) {
           backgroundColor: "var(--portrait-hair)",
           opacity: hairOpacity,
           mixBlendMode: "color",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.74) 24%, rgba(0,0,0,0.18) 40%, transparent 52%)",
-          maskImage:
-            "linear-gradient(to bottom, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.74) 24%, rgba(0,0,0,0.18) 40%, transparent 52%)"
+          ...maskStyle(masks.hair)
         }}
       />
       <div
@@ -261,21 +279,21 @@ export function PortraitOverlays(props: PortraitOverlaysProps) {
         aria-hidden="true"
         style={{
           borderRadius: "inherit",
-          backgroundImage:
-            "radial-gradient(ellipse 5.2% 2.4% at 42.5% 39.5%, var(--portrait-eye), transparent 62%), radial-gradient(ellipse 5.2% 2.4% at 57.5% 39.5%, var(--portrait-eye), transparent 62%)",
+          backgroundColor: "var(--portrait-eye)",
           opacity: eyeOpacity,
-          mixBlendMode: "color"
+          mixBlendMode: "color",
+          ...maskStyle(masks.irises)
         }}
       />
       <div
         className="absolute inset-0"
         style={{
           borderRadius: "inherit",
-          backgroundImage:
-            "radial-gradient(ellipse 18% 5.5% at 50% 62.5%, var(--portrait-lip) 0%, rgba(158, 72, 78, 0.12) 48%, transparent 100%)",
+          backgroundColor: "var(--portrait-lip)",
           opacity: lipOpacity,
           mixBlendMode: "multiply",
-          filter: "blur(5px)"
+          filter: "blur(5px)",
+          ...maskStyle(masks.lips)
         }}
       />
       <div
