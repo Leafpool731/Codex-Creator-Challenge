@@ -9,9 +9,7 @@ import { LipTintOverlay } from "@/components/portrait/LipTintOverlay";
 import { SkinToneOverlay } from "@/components/portrait/SkinToneOverlay";
 import {
   FEATURE_MASKS,
-  FEATURE_SHAPES,
   clamp,
-  maskStyle,
   regionStyle,
   type LightingPreset,
   type Undertone
@@ -67,14 +65,22 @@ export function getPortraitFilter(settings: Pick<
 }
 
 function FeatureMaskDebug() {
+  const outlineBase = {
+    backgroundColor: "transparent",
+    borderStyle: "solid",
+    borderWidth: 1,
+    opacity: 0.72
+  };
+
   return (
     <>
       <div
         className="pointer-events-none absolute"
         style={{
           ...regionStyle(FEATURE_MASKS.hair),
-          ...maskStyle(FEATURE_SHAPES.hair),
-          backgroundColor: "rgba(0, 100, 255, 0.42)"
+          ...outlineBase,
+          borderColor: "rgba(0, 100, 255, 0.62)",
+          borderRadius: "48% 48% 42% 42%"
         }}
       />
       {[FEATURE_MASKS.leftIris, FEATURE_MASKS.rightIris].map((region, index) => (
@@ -83,8 +89,9 @@ function FeatureMaskDebug() {
           className="pointer-events-none absolute"
           style={{
             ...regionStyle(region),
-            ...maskStyle(FEATURE_SHAPES.iris),
-            backgroundColor: "rgba(0, 180, 90, 0.68)"
+            ...outlineBase,
+            borderColor: "rgba(0, 160, 90, 0.72)",
+            borderRadius: "999px"
           }}
         />
       ))}
@@ -92,8 +99,9 @@ function FeatureMaskDebug() {
         className="pointer-events-none absolute"
         style={{
           ...regionStyle(FEATURE_MASKS.lips),
-          ...maskStyle(FEATURE_SHAPES.lips),
-          backgroundColor: "rgba(255, 0, 0, 0.52)"
+          ...outlineBase,
+          borderColor: "rgba(220, 40, 40, 0.68)",
+          borderRadius: "999px"
         }}
       />
       {[FEATURE_MASKS.leftCheek, FEATURE_MASKS.rightCheek].map((region, index) => (
@@ -102,8 +110,9 @@ function FeatureMaskDebug() {
           className="pointer-events-none absolute"
           style={{
             ...regionStyle(region),
-            ...maskStyle(FEATURE_SHAPES.cheek),
-            backgroundColor: "rgba(255, 105, 180, 0.45)"
+            ...outlineBase,
+            borderColor: "rgba(220, 75, 145, 0.55)",
+            borderRadius: "999px"
           }}
         />
       ))}
@@ -111,8 +120,9 @@ function FeatureMaskDebug() {
         className="pointer-events-none absolute"
         style={{
           ...regionStyle(FEATURE_MASKS.freckles),
-          ...maskStyle(FEATURE_SHAPES.freckles),
-          backgroundColor: "rgba(255, 140, 0, 0.42)"
+          ...outlineBase,
+          borderColor: "rgba(220, 120, 20, 0.58)",
+          borderRadius: "999px"
         }}
       />
     </>

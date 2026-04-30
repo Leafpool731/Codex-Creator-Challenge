@@ -17,7 +17,7 @@ const CHEEK_REGIONS: Array<[string, FeatureMaskRegion]> = [
 ];
 
 export function BlushOverlay({ blush }: BlushOverlayProps) {
-  const opacity = (clamp(blush) / 100) * 0.42;
+  const opacity = (clamp(blush) / 100) * 0.32;
 
   return (
     <>
@@ -28,10 +28,11 @@ export function BlushOverlay({ blush }: BlushOverlayProps) {
           style={{
             ...regionStyle(region),
             ...maskStyle(FEATURE_SHAPES.cheek),
-            backgroundColor: "rgba(211, 105, 105, 1)",
-            filter: "blur(18px)",
+            background:
+              "radial-gradient(ellipse at center, rgba(210,105,95,1) 0%, rgba(210,105,95,0.68) 40%, transparent 76%)",
+            filter: "blur(24px)",
             opacity,
-            mixBlendMode: "multiply"
+            mixBlendMode: "soft-light"
           }}
         />
       ))}

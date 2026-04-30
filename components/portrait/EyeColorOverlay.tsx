@@ -18,7 +18,7 @@ const IRIS_REGIONS: Array<[string, FeatureMaskRegion]> = [
 
 export function EyeColorOverlay({
   color,
-  opacity = 0.82
+  opacity = 0.78
 }: EyeColorOverlayProps) {
   return (
     <>
@@ -35,17 +35,13 @@ export function EyeColorOverlay({
             className="absolute inset-0"
             style={{
               ...maskStyle(FEATURE_SHAPES.iris),
-              backgroundColor: color,
+              background:
+                `radial-gradient(circle at 48% 42%, rgba(255,255,255,0.18), transparent 26%), ${color}`,
               borderRadius: "999px",
               opacity,
               mixBlendMode: "color"
             }}
           />
-          <div
-            className="absolute left-1/2 top-1/2 h-[38%] w-[38%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#120c08]"
-            style={{ opacity: 0.74, mixBlendMode: "multiply" }}
-          />
-          <div className="absolute left-[30%] top-[24%] h-[18%] w-[18%] rounded-full bg-white/85 blur-[0.4px]" />
         </div>
       ))}
     </>
