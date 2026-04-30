@@ -1,6 +1,7 @@
 "use client";
 
 import type { CSSProperties } from "react";
+
 export type Undertone = "cool" | "neutral" | "warm" | "olive";
 
 export interface PortraitOverlaysProps {
@@ -18,7 +19,38 @@ export interface PortraitOverlaysProps {
   lightIntensity: number;
   environment: number;
   warmth: number;
+  showMasks?: boolean;
 }
+
+type FeatureMaskKey = "hair" | "leftEye" | "rightEye" | "lips";
+
+interface FeatureMaskRegion {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+export const FEATURE_MASKS = {
+  hair: { x: 50, y: 20, width: 52, height: 34 },
+  leftEye: { x: 43, y: 43, width: 2.6, height: 2.4 },
+  rightEye: { x: 57, y: 43, width: 2.6, height: 2.4 },
+  lips: { x: 50, y: 58, width: 17, height: 4.5 }
+} satisfies Record<FeatureMaskKey, FeatureMaskRegion>;
+
+const FEATURE_SHAPES = {
+  hair:
+    "radial-gradient(ellipse 52% 62% at 50% 47%, #000 0%, #000 58%, transparent 76%)",
+  iris:
+    "radial-gradient(ellipse 52% 52% at 50% 50%, #000 0%, #000 58%, transparent 80%)",
+  lips:
+    "radial-gradient(ellipse 52% 50% at 50% 50%, #000 0%, #000 56%, transparent 82%)"
+};
+
+const EYE_MASKS: Array<[string, FeatureMaskRegion]> = [
+  ["left", FEATURE_MASKS.leftEye],
+  ["right", FEATURE_MASKS.rightEye]
+];
 
 function clamp(value: number, min = 0, max = 100): number {
   return Math.max(min, Math.min(max, value));
@@ -35,18 +67,15 @@ function maskStyle(maskImage: string): CSSProperties {
   };
 }
 
-const masks = {
-  hair:
-    "radial-gradient(ellipse 39% 22% at 50% 12%, #000 0%, #000 58%, transparent 74%)",
-  irises:
-    "radial-gradient(circle 2.15% at 42.6% 39.5%, #000 0%, #000 48%, transparent 72%), radial-gradient(circle 2.15% at 57.4% 39.5%, #000 0%, #000 48%, transparent 72%)",
-  cheeks:
-    "radial-gradient(ellipse 18% 8.5% at 38% 52%, #000 0%, #000 44%, transparent 76%), radial-gradient(ellipse 18% 8.5% at 62% 52%, #000 0%, #000 44%, transparent 76%)",
-  freckles:
-    "radial-gradient(ellipse 34% 15% at 50% 47%, #000 0%, #000 58%, transparent 100%)",
-  lips:
-    "radial-gradient(ellipse 13.5% 4.3% at 50% 62.6%, #000 0%, #000 48%, transparent 76%)"
-};
+function regionStyle(region: FeatureMaskRegion): CSSProperties {
+  return {
+    left: `${region.x}%`,
+    top: `${region.y}%`,
+    width: `${region.width}%`,
+    height: `${region.height}%`,
+    transform: "translate(-50%, -50%)"
+  };
+}
 
 export function getUndertoneOverlay(undertone: Undertone): {
   primary: string;
@@ -181,6 +210,220 @@ export function getPortraitFilter(settings: Pick<
   ].join(" ");
 }
 
+function SkinOverlay({
+  skinTone,
+  undertone,
+  skinAlpha
+}: {
+  skinTone: string;
+  undertone: ReturnType<typeof getUndertoneOverlay>;
+  skinAlpha: number;
+}) {
+  return (
+    <>
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          borderRadius: "inherit",
+          backgroundColor: skinTone,
+          opacity: skinAlpha,
+          mixBlendMode: "color"
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          borderRadius: "inherit",
+          backgroundColor: undertone.primary,
+          mixBlendMode: "soft-light"
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          borderRadius: "inherit",
+          backgroundColor: undertone.secondary,
+          mixBlendMode: "overlay"
+        }}
+      />
+    </>
+  );
+}
+
+function HairOverlay({
+  color,
+  opacity
+}: {
+  color: string;
+  opacity: number;
+}) {
+  return (
+    <div
+      className="pointer-events-none absolute"
+      style={{
+        ...regionStyle(FEATURE_MASKS.hair),
+        ...maskStyle(FEATURE_SHAPES.hair),
+        backgroundColor: color,
+        borderRadius: "48% 48% 42% 42%",
+        opacity,
+        mixBlendMode: "color"
+      }}
+    />
+  );
+}
+
+function EyeOverlay({
+  color,
+  opacity
+}: {
+  color: string;
+  opacity: number;
+}) {
+  return (
+    <>
+      {EYE_MASKS.map(([key, region]) => (
+        <div
+          key={key}
+          className="pointer-events-none absolute"
+          style={{
+            ...regionStyle(region),
+            ...maskStyle(FEATURE_SHAPES.iris),
+            backgroundColor: color,
+            borderRadius: "999px",
+            opacity,
+            mixBlendMode: "color"
+          }}
+        />
+      ))}
+    </>
+  );
+}
+
+function LipOverlay({
+  color,
+  opacity
+}: {
+  color: string;
+  opacity: number;
+}) {
+  return (
+    <div
+      className="pointer-events-none absolute"
+      style={{
+        ...regionStyle(FEATURE_MASKS.lips),
+        ...maskStyle(FEATURE_SHAPES.lips),
+        backgroundColor: color,
+        borderRadius: "999px",
+        filter: "blur(1px)",
+        opacity,
+        mixBlendMode: "multiply"
+      }}
+    />
+  );
+}
+
+function BlushOverlay({ opacity }: { opacity: number }) {
+  return (
+    <div
+      className="pointer-events-none absolute inset-0"
+      style={{
+        borderRadius: "inherit",
+        backgroundColor: "rgba(211, 105, 105, 1)",
+        opacity,
+        mixBlendMode: "soft-light",
+        filter: "blur(18px)",
+        ...maskStyle(
+          "radial-gradient(ellipse 18% 8.5% at 38% 52%, #000 0%, #000 44%, transparent 76%), radial-gradient(ellipse 18% 8.5% at 62% 52%, #000 0%, #000 44%, transparent 76%)"
+        )
+      }}
+    />
+  );
+}
+
+function FrecklesOverlay({ opacity }: { opacity: number }) {
+  return (
+    <div
+      className="pointer-events-none absolute inset-0"
+      style={{
+        borderRadius: "inherit",
+        backgroundImage:
+          "radial-gradient(circle, rgba(90, 55, 35, 0.45) 0.9px, transparent 1.5px)",
+        backgroundSize: "14px 12px",
+        backgroundPosition: "center center",
+        opacity,
+        mixBlendMode: "multiply",
+        ...maskStyle(
+          "radial-gradient(ellipse 34% 15% at 50% 47%, #000 0%, #000 58%, transparent 100%)"
+        )
+      }}
+    />
+  );
+}
+
+function LightingOverlay({
+  lighting
+}: {
+  lighting: ReturnType<typeof getLightingOverlay>;
+}) {
+  return (
+    <>
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          borderRadius: "inherit",
+          backgroundImage: lighting.gradient,
+          opacity: lighting.overlayOpacity,
+          mixBlendMode: lighting.blendMode,
+          boxShadow: lighting.vignette
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          borderRadius: "inherit",
+          backgroundColor: lighting.tint,
+          mixBlendMode: "soft-light",
+          opacity: 0.92
+        }}
+      />
+    </>
+  );
+}
+
+function FeatureMaskDebug() {
+  return (
+    <>
+      <div
+        className="pointer-events-none absolute"
+        style={{
+          ...regionStyle(FEATURE_MASKS.hair),
+          ...maskStyle(FEATURE_SHAPES.hair),
+          backgroundColor: "rgba(255, 0, 0, 0.34)"
+        }}
+      />
+      {EYE_MASKS.map(([key, region]) => (
+        <div
+          key={key}
+          className="pointer-events-none absolute"
+          style={{
+            ...regionStyle(region),
+            ...maskStyle(FEATURE_SHAPES.iris),
+            backgroundColor: "rgba(0, 100, 255, 0.6)"
+          }}
+        />
+      ))}
+      <div
+        className="pointer-events-none absolute"
+        style={{
+          ...regionStyle(FEATURE_MASKS.lips),
+          ...maskStyle(FEATURE_SHAPES.lips),
+          backgroundColor: "rgba(0, 190, 95, 0.48)"
+        }}
+      />
+    </>
+  );
+}
+
 export function PortraitOverlays(props: PortraitOverlaysProps) {
   const depth = clamp(props.depth);
   const saturation = clamp(props.saturation);
@@ -196,125 +439,37 @@ export function PortraitOverlays(props: PortraitOverlaysProps) {
   const depthOverlayOpacity = 0.04 + depth * 0.002;
   const blushOpacity = (blush / 100) * 0.22;
   const freckleOpacity = (freckles / 100) * 0.25;
-  const lipOpacity = 0.08 + (clamp(props.lipTint ?? 44) / 100) * 0.36;
-  const hairOpacity = 0.08 + (saturation / 100) * 0.1;
-  const eyeOpacity = 0.16 + (saturation / 100) * 0.28;
+  const lipOpacity = 0.18 + (clamp(props.lipTint ?? 44) / 100) * 0.17;
+  const hairOpacity = 0.35 + (saturation / 100) * 0.2;
+  const eyeOpacity = 0.45 + (saturation / 100) * 0.3;
   const skinAlpha = Math.max(0.08, Math.min(0.34, 0.15 + depthOverlayOpacity * 0.45));
 
   return (
     <div
       className="pointer-events-none absolute inset-0"
-      style={
-        {
-          borderRadius: "inherit",
-          "--portrait-skin": props.skinTone,
-          "--portrait-hair": props.hairColor ?? "rgba(40, 29, 24, 0.32)",
-          "--portrait-eye": props.eyeColor ?? "rgba(74, 48, 31, 0.34)",
-          "--portrait-lip": props.lipColor ?? "rgba(158, 72, 78, 0.22)"
-        } as CSSProperties
-      }
+      style={{ borderRadius: "inherit" }}
     >
-      <div
-        className="absolute inset-0"
-        style={{
-          borderRadius: "inherit",
-          backgroundColor: "var(--portrait-skin)",
-          opacity: skinAlpha,
-          mixBlendMode: "color"
-        }}
+      <SkinOverlay
+        skinTone={props.skinTone}
+        undertone={undertone}
+        skinAlpha={skinAlpha}
       />
-      <div
-        className="absolute inset-0"
-        style={{
-          borderRadius: "inherit",
-          backgroundColor: undertone.primary,
-          mixBlendMode: "soft-light"
-        }}
+      <BlushOverlay opacity={blushOpacity} />
+      <FrecklesOverlay opacity={freckleOpacity} />
+      <HairOverlay
+        color={props.hairColor ?? "rgba(40, 29, 24, 0.32)"}
+        opacity={hairOpacity}
       />
-      <div
-        className="absolute inset-0"
-        style={{
-          borderRadius: "inherit",
-          backgroundColor: undertone.secondary,
-          mixBlendMode: "overlay"
-        }}
+      <EyeOverlay
+        color={props.eyeColor ?? "rgba(74, 48, 31, 0.34)"}
+        opacity={eyeOpacity}
       />
-      <div
-        className="absolute inset-0"
-        style={{
-          borderRadius: "inherit",
-          backgroundColor: "rgba(211, 105, 105, 1)",
-          opacity: blushOpacity,
-          mixBlendMode: "soft-light",
-          filter: "blur(18px)",
-          ...maskStyle(masks.cheeks)
-        }}
+      <LipOverlay
+        color={props.lipColor ?? "rgba(158, 72, 78, 0.22)"}
+        opacity={lipOpacity}
       />
-      <div
-        className="absolute inset-0"
-        style={{
-          borderRadius: "inherit",
-          backgroundImage:
-            "radial-gradient(circle, rgba(90, 55, 35, 0.45) 0.9px, transparent 1.5px)",
-          backgroundSize: "14px 12px",
-          backgroundPosition: "center center",
-          opacity: freckleOpacity,
-          mixBlendMode: "multiply",
-          ...maskStyle(masks.freckles)
-        }}
-      />
-      <div
-        className="absolute inset-0"
-        aria-hidden="true"
-        style={{
-          borderRadius: "inherit",
-          backgroundColor: "var(--portrait-hair)",
-          opacity: hairOpacity,
-          mixBlendMode: "color",
-          ...maskStyle(masks.hair)
-        }}
-      />
-      <div
-        className="absolute inset-0"
-        aria-hidden="true"
-        style={{
-          borderRadius: "inherit",
-          backgroundColor: "var(--portrait-eye)",
-          opacity: eyeOpacity,
-          mixBlendMode: "color",
-          ...maskStyle(masks.irises)
-        }}
-      />
-      <div
-        className="absolute inset-0"
-        style={{
-          borderRadius: "inherit",
-          backgroundColor: "var(--portrait-lip)",
-          opacity: lipOpacity,
-          mixBlendMode: "multiply",
-          filter: "blur(5px)",
-          ...maskStyle(masks.lips)
-        }}
-      />
-      <div
-        className="absolute inset-0"
-        style={{
-          borderRadius: "inherit",
-          backgroundImage: lighting.gradient,
-          opacity: lighting.overlayOpacity,
-          mixBlendMode: lighting.blendMode,
-          boxShadow: lighting.vignette
-        }}
-      />
-      <div
-        className="absolute inset-0"
-        style={{
-          borderRadius: "inherit",
-          backgroundColor: lighting.tint,
-          mixBlendMode: "soft-light",
-          opacity: 0.92
-        }}
-      />
+      <LightingOverlay lighting={lighting} />
+      {props.showMasks ? <FeatureMaskDebug /> : null}
     </div>
   );
 }
