@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AppHeader } from "@/components/AppHeader";
+import { CosmeticPalette } from "@/components/CosmeticPalette";
 import { PaletteSwatches } from "@/components/PaletteSwatches";
 import { ResultPortraitPreview } from "@/components/ResultPortraitPreview";
 import { ScoreBreakdown } from "@/components/ScoreBreakdown";
@@ -134,6 +135,10 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
             </div>
           </aside>
         </div>
+
+        <section className="glass-panel mt-8 rounded-2xl p-5 sm:p-6">
+          <CosmeticPalette seasonName={topMatch.season.name} />
+        </section>
 
         <div className="mt-8 grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
           <section className="glass-panel rounded-2xl p-5 sm:p-6">

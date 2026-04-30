@@ -22,6 +22,7 @@ export interface StudioState {
   saturation: number;
   freckles: number;
   blush: number;
+  hairIntensity: number;
   hairColor: string;
   eyeColor: string;
   lipColor: string;
@@ -73,6 +74,7 @@ const defaultState: StudioState = {
   saturation: 46,
   freckles: 12,
   blush: 28,
+  hairIntensity: 75,
   hairColor: "chestnut",
   eyeColor: "hazel",
   lipColor: "rose-balm",
@@ -133,7 +135,7 @@ export const quickLookOptions: QuickLookOption[] = [
       depth: 36,
       saturation: 50,
       hairColor: "espresso",
-      eyeColor: "warm-brown",
+      eyeColor: "brown",
       lipColor: "rose-balm"
     }
   },
@@ -146,7 +148,7 @@ export const quickLookOptions: QuickLookOption[] = [
       depth: 50,
       saturation: 58,
       hairColor: "espresso",
-      eyeColor: "warm-brown",
+      eyeColor: "brown",
       lipColor: "coral-gloss"
     }
   },
@@ -174,7 +176,7 @@ export const quickLookOptions: QuickLookOption[] = [
       depth: 70,
       saturation: 62,
       hairColor: "soft-black",
-      eyeColor: "warm-brown",
+      eyeColor: "brown",
       lipColor: "coral-gloss"
     }
   },
@@ -249,6 +251,7 @@ export function studioStateToModelState(state: StudioState): ModelState {
     chroma: state.saturation,
     freckles: state.freckles,
     blush: state.blush,
+    hairIntensity: state.hairIntensity,
     hairColor: state.hairColor,
     eyeColor: state.eyeColor,
     lipColor: state.lipColor,

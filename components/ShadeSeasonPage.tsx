@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { CustomizationPanel } from "@/components/CustomizationPanel";
 import { FeatureCard } from "@/components/FeatureCard";
-import { PortraitStudio } from "@/components/PortraitStudio";
+import { PortraitStudio } from "@/components/portrait/PortraitStudio";
 import { PortraitStudioProvider } from "@/lib/portraitStudioStore";
 
 export function ShadeSeasonPage() {

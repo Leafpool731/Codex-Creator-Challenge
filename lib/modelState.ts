@@ -11,6 +11,7 @@ export interface ModelState {
   chroma: number;
   freckles: number;
   blush: number;
+  hairIntensity: number;
   hairColor: string;
   eyeColor: string;
   lipColor: string;
@@ -60,25 +61,30 @@ export const skinToneOptions: SkinToneOption[] = [
 ];
 
 export const hairColorOptions: ColorOption[] = [
-  { id: "ash-blonde", label: "Ash blonde", hex: "#c5bca6" },
-  { id: "golden-blonde", label: "Golden blonde", hex: "#d9a953" },
+  { id: "black", label: "Black", hex: "#18110d" },
+  { id: "soft-black", label: "Soft black", hex: "#2a211d" },
+  { id: "espresso", label: "Espresso brown", hex: "#3a241a" },
+  { id: "dark-brown", label: "Dark brown", hex: "#4a2d1f" },
+  { id: "chestnut", label: "Chestnut", hex: "#6a3f28" },
+  { id: "auburn", label: "Auburn", hex: "#7a3528" },
   { id: "copper", label: "Copper", hex: "#b85a32" },
-  { id: "auburn", label: "Auburn", hex: "#7c3829" },
-  { id: "chestnut", label: "Chestnut", hex: "#5e392c" },
-  { id: "espresso", label: "Espresso", hex: "#2f211d" },
-  { id: "soft-black", label: "Soft black", hex: "#141217" },
-  { id: "silver", label: "Silver", hex: "#c8c8c5" }
+  { id: "golden-brown", label: "Golden brown", hex: "#8a5a32" },
+  { id: "dark-blonde", label: "Dark blonde", hex: "#a77a45" },
+  { id: "golden-blonde", label: "Golden blonde", hex: "#c89a52" },
+  { id: "ash-blonde", label: "Ash blonde", hex: "#b7a78a" },
+  { id: "platinum-blonde", label: "Platinum blonde", hex: "#e8dfcc" }
 ];
 
 export const eyeColorOptions: ColorOption[] = [
-  { id: "light-blue", label: "Light blue", hex: "#8fb4cb" },
-  { id: "clear-blue", label: "Clear blue", hex: "#3e92c5" },
-  { id: "blue-gray", label: "Blue gray", hex: "#8294a0" },
-  { id: "green", label: "Green", hex: "#6f966e" },
-  { id: "hazel", label: "Hazel", hex: "#8b7a43" },
-  { id: "amber", label: "Amber", hex: "#b06b2c" },
-  { id: "warm-brown", label: "Warm brown", hex: "#70472b" },
-  { id: "deep-brown", label: "Deep brown", hex: "#3b261d" }
+  { id: "brown", label: "Brown", hex: "#5a3825" },
+  { id: "deep-brown", label: "Dark brown", hex: "#2e1d14" },
+  { id: "hazel", label: "Hazel", hex: "#8a6b35" },
+  { id: "amber", label: "Amber", hex: "#b27632" },
+  { id: "green", label: "Green", hex: "#4f7a55" },
+  { id: "olive-green", label: "Olive green", hex: "#6f7a45" },
+  { id: "clear-blue", label: "Blue", hex: "#527daa" },
+  { id: "blue-gray", label: "Gray blue", hex: "#7f99aa" },
+  { id: "gray", label: "Gray", hex: "#8a9296" }
 ];
 
 export const lipColorOptions: ColorOption[] = [
@@ -141,6 +147,7 @@ export const defaultModelState: ModelState = {
   chroma: 54,
   freckles: 14,
   blush: 28,
+  hairIntensity: 75,
   hairColor: "chestnut",
   eyeColor: "hazel",
   lipColor: "rose-balm",
@@ -217,6 +224,7 @@ const numberKeys = [
   "chroma",
   "freckles",
   "blush",
+  "hairIntensity",
   "lightIntensity",
   "environmentBrightness",
   "lightWarmth"

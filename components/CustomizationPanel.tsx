@@ -123,6 +123,13 @@ export function CustomizationPanel() {
                 onChange={(hairColor) => setState({ hairColor })}
               />
             </div>
+            <SliderControl
+              label="Hair intensity"
+              value={state.hairIntensity}
+              onChange={(hairIntensity) => setState({ hairIntensity })}
+              minLabel="Subtle"
+              maxLabel="Strong"
+            />
           </div>
         ) : null}
 

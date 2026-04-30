@@ -188,18 +188,18 @@
         },
         {
           "id": "clear-blue",
-          "label": "Clear blue",
+          "label": "Blue",
           "description": "Bright and cool",
-          "hex": "#3e92c5",
+          "hex": "#527DAA",
           "depthValue": 1,
           "temperature": "cool",
           "chroma": "bright"
         },
         {
           "id": "blue-gray",
-          "label": "Blue gray",
+          "label": "Gray blue",
           "description": "Smoky and cool",
-          "hex": "#8294a0",
+          "hex": "#7F99AA",
           "depthValue": 1,
           "temperature": "neutral-cool",
           "chroma": "soft"
@@ -208,16 +208,25 @@
           "id": "green",
           "label": "Green",
           "description": "Fresh and balanced",
-          "hex": "#6f966e",
+          "hex": "#4F7A55",
           "depthValue": 2,
           "temperature": "neutral-warm",
           "chroma": "medium"
         },
         {
+          "id": "olive-green",
+          "label": "Olive green",
+          "description": "Muted green-brown",
+          "hex": "#6F7A45",
+          "depthValue": 2,
+          "temperature": "neutral-warm",
+          "chroma": "soft"
+        },
+        {
           "id": "hazel",
           "label": "Hazel",
           "description": "Gold and green mix",
-          "hex": "#8b7a43",
+          "hex": "#8A6B35",
           "depthValue": 3,
           "temperature": "neutral-warm",
           "chroma": "medium"
@@ -226,10 +235,19 @@
           "id": "amber",
           "label": "Amber",
           "description": "Clear golden brown",
-          "hex": "#b06b2c",
+          "hex": "#B27632",
           "depthValue": 3,
           "temperature": "warm",
           "chroma": "bright"
+        },
+        {
+          "id": "brown",
+          "label": "Brown",
+          "description": "Classic medium brown",
+          "hex": "#5A3825",
+          "depthValue": 4,
+          "temperature": "neutral-warm",
+          "chroma": "medium"
         },
         {
           "id": "warm-brown",
@@ -242,9 +260,9 @@
         },
         {
           "id": "deep-brown",
-          "label": "Deep brown",
+          "label": "Dark brown",
           "description": "Rich neutral brown",
-          "hex": "#3b261d",
+          "hex": "#2E1D14",
           "depthValue": 5,
           "temperature": "neutral",
           "chroma": "medium"
@@ -262,7 +280,7 @@
           "id": "gray",
           "label": "Gray",
           "description": "Soft and cool",
-          "hex": "#9ea0a4",
+          "hex": "#8A9296",
           "depthValue": 1,
           "temperature": "cool",
           "chroma": "soft"
@@ -279,7 +297,7 @@
           "id": "platinum-blonde",
           "label": "Platinum blonde",
           "description": "Light and cool",
-          "hex": "#eee6d2",
+          "hex": "#E8DFCC",
           "depthValue": 0,
           "temperature": "cool",
           "chroma": "bright"
@@ -288,7 +306,7 @@
           "id": "ash-blonde",
           "label": "Ash blonde",
           "description": "Muted cool blonde",
-          "hex": "#c5bca6",
+          "hex": "#B7A78A",
           "depthValue": 1,
           "temperature": "cool",
           "chroma": "soft"
@@ -303,10 +321,19 @@
           "chroma": "medium"
         },
         {
+          "id": "dark-blonde",
+          "label": "Dark blonde",
+          "description": "Deep warm blonde",
+          "hex": "#A77A45",
+          "depthValue": 2,
+          "temperature": "neutral-warm",
+          "chroma": "medium"
+        },
+        {
           "id": "golden-blonde",
           "label": "Golden blonde",
           "description": "Warm blonde",
-          "hex": "#d9a953",
+          "hex": "#C89A52",
           "depthValue": 2,
           "temperature": "warm",
           "chroma": "bright"
@@ -315,7 +342,7 @@
           "id": "copper",
           "label": "Copper",
           "description": "Bright warm red",
-          "hex": "#b85a32",
+          "hex": "#A44E2D",
           "depthValue": 3,
           "temperature": "warm",
           "chroma": "bright"
@@ -324,7 +351,7 @@
           "id": "auburn",
           "label": "Auburn",
           "description": "Warm red brown",
-          "hex": "#7c3829",
+          "hex": "#7A3528",
           "depthValue": 4,
           "temperature": "warm",
           "chroma": "medium"
@@ -333,16 +360,34 @@
           "id": "chestnut",
           "label": "Chestnut",
           "description": "Neutral warm brown",
-          "hex": "#5e392c",
+          "hex": "#6A3F28",
           "depthValue": 4,
           "temperature": "neutral-warm",
           "chroma": "medium"
         },
         {
+          "id": "golden-brown",
+          "label": "Golden brown",
+          "description": "Warm golden brown",
+          "hex": "#8A5A32",
+          "depthValue": 4,
+          "temperature": "warm",
+          "chroma": "medium"
+        },
+        {
+          "id": "dark-brown",
+          "label": "Dark brown",
+          "description": "Deep natural brown",
+          "hex": "#4A2D1F",
+          "depthValue": 5,
+          "temperature": "neutral",
+          "chroma": "medium"
+        },
+        {
           "id": "espresso",
-          "label": "Espresso",
+          "label": "Espresso brown",
           "description": "Deep neutral brown",
-          "hex": "#2f211d",
+          "hex": "#3A241A",
           "depthValue": 5,
           "temperature": "neutral-cool",
           "chroma": "medium"
@@ -351,9 +396,18 @@
           "id": "soft-black",
           "label": "Soft black",
           "description": "Deep and cool",
-          "hex": "#141217",
+          "hex": "#2A211D",
           "depthValue": 6,
           "temperature": "cool",
+          "chroma": "bright"
+        },
+        {
+          "id": "black",
+          "label": "Black",
+          "description": "Deep neutral black",
+          "hex": "#18110D",
+          "depthValue": 6,
+          "temperature": "neutral-cool",
           "chroma": "bright"
         },
         {
