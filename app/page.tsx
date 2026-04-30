@@ -1,5 +1,5 @@
-import { ShadeSeasonLanding } from "@/components/ShadeSeasonLanding";
+import { ShadeSeasonPage } from "@/components/ShadeSeasonPage";
 
 export default function LandingPage() {
-  return <ShadeSeasonLanding />;
+  return <ShadeSeasonPage />;
 }
