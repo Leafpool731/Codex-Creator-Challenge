@@ -12,11 +12,12 @@ import { buildResultExplanation, getSeasonMatches } from "@/lib/scoring";
 import type { AttributeKey } from "@/lib/types";
 
 interface ResultsPageProps {
-  searchParams: Partial<Record<AttributeKey, string | string[] | undefined>>;
+  searchParams: Promise<Partial<Record<AttributeKey, string | string[] | undefined>>>;
 }
 
-export default function ResultsPage({ searchParams }: ResultsPageProps) {
-  const selections = normalizeSelections(searchParams);
+export default async function ResultsPage({ searchParams }: ResultsPageProps) {
+  const resolvedSearchParams = await searchParams;
+  const selections = normalizeSelections(resolvedSearchParams);
   const [topMatch, ...alternateMatches] = getSeasonMatches(selections, 3);
   const query = selectionsToSearchParams(selections);
 

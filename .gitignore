@@ -1,11 +1,15 @@
 node_modules/
 .next/
+.open-next/
+.wrangler/
 out/
 
 *.log
+*.err
 dev.err
 dev.log
 tsconfig.tsbuildinfo
+cloudflare-env.d.ts
 
 .env
 .env*.local
