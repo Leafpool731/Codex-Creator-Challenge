@@ -13,3 +13,6 @@ cloudflare-env.d.ts
 
 .env
 .env*.local
+
+# Local / generated bundles (do not commit)
+shade-season-portrait-editor.zip
