@@ -15,6 +15,26 @@ so results stay explainable. Optional AI portrait tooling lives under
 
 Stack: **Next.js**, **React**, **TypeScript**, **Tailwind CSS**.
 
+## Codex skills
+
+This repository includes **Codex-style skill packages** under `skill-package/`.
+Each pack is a folder with a `SKILL.md` (YAML frontmatter + instructions),
+optional `references/` markdown, and optional `agents/` metadata for agent UIs.
+
+| Skill id | Role |
+| --- | --- |
+| `shade-season-portrait-editor` | **Chromi Portrait Editor** — guardrails and workflows for realistic portrait overlays, masks, hair/eye/lip edits, undertone and lighting, cache-first AI portrait variants, and beauty-tech realism QA in this Next.js codebase. |
+
+**Layout**
+
+- `skill-package/shade-season-portrait-editor/SKILL.md` — skill definition and acceptance criteria.
+- `skill-package/shade-season-portrait-editor/references/` — deep dives (e.g. `portrait-realism.md`, `ai-editing-cache.md`).
+- `skill-package/shade-season-portrait-editor/agents/openai.yaml` — agent interface: `display_name`, `short_description`, and `default_prompt` (references the skill as `$shade-season-portrait-editor`).
+
+The core Chromi studio stays image-free; **experimental** portrait and API code
+that this skill is written for lives under `src/experimental/`. Install or wire
+these packs according to your Codex / agent host’s skill documentation.
+
 ## Local Development
 
 ```bash
