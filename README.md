@@ -1,7 +1,19 @@
 # ShadeSeason
 
-ShadeSeason is an image-free 16-season color analysis app built with Next.js,
-TypeScript, Tailwind CSS, and JSON-backed seasonal data.
+## What it is
+
+ShadeSeason is a **browser-based 16-season color analysis studio**. You pick a
+photorealistic portrait anchor, tune a **skin profile** (depth, undertone,
+saturation, contrast), and run a **rule-based scoring engine** over JSON-backed
+season definitions. There is **no photo upload** in the main flow: the model is
+virtual, and your choices drive the analysis.
+
+The app surfaces **top and alternate season matches**, **color palettes**,
+makeup and jewelry notes, a **cosmetic reference grid**, and a **score breakdown**
+so results stay explainable. Optional AI portrait tooling lives under
+`src/experimental` and is separate from the core studio.
+
+Stack: **Next.js**, **React**, **TypeScript**, **Tailwind CSS**.
 
 ## Local Development
 
