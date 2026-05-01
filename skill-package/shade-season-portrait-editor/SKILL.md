@@ -1,13 +1,13 @@
 ---
 name: shade-season-portrait-editor
-description: Maintain and improve the ShadeSeason app's realistic image-based portrait customization system. Use when working on portrait overlays, feature masks, hair recoloring, eye recoloring, lip tint alignment, blush, freckles, undertone handling, AI portrait editing prompts, cache-first generated portrait variants, or beauty-tech realism QA in the ShadeSeason Next.js codebase.
+description: Maintain and improve the Chromi app's realistic image-based portrait customization system. Use when working on portrait overlays, feature masks, hair recoloring, eye recoloring, lip tint alignment, blush, freckles, undertone handling, AI portrait editing prompts, cache-first generated portrait variants, or beauty-tech realism QA in the Chromi Next.js codebase.
 ---
 
-# ShadeSeason Portrait Editor
+# Chromi Portrait Editor
 
 ## Core Rule
 
-Preserve ShadeSeason as a premium, image-free beauty-tech app built around realistic portrait images. Do not replace the portrait with cartoon, emoji, toy, primitive geometry, or procedural face drawing. If no high-quality generated/edited portrait exists, use subtle masked overlays on the real portrait image as an optimistic preview.
+Preserve Chromi as a premium, image-free beauty-tech app built around realistic portrait images. Do not replace the portrait with cartoon, emoji, toy, primitive geometry, or procedural face drawing. If no high-quality generated/edited portrait exists, use subtle masked overlays on the real portrait image as an optimistic preview.
 
 ## Workflow
 

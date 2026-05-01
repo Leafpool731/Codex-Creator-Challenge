@@ -1,5 +1,5 @@
-import { ShadeSeasonPage } from "@/components/ShadeSeasonPage";
+import { ChromiPage } from "@/components/ChromiPage";
 
 export default function LandingPage() {
-  return <ShadeSeasonPage />;
+  return <ChromiPage />;
 }

@@ -2,17 +2,17 @@
 
 import Link from "next/link";
 import { FeatureCard } from "@/components/FeatureCard";
-import { ShadeSeasonStudioLayout } from "@/components/ShadeSeasonStudioLayout";
+import { ChromiStudioLayout } from "@/components/ChromiStudioLayout";
 import { PortraitStudioProvider } from "@/lib/portraitStudioStore";
 
-export function ShadeSeasonPage() {
+export function ChromiPage() {
   return (
     <PortraitStudioProvider>
       <main className="min-h-dvh bg-[linear-gradient(130deg,#fffaf5_0%,#f8eee7_52%,#ecdcd2_100%)] px-4 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(1.5rem,env(safe-area-inset-top))] sm:px-6 sm:py-8 lg:px-8">
         <div className="mx-auto grid w-full min-w-0 max-w-[112rem] gap-8 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.35fr)_minmax(0,0.95fr)]">
           <section className="flex min-h-full min-w-0 max-w-xl flex-col px-1 py-2 sm:px-3 lg:py-8">
             <p className="text-3xl font-medium leading-none text-[#2f2723] sm:text-[2.35rem]">
-              <span className="[font-family:Georgia,Times,serif]">ShadeSeason</span> *
+              <span className="[font-family:Georgia,Times,serif]">Chromi</span> *
             </p>
             <p className="mt-6 inline-flex w-fit rounded-full border border-[#e2d7ce] bg-[#f5eee8] px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#756860]">
               IMAGE-FREE COLOR ANALYSIS
@@ -59,12 +59,12 @@ export function ShadeSeasonPage() {
             </div>
 
             <p className="mt-auto pt-16 text-xs text-[#9a8e86]">
-              (c) 2026 ShadeSeason
+              (c) 2026 Chromi
             </p>
           </section>
 
           <div className="min-w-0 xl:contents">
-            <ShadeSeasonStudioLayout />
+            <ChromiStudioLayout />
           </div>
         </div>
       </main>

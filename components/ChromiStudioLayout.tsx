@@ -3,7 +3,7 @@
 import { SkinProfilePanel } from "@/components/SkinProfilePanel";
 import { PortraitStudio } from "@/components/portrait/PortraitStudio";
 
-export function ShadeSeasonStudioLayout() {
+export function ChromiStudioLayout() {
   return (
     <>
       <PortraitStudio />

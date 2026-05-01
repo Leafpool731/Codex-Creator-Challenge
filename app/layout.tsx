@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ShadeSeason",
+  title: "Chromi",
   description:
     "An image-free 16-season color analysis studio with a customizable virtual model."
 };

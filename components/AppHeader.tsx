@@ -6,7 +6,7 @@ export function AppHeader() {
       <Link
         href="/"
         className="group inline-flex items-center gap-3 rounded-full text-ink"
-        aria-label="ShadeSeason home"
+        aria-label="Chromi home"
       >
         <span className="grid h-10 w-10 place-items-center rounded-full border border-ink/10 bg-paper shadow-sm transition group-hover:border-teal/40">
           <span
@@ -14,7 +14,7 @@ export function AppHeader() {
             aria-hidden="true"
           />
         </span>
-        <span className="text-base font-semibold tracking-normal">ShadeSeason</span>
+        <span className="text-base font-semibold tracking-normal">Chromi</span>
       </Link>
 
       <nav aria-label="Primary navigation" className="flex items-center gap-2">

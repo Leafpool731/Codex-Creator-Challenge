@@ -1,4 +1,4 @@
 interface:
-  display_name: "ShadeSeason Portrait Editor"
+  display_name: "Chromi Portrait Editor"
   short_description: "Realistic portrait customization guardrails"
-  default_prompt: "Use $shade-season-portrait-editor to improve ShadeSeason portrait customization while preserving beauty-tech realism."
+  default_prompt: "Use $shade-season-portrait-editor to improve Chromi portrait customization while preserving beauty-tech realism."

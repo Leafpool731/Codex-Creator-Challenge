@@ -1,7 +1,7 @@
 # Experimental portrait editing
 
 This folder stores unfinished AI segmentation, masked recolor, debug-mask, and
-overlay work that is not part of the active ShadeSeason MVP.
+overlay work that is not part of the active Chromi MVP.
 
 The production app currently focuses on:
 

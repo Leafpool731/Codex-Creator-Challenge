@@ -1,8 +1,8 @@
-# ShadeSeason
+# Chromi
 
 ## What it is
 
-ShadeSeason is a **browser-based 16-season color analysis studio**. You pick a
+Chromi is a **browser-based 16-season color analysis studio**. You pick a
 photorealistic portrait anchor, tune a **skin profile** (depth, undertone,
 saturation, contrast), and run a **rule-based scoring engine** over JSON-backed
 season definitions. There is **no photo upload** in the main flow: the model is

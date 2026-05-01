@@ -37,7 +37,7 @@ Eye color must target only irises. Use two tiny elliptical masks. Do not draw ar
 
 ## Lip Tint
 
-Lip tint should sit around `x: 50%, y: 58%` for the current ShadeSeason portrait set. Use a soft elliptical/radial mask, low opacity, and `multiply` or `soft-light`. If the tint appears below the mouth, move the mask up before changing blend modes.
+Lip tint should sit around `x: 50%, y: 58%` for the current Chromi portrait set. Use a soft elliptical/radial mask, low opacity, and `multiply` or `soft-light`. If the tint appears below the mouth, move the mask up before changing blend modes.
 
 ## Blush
 
