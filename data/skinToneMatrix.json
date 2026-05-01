@@ -20,5 +20,5 @@
     "Deep Winter",
     "Cool Winter"
   ],
-  "notes": "Studio sliders map into this matrix conceptually: depth + undertone (including olive) + chroma + contrast drive the rule engine in lib/scoring.ts."
+  "notes": "Studio sliders map into this matrix conceptually: depth + undertone + muted/clear (ex-chroma) + rosy/blue and golden/olive nudges + contrast drive lib/scoring.ts via lib/modelState.ts."
 }

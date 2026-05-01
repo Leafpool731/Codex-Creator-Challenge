@@ -1,4 +1,8 @@
 import type { Undertone } from "@/components/portrait/featureMasks";
+import {
+  adjustSkinTone,
+  type SkinToneAdjustments
+} from "@/lib/skinTone/adjustSkinTone";
 
 interface Rgb {
   r: number;
@@ -85,14 +89,6 @@ function adjustDepth(rgb: Rgb, depth: number): Rgb {
   return hslToRgb(h, s, nl);
 }
 
-/** Saturation 0–100: muted → bright chroma on skin layer. */
-function adjustSaturation(rgb: Rgb, saturation: number): Rgb {
-  const t = saturation / 100;
-  const { h, s, l } = rgbToHsl(rgb);
-  const ns = Math.max(0.06, Math.min(0.85, s * (0.45 + t * 0.75)));
-  return hslToRgb(h, ns, l);
-}
-
 /**
  * Undertone: not a flat wash — subtle directional shifts on the matrix hex.
  */
@@ -127,12 +123,12 @@ export function compositeSkinColor(
   baseHex: string,
   undertone: Undertone,
   depth: number,
-  saturation: number
+  adjustments: SkinToneAdjustments
 ): string {
   let rgb = applyUndertoneShift(baseHex, undertone);
   rgb = adjustDepth(rgb, depth);
-  rgb = adjustSaturation(rgb, saturation);
-  return rgbToHex(rgb);
+  const hexAfterDepth = rgbToHex(rgb);
+  return adjustSkinTone(hexAfterDepth, adjustments);
 }
 
 /** Opacity for color blend: 0.4–0.75 from depth slider. */

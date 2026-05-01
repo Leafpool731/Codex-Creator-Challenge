@@ -9,7 +9,14 @@ export interface ModelState {
   skinTone: string;
   undertone: number;
   skinDepth: number;
-  chroma: number;
+  /** -50 rosy … +50 cool blue (scoring nudge) */
+  rosyBlue: number;
+  /** -50 golden … +50 olive (scoring nudge) */
+  goldenOlive: number;
+  /** -50 muted … +50 clear (maps to chroma for scoring) */
+  mutedClear: number;
+  /** -50 darker … +50 lighter fine luminance (scoring nudge) */
+  skinFineDepth: number;
   contrast: number;
   lightingPreset: LightingPresetId;
   lightIntensity: number;
@@ -98,7 +105,10 @@ export const defaultModelState: ModelState = {
   skinTone: "light",
   undertone: 58,
   skinDepth: 2,
-  chroma: 54,
+  rosyBlue: 0,
+  goldenOlive: 0,
+  mutedClear: 0,
+  skinFineDepth: 0,
   contrast: 50,
   lightingPreset: "daylight",
   lightIntensity: 72,
@@ -115,7 +125,11 @@ export const quickLookPresets: QuickLookPreset[] = [
       skinTone: "fair",
       skinDepth: 1,
       undertone: 28,
-      chroma: 28,
+      mutedClear: -18,
+      rosyBlue: -6,
+      goldenOlive: 0,
+      skinFineDepth: 0,
+      contrast: 28,
       lightingPreset: "soft",
       lightIntensity: 54,
       environmentBrightness: 78,
@@ -130,7 +144,11 @@ export const quickLookPresets: QuickLookPreset[] = [
       skinTone: "medium",
       skinDepth: 3,
       undertone: 82,
-      chroma: 68,
+      mutedClear: 22,
+      rosyBlue: 0,
+      goldenOlive: -12,
+      skinFineDepth: 0,
+      contrast: 36,
       lightingPreset: "warm",
       lightIntensity: 74,
       environmentBrightness: 76,
@@ -145,7 +163,11 @@ export const quickLookPresets: QuickLookPreset[] = [
       skinTone: "tan",
       skinDepth: 4,
       undertone: 40,
-      chroma: 82,
+      mutedClear: 28,
+      rosyBlue: 0,
+      goldenOlive: 0,
+      skinFineDepth: 0,
+      contrast: 54,
       lightingPreset: "daylight",
       lightIntensity: 76,
       environmentBrightness: 78,
@@ -157,7 +179,10 @@ export const quickLookPresets: QuickLookPreset[] = [
 const numberKeys = [
   "undertone",
   "skinDepth",
-  "chroma",
+  "rosyBlue",
+  "goldenOlive",
+  "mutedClear",
+  "skinFineDepth",
   "contrast",
   "lightIntensity",
   "environmentBrightness",
@@ -178,16 +203,34 @@ function nearestSkinDepthId(depth: number): string {
   }, skinToneOptions[0]).id;
 }
 
-function chromaToSelection(chroma: number): string {
-  if (chroma <= 36) {
+function mutedClearToSelection(mutedClear: number): string {
+  if (mutedClear <= -16) {
     return "soft";
   }
 
-  if (chroma >= 68) {
+  if (mutedClear >= 20) {
     return "bright";
   }
 
   return "medium";
+}
+
+/** Nudge undertone for scoring from fine-tune axes (subtle). */
+function effectiveUndertoneNumber(state: ModelState): number {
+  let u = state.undertone;
+  u -= state.rosyBlue * 0.1;
+  const go = clamp(state.goldenOlive, -50, 50);
+  if (go > 0) {
+    const t = go / 50;
+    u = u * (1 - t * 0.14) + 52 * (t * 0.14);
+  } else if (go < 0) {
+    u += (-go / 50) * 6;
+  }
+  return clamp(u, 0, 100);
+}
+
+function effectiveSkinDepthForSelection(state: ModelState): number {
+  return clamp(state.skinDepth + state.skinFineDepth * 0.02, 0, 6);
 }
 
 function undertoneToSelection(undertone: number): string {
@@ -251,9 +294,9 @@ export function modelStateToSelections(state: ModelState): UserSelections {
 
   return {
     ...defaults,
-    skinDepth: nearestSkinDepthId(state.skinDepth),
-    undertone: undertoneToSelection(state.undertone),
-    chroma: chromaToSelection(state.chroma),
+    skinDepth: nearestSkinDepthId(effectiveSkinDepthForSelection(state)),
+    undertone: undertoneToSelection(effectiveUndertoneNumber(state)),
+    chroma: mutedClearToSelection(state.mutedClear),
     contrast: contrastFromModel(state.contrast)
   };
 }
@@ -287,7 +330,18 @@ export function modelStateFromSearchParams(
     const parsed = value ? Number(value) : NaN;
 
     if (Number.isFinite(parsed)) {
-      next[key] = key === "skinDepth" ? clamp(parsed, 0, 6) : clamp(parsed);
+      if (key === "skinDepth") {
+        next[key] = clamp(parsed, 0, 6);
+      } else if (
+        key === "rosyBlue" ||
+        key === "goldenOlive" ||
+        key === "mutedClear" ||
+        key === "skinFineDepth"
+      ) {
+        next[key] = clamp(parsed, -50, 50);
+      } else {
+        next[key] = clamp(parsed);
+      }
     }
   });
 
@@ -331,8 +385,8 @@ export function modelStateFromSearchParams(
     }
 
     if (key === "chroma") {
-      const map: Record<string, number> = { soft: 24, medium: 54, bright: 82 };
-      next.chroma = map[value] ?? next.chroma;
+      const map: Record<string, number> = { soft: -28, medium: 0, bright: 30 };
+      next.mutedClear = map[value] ?? next.mutedClear;
     }
 
     if (key === "contrast") {
@@ -340,6 +394,28 @@ export function modelStateFromSearchParams(
       next.contrast = map[value] ?? next.contrast;
     }
   });
+
+  const legacyChromaRaw = input.chroma;
+  const legacyChromaStr = Array.isArray(legacyChromaRaw)
+    ? legacyChromaRaw[0]
+    : legacyChromaRaw;
+  const legacyChromaNum =
+    legacyChromaStr !== undefined && legacyChromaStr !== ""
+      ? Number(legacyChromaStr)
+      : NaN;
+  const isNumericLegacyChroma =
+    Number.isFinite(legacyChromaNum) &&
+    legacyChromaNum >= 0 &&
+    legacyChromaNum <= 100 &&
+    !["soft", "medium", "bright"].includes(String(legacyChromaStr).toLowerCase());
+  if (
+    isNumericLegacyChroma &&
+    next.mutedClear === 0 &&
+    next.rosyBlue === 0 &&
+    next.goldenOlive === 0
+  ) {
+    next.mutedClear = clamp(Math.round(((legacyChromaNum - 54) / 40) * 50), -50, 50);
+  }
 
   return next;
 }

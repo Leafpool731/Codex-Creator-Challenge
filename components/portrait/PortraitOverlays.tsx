@@ -3,6 +3,7 @@
 import { LightingOverlay, getLightingOverlay } from "@/components/portrait/LightingOverlay";
 import { SkinToneOverlay } from "@/components/portrait/SkinToneOverlay";
 import { clamp, type LightingPreset, type Undertone } from "@/components/portrait/featureMasks";
+import type { SkinToneAdjustments } from "@/lib/skinTone/adjustSkinTone";
 
 export type { LightingPreset, Undertone } from "@/components/portrait/featureMasks";
 
@@ -10,7 +11,7 @@ export interface PortraitOverlaysProps {
   skinToneHex: string;
   undertone: Undertone;
   depth: number;
-  saturation: number;
+  skinAdjustments: SkinToneAdjustments;
   lightingPreset: LightingPreset;
   lightIntensity: number;
   environment: number;
@@ -34,7 +35,7 @@ export function PortraitOverlays(props: PortraitOverlaysProps) {
         skinToneHex={props.skinToneHex}
         undertone={props.undertone}
         depth={clamp(props.depth)}
-        saturation={clamp(props.saturation)}
+        skinAdjustments={props.skinAdjustments}
       />
       <LightingOverlay lighting={lighting} />
     </div>

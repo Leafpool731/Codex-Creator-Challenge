@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { PortraitImage } from "@/components/portrait/PortraitImage";
 import { usePortraitStudio } from "@/lib/portraitStudioStore";
 
@@ -15,6 +15,16 @@ export function PortraitStudio() {
   const [showFullFrame, setShowFullFrame] = useState(false);
   const selectedTone =
     skinTones.find((tone) => tone.id === state.skinTone) ?? skinTones[0];
+
+  const skinAdjustments = useMemo(
+    () => ({
+      rosyBlue: state.rosyBlue,
+      goldenOlive: state.goldenOlive,
+      mutedClear: state.mutedClear,
+      depth: state.skinFineDepth
+    }),
+    [state.rosyBlue, state.goldenOlive, state.mutedClear, state.skinFineDepth]
+  );
 
   return (
     <div className="min-w-0 space-y-6">
@@ -37,7 +47,7 @@ export function PortraitStudio() {
           skinToneHex={selectedTone.hex}
           undertone={state.undertone}
           depth={state.depth}
-          saturation={state.saturation}
+          skinAdjustments={skinAdjustments}
           lightingPreset={state.lightingPreset}
           lightIntensity={state.lightIntensity}
           environment={state.environment}

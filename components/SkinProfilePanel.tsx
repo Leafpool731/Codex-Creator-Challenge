@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { Link } from "@/i18n/navigation";
+import { FineTuneSlider } from "@/components/FineTuneSlider";
 import { SegmentedControl } from "@/components/SegmentedControl";
 import { SliderControl } from "@/components/SliderControl";
 import {
@@ -118,12 +119,38 @@ export function SkinProfilePanel() {
           />
         </div>
 
-        <SliderControl
-          label={t("saturation")}
-          value={state.saturation}
-          onChange={(saturation) => setState({ saturation })}
-          minLabel={t("muted")}
-          maxLabel={t("vibrant")}
+        <p className="text-xs leading-relaxed text-[#897c74]">{t("skinToneFineTuneIntro")}</p>
+
+        <FineTuneSlider
+          label={t("rosyBlue")}
+          minLabel={t("rosyBlueMin")}
+          maxLabel={t("rosyBlueMax")}
+          value={state.rosyBlue}
+          onChange={(rosyBlue) => setState({ rosyBlue })}
+        />
+
+        <FineTuneSlider
+          label={t("goldenOlive")}
+          minLabel={t("goldenOliveMin")}
+          maxLabel={t("goldenOliveMax")}
+          value={state.goldenOlive}
+          onChange={(goldenOlive) => setState({ goldenOlive })}
+        />
+
+        <FineTuneSlider
+          label={t("mutedClear")}
+          minLabel={t("mutedClearMin")}
+          maxLabel={t("mutedClearMax")}
+          value={state.mutedClear}
+          onChange={(mutedClear) => setState({ mutedClear })}
+        />
+
+        <FineTuneSlider
+          label={t("skinFineDepth")}
+          minLabel={t("skinFineDepthMin")}
+          maxLabel={t("skinFineDepthMax")}
+          value={state.skinFineDepth}
+          onChange={(skinFineDepth) => setState({ skinFineDepth })}
         />
 
         <SliderControl

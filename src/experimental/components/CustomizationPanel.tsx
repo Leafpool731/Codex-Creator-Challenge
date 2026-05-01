@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useMemo } from "react";
+import { FineTuneSlider } from "@/components/FineTuneSlider";
 import { QuickLooks } from "@/components/QuickLooks";
 import { SegmentedControl } from "@/components/SegmentedControl";
 import { SliderControl } from "@/components/SliderControl";
@@ -32,7 +33,7 @@ export function CustomizationPanel() {
         <div>
           <p className="mb-2 text-sm font-medium text-[#4f443f]">Skin depth</p>
           <p className="mb-3 text-xs text-[#897c74]">
-            Matrix-driven base color — then fine-tune depth and saturation.
+            Matrix-driven base color — then fine-tune depth and undertone direction.
           </p>
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-4">
             {skinTones.map((tone) => {
@@ -80,12 +81,33 @@ export function CustomizationPanel() {
           maxLabel="Deeper"
         />
 
-        <SliderControl
-          label="Saturation"
-          value={state.saturation}
-          onChange={(saturation) => setState({ saturation })}
+        <FineTuneSlider
+          label="Rosy ↔ Cool Blue"
+          minLabel="Rosy / flush"
+          maxLabel="Cool blue"
+          value={state.rosyBlue}
+          onChange={(rosyBlue) => setState({ rosyBlue })}
+        />
+        <FineTuneSlider
+          label="Golden ↔ Olive"
+          minLabel="Golden warmth"
+          maxLabel="Muted olive"
+          value={state.goldenOlive}
+          onChange={(goldenOlive) => setState({ goldenOlive })}
+        />
+        <FineTuneSlider
+          label="Muted ↔ Clear"
           minLabel="Muted"
-          maxLabel="Bright"
+          maxLabel="Clear"
+          value={state.mutedClear}
+          onChange={(mutedClear) => setState({ mutedClear })}
+        />
+        <FineTuneSlider
+          label="Fine lightness"
+          minLabel="Slightly darker"
+          maxLabel="Slightly lighter"
+          value={state.skinFineDepth}
+          onChange={(skinFineDepth) => setState({ skinFineDepth })}
         />
       </div>
 

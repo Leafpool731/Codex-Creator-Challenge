@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import { PortraitImage } from "@/components/portrait/PortraitImage";
 import type { Undertone } from "@/components/portrait/PortraitOverlays";
 import { skinToneOptions, type ModelState } from "@/lib/modelState";
@@ -37,6 +38,16 @@ function depthSliderFromModel(state: ModelState): number {
 }
 
 export function ResultPortraitPreview({ state }: ResultPortraitPreviewProps) {
+  const skinAdjustments = useMemo(
+    () => ({
+      rosyBlue: state.rosyBlue,
+      goldenOlive: state.goldenOlive,
+      mutedClear: state.mutedClear,
+      depth: state.skinFineDepth
+    }),
+    [state.rosyBlue, state.goldenOlive, state.mutedClear, state.skinFineDepth]
+  );
+
   return (
     <div className="relative overflow-hidden rounded-2xl border border-[#ddd2c9] bg-gradient-to-b from-[#F5EFEA] to-[#EFE7E2] shadow-[0_24px_56px_rgba(85,63,50,0.12)]">
       <div className="p-5 sm:p-7 md:p-8">
@@ -46,7 +57,7 @@ export function ResultPortraitPreview({ state }: ResultPortraitPreviewProps) {
           skinToneHex={getHex(state.skinTone)}
           undertone={numericUndertoneToMode(state.undertone)}
           depth={depthSliderFromModel(state)}
-          saturation={state.chroma}
+          skinAdjustments={skinAdjustments}
           lightingPreset={state.lightingPreset}
           lightIntensity={state.lightIntensity}
           environment={state.environmentBrightness}

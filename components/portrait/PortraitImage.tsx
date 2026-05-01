@@ -9,13 +9,14 @@ import {
   type Undertone
 } from "@/components/portrait/PortraitOverlays";
 import { getPortraitSrc } from "@/lib/portraitStudioStore";
+import type { SkinToneAdjustments } from "@/lib/skinTone/adjustSkinTone";
 
 interface PortraitImageProps {
   modelId: string;
   skinToneHex: string;
   undertone: Undertone;
   depth: number;
-  saturation: number;
+  skinAdjustments: SkinToneAdjustments;
   lightingPreset: LightingPreset;
   lightIntensity: number;
   environment: number;
@@ -32,7 +33,7 @@ export function PortraitImage({
   skinToneHex,
   undertone,
   depth,
-  saturation,
+  skinAdjustments,
   lightingPreset,
   lightIntensity,
   environment,
@@ -85,7 +86,7 @@ export function PortraitImage({
               skinToneHex={skinToneHex}
               undertone={undertone}
               depth={depth}
-              saturation={saturation}
+              skinAdjustments={skinAdjustments}
               lightingPreset={lightingPreset}
               lightIntensity={lightIntensity}
               environment={environment}
@@ -118,7 +119,7 @@ export function PortraitImage({
             skinToneHex={skinToneHex}
             undertone={undertone}
             depth={depth}
-            saturation={saturation}
+            skinAdjustments={skinAdjustments}
             lightingPreset={lightingPreset}
             lightIntensity={lightIntensity}
             environment={environment}

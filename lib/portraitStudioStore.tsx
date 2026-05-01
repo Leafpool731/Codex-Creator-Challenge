@@ -15,7 +15,14 @@ export interface StudioState {
   skinTone: string;
   undertone: Undertone;
   depth: number;
-  saturation: number;
+  /** -50 rosy … +50 cool blue */
+  rosyBlue: number;
+  /** -50 golden … +50 olive */
+  goldenOlive: number;
+  /** -50 muted … +50 clear */
+  mutedClear: number;
+  /** -50 darker … +50 lighter (fine luminance) */
+  skinFineDepth: number;
   contrast: number;
   lightingPreset: LightingPreset;
   lightIntensity: number;
@@ -58,7 +65,10 @@ const defaultState: StudioState = {
   skinTone: "light",
   undertone: "neutral",
   depth: 50,
-  saturation: 50,
+  rosyBlue: 0,
+  goldenOlive: 0,
+  mutedClear: 0,
+  skinFineDepth: 0,
   contrast: 50,
   lightingPreset: "daylight",
   lightIntensity: 72,
@@ -85,7 +95,10 @@ export const quickLookOptions: QuickLookOption[] = [
       skinTone: "porcelain",
       undertone: "cool",
       depth: 28,
-      saturation: 32,
+      rosyBlue: -8,
+      goldenOlive: 0,
+      mutedClear: -20,
+      skinFineDepth: 0,
       contrast: 28
     }
   },
@@ -96,7 +109,10 @@ export const quickLookOptions: QuickLookOption[] = [
       skinTone: "fair",
       undertone: "warm",
       depth: 38,
-      saturation: 48,
+      rosyBlue: 0,
+      goldenOlive: -14,
+      mutedClear: -8,
+      skinFineDepth: 0,
       contrast: 36,
       lightingPreset: "warm",
       ...presetValues.warm
@@ -109,7 +125,10 @@ export const quickLookOptions: QuickLookOption[] = [
       skinTone: "light",
       undertone: "neutral",
       depth: 50,
-      saturation: 52,
+      rosyBlue: 0,
+      goldenOlive: 0,
+      mutedClear: 0,
+      skinFineDepth: 0,
       contrast: 50
     }
   },
@@ -120,7 +139,10 @@ export const quickLookOptions: QuickLookOption[] = [
       skinTone: "medium",
       undertone: "warm",
       depth: 55,
-      saturation: 58,
+      rosyBlue: 0,
+      goldenOlive: -10,
+      mutedClear: 18,
+      skinFineDepth: 0,
       contrast: 54
     }
   },
@@ -131,7 +153,10 @@ export const quickLookOptions: QuickLookOption[] = [
       skinTone: "tan",
       undertone: "olive",
       depth: 58,
-      saturation: 42,
+      rosyBlue: 0,
+      goldenOlive: 22,
+      mutedClear: -14,
+      skinFineDepth: 0,
       contrast: 42,
       lightingPreset: "soft",
       ...presetValues.soft
@@ -144,7 +169,10 @@ export const quickLookOptions: QuickLookOption[] = [
       skinTone: "tan",
       undertone: "warm",
       depth: 62,
-      saturation: 58,
+      rosyBlue: 0,
+      goldenOlive: -12,
+      mutedClear: 16,
+      skinFineDepth: 0,
       contrast: 58
     }
   },
@@ -155,7 +183,10 @@ export const quickLookOptions: QuickLookOption[] = [
       skinTone: "deep",
       undertone: "neutral",
       depth: 68,
-      saturation: 48,
+      rosyBlue: 0,
+      goldenOlive: 0,
+      mutedClear: -6,
+      skinFineDepth: 0,
       contrast: 62
     }
   },
@@ -166,7 +197,10 @@ export const quickLookOptions: QuickLookOption[] = [
       skinTone: "rich-deep",
       undertone: "cool",
       depth: 72,
-      saturation: 44,
+      rosyBlue: 6,
+      goldenOlive: 0,
+      mutedClear: -12,
+      skinFineDepth: 0,
       contrast: 76,
       lightingPreset: "cool",
       ...presetValues.cool
@@ -179,7 +213,10 @@ export const quickLookOptions: QuickLookOption[] = [
       skinTone: "rich-deep",
       undertone: "warm",
       depth: 78,
-      saturation: 58,
+      rosyBlue: 0,
+      goldenOlive: -8,
+      mutedClear: 20,
+      skinFineDepth: 0,
       contrast: 82,
       lightingPreset: "evening",
       ...presetValues.evening
@@ -218,7 +255,10 @@ export function studioStateToModelState(state: StudioState): ModelState {
     skinTone: state.skinTone,
     undertone: undertoneToNumber(state.undertone),
     skinDepth,
-    chroma: state.saturation,
+    rosyBlue: state.rosyBlue,
+    goldenOlive: state.goldenOlive,
+    mutedClear: state.mutedClear,
+    skinFineDepth: state.skinFineDepth,
     contrast: state.contrast,
     lightingPreset: state.lightingPreset,
     lightIntensity: state.lightIntensity,

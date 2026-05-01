@@ -5,6 +5,7 @@ import {
   skinToneLayerOpacity
 } from "@/lib/skinTone/compositeSkinColor";
 import type { Undertone } from "@/components/portrait/featureMasks";
+import type { SkinToneAdjustments } from "@/lib/skinTone/adjustSkinTone";
 
 /** Elliptical mask: face only; hair/background stay out of the skin tint. */
 const FACE_MASK =
@@ -16,17 +17,16 @@ interface SkinToneOverlayProps {
   undertone: Undertone;
   /** Fine depth tuning 0–100 */
   depth: number;
-  /** Chroma 0–100 */
-  saturation: number;
+  skinAdjustments: SkinToneAdjustments;
 }
 
 export function SkinToneOverlay({
   skinToneHex,
   undertone,
   depth,
-  saturation
+  skinAdjustments
 }: SkinToneOverlayProps) {
-  const fill = compositeSkinColor(skinToneHex, undertone, depth, saturation);
+  const fill = compositeSkinColor(skinToneHex, undertone, depth, skinAdjustments);
   const opacity = skinToneLayerOpacity(depth);
 
   return (
