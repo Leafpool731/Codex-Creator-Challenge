@@ -12,6 +12,7 @@
       "data",
       "hooks",
       "lib",
+      "middleware.ts",
       "next.config.mjs",
       "package.json",
       "public",

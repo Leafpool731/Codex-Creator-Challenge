@@ -51,6 +51,13 @@ npm run dev
 This project is configured for Cloudflare Workers through the OpenNext
 Cloudflare adapter.
 
+**Hosted builds:** OpenNext does not yet support Next.js 16’s `proxy.ts`
+convention (it is treated as Node middleware). This repo uses `middleware.ts`
+with `next-intl` so `npm run worker:build` succeeds. You may see a Next.js
+deprecation warning until OpenNext adds `proxy` support. The dynamic Open Graph
+route must not set `runtime = "edge"`; the default Node handler is compatible
+with the adapter.
+
 ```bash
 npm run typecheck
 npm run worker:build
