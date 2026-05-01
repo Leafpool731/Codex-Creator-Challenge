@@ -1,23 +1,23 @@
 {
   "version": 1,
-  "description": "80 tone anchors = 16 seasons × 5 skin depth bands (Fair, Medium, Olive, Tan, Dark). Olive is a depth band and undertone family used across seasons.",
+  "description": "80 tone anchors = 16 seasons x 5 skin depth bands (Fair, Medium, Olive, Tan, Dark). Olive remains a first-class undertone family used across seasons.",
   "depthBands": ["Fair", "Medium", "Olive", "Tan", "Dark"],
   "seasons": [
     "Light Spring",
-    "True Spring",
     "Bright Spring",
+    "True Spring",
     "Warm Spring",
     "Light Summer",
     "True Summer",
     "Soft Summer",
     "Cool Summer",
     "Soft Autumn",
-    "True Autumn",
     "Warm Autumn",
+    "True Autumn",
     "Deep Autumn",
-    "Light Winter",
-    "True Winter",
     "Bright Winter",
+    "True Winter",
+    "Deep Winter",
     "Cool Winter"
   ],
   "notes": "Studio sliders map into this matrix conceptually: depth + undertone (including olive) + chroma + contrast drive the rule engine in lib/scoring.ts."

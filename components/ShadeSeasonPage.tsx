@@ -8,44 +8,42 @@ import { PortraitStudioProvider } from "@/lib/portraitStudioStore";
 export function ShadeSeasonPage() {
   return (
     <PortraitStudioProvider>
-      <main className="min-h-screen bg-[linear-gradient(130deg,#fff9f3_0%,#f6ebe2_52%,#ecd9cf_100%)] px-4 py-4 sm:px-6 lg:px-8">
-        <div className="mx-auto grid w-full max-w-[94rem] gap-5 xl:grid-cols-[0.82fr_1.34fr_0.98fr]">
-          <section className="flex min-h-full flex-col px-1 py-2 sm:px-3 lg:py-5">
-            <p className="text-[2rem] font-medium leading-none text-[#2f2723]">
+      <main className="min-h-dvh bg-[linear-gradient(130deg,#fffaf5_0%,#f8eee7_52%,#ecdcd2_100%)] px-4 py-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(1.5rem,env(safe-area-inset-top))] sm:px-6 sm:py-8 lg:px-8">
+        <div className="mx-auto grid w-full min-w-0 max-w-[112rem] gap-8 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.35fr)_minmax(0,0.95fr)]">
+          <section className="flex min-h-full min-w-0 max-w-xl flex-col px-1 py-2 sm:px-3 lg:py-8">
+            <p className="text-3xl font-medium leading-none text-[#2f2723] sm:text-[2.35rem]">
               <span className="[font-family:Georgia,Times,serif]">ShadeSeason</span> *
             </p>
-            <p className="mt-3 inline-flex rounded-full border border-[#e2d7ce] bg-[#f5eee8] px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-[#756860]">
+            <p className="mt-6 inline-flex w-fit rounded-full border border-[#e2d7ce] bg-[#f5eee8] px-4 py-2 text-xs font-semibold uppercase tracking-wide text-[#756860]">
               IMAGE-FREE COLOR ANALYSIS
             </p>
 
-            <h1 className="mt-6 text-[2.8rem] leading-[1.02] text-[#2f2723] [font-family:Georgia,Times,serif]">
+            <h1 className="mt-8 text-3xl leading-tight text-[#2f2723] [font-family:Georgia,Times,serif] sm:mt-12 sm:text-4xl lg:text-5xl">
               Find your most flattering colors.
+              <span className="block italic text-[#8f776d]">No selfie required.</span>
             </h1>
-            <p className="mt-1 text-[2.35rem] italic leading-[1.02] text-[#8f776d] [font-family:Georgia,Times,serif]">
-              No selfie required.
+
+            <p className="mt-8 max-w-xl text-base leading-relaxed text-[#6f625a]">
+              Choose a photorealistic model anchor, refine your skin profile, and
+              discover a 16-season palette with transparent rule-based scoring.
             </p>
 
-            <p className="mt-5 max-w-[24rem] text-[15px] leading-7 text-[#6f625a]">
-              Customize a realistic model, tune the lighting, and discover your
-              16-season palette with transparent rule-based scoring.
-            </p>
-
-            <div className="mt-6 space-y-2">
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
               <Link
                 href="/studio"
-                className="flex w-fit items-center gap-2 rounded-xl bg-[#2f2723] px-5 py-3 text-sm font-semibold text-[#fff8f1] shadow-[0_16px_36px_rgba(47,39,35,0.25)] transition hover:bg-[#463a33]"
+                className="flex w-fit items-center gap-3 rounded-2xl bg-[#2f2723] px-6 py-4 text-base font-semibold text-[#fff8f1] shadow-[0_16px_36px_rgba(47,39,35,0.25)] transition hover:bg-[#463a33]"
               >
                 Start analysis <span aria-hidden="true">-&gt;</span>
               </Link>
               <Link
                 href="/results"
-                className="inline-flex rounded-xl border border-[#ddd2c9] bg-[#f7efe8] px-5 py-3 text-sm font-semibold text-[#3f3530] shadow-sm transition hover:bg-white/80"
+                className="inline-flex w-fit rounded-2xl border border-[#ddd2c9] bg-[#f7efe8] px-6 py-4 text-base font-semibold text-[#3f3530] shadow-sm transition hover:bg-white/80"
               >
                 View sample result
               </Link>
             </div>
 
-            <div className="mt-6 space-y-3">
+            <div className="mt-12 grid gap-4">
               <FeatureCard
                 title="16-Season System"
                 description="Detailed analysis across all 16 seasons"
@@ -60,12 +58,14 @@ export function ShadeSeasonPage() {
               />
             </div>
 
-            <p className="mt-auto pt-8 text-xs text-[#9a8e86]">
+            <p className="mt-auto pt-16 text-xs text-[#9a8e86]">
               (c) 2026 ShadeSeason
             </p>
           </section>
 
-          <ShadeSeasonStudioLayout />
+          <div className="min-w-0 xl:contents">
+            <ShadeSeasonStudioLayout />
+          </div>
         </div>
       </main>
     </PortraitStudioProvider>

@@ -43,14 +43,14 @@ export function CosmeticPalette({ seasonName }: CosmeticPaletteProps) {
                 </span>
               </div>
               <div
-                className="mt-3 grid grid-cols-8 gap-1.5"
+                className="mt-3 grid grid-cols-4 gap-1.5 min-[380px]:grid-cols-6 sm:grid-cols-8"
                 role="list"
                 aria-label={`${paletteCategoryLabels[category]} colors`}
               >
                 {colors.map((color, index) => (
                   <div
                     key={`${category}-${color}-${index}`}
-                    className="h-8 rounded-md border border-black/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]"
+                    className="aspect-square min-h-7 rounded-md border border-black/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.35)] sm:h-8 sm:min-h-0 sm:aspect-auto"
                     style={{ backgroundColor: color }}
                     title={color}
                     role="listitem"

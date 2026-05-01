@@ -49,7 +49,7 @@ export function ResultPortraitPreview({ state }: ResultPortraitPreviewProps) {
         lightIntensity={state.lightIntensity}
         environment={state.environmentBrightness}
         warmth={state.lightWarmth}
-        minHeightClassName="min-h-[28rem]"
+        minHeightClassName="min-h-[min(48vh,20rem)] sm:min-h-[24rem] lg:min-h-[28rem]"
       />
     </div>
   );

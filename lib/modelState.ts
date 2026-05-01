@@ -10,6 +10,7 @@ export interface ModelState {
   undertone: number;
   skinDepth: number;
   chroma: number;
+  contrast: number;
   lightingPreset: LightingPresetId;
   lightIntensity: number;
   environmentBrightness: number;
@@ -98,6 +99,7 @@ export const defaultModelState: ModelState = {
   undertone: 58,
   skinDepth: 2,
   chroma: 54,
+  contrast: 50,
   lightingPreset: "daylight",
   lightIntensity: 72,
   environmentBrightness: 82,
@@ -156,6 +158,7 @@ const numberKeys = [
   "undertone",
   "skinDepth",
   "chroma",
+  "contrast",
   "lightIntensity",
   "environmentBrightness",
   "lightWarmth"
@@ -211,21 +214,18 @@ function undertoneToSelection(undertone: number): string {
   return "warm";
 }
 
-/** Contrast from chroma when hair/eye are not modeled in the studio. */
-function contrastFromModel(state: ModelState): ContrastValue {
-  if (state.chroma <= 36) {
+/** Studio contrast is explicit now that hair and eye editing are out of scope. */
+function contrastFromModel(contrast: number): ContrastValue {
+  if (contrast <= 36) {
     return "low";
   }
 
-  if (state.chroma >= 68) {
+  if (contrast >= 68) {
     return "high";
   }
 
   return "medium";
 }
-
-const DEFAULT_HAIR_FOR_SCORING = "chestnut";
-const DEFAULT_EYE_FOR_SCORING = "brown";
 
 export function getLightingPreset(id: LightingPresetId): LightingPreset {
   return lightingPresets.find((preset) => preset.id === id) ?? lightingPresets[0];
@@ -254,9 +254,7 @@ export function modelStateToSelections(state: ModelState): UserSelections {
     skinDepth: nearestSkinDepthId(state.skinDepth),
     undertone: undertoneToSelection(state.undertone),
     chroma: chromaToSelection(state.chroma),
-    contrast: contrastFromModel(state),
-    hairColor: DEFAULT_HAIR_FOR_SCORING,
-    eyeColor: DEFAULT_EYE_FOR_SCORING
+    contrast: contrastFromModel(state.contrast)
   };
 }
 
@@ -335,6 +333,11 @@ export function modelStateFromSearchParams(
     if (key === "chroma") {
       const map: Record<string, number> = { soft: 24, medium: 54, bright: 82 };
       next.chroma = map[value] ?? next.chroma;
+    }
+
+    if (key === "contrast") {
+      const map: Record<string, number> = { low: 24, medium: 50, high: 82 };
+      next.contrast = map[value] ?? next.contrast;
     }
   });
 

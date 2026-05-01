@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useMemo } from "react";
-import { ModelSelector } from "@/components/ModelSelector";
 import { QuickLooks } from "@/components/QuickLooks";
 import { SegmentedControl } from "@/components/SegmentedControl";
 import { SliderControl } from "@/components/SliderControl";
@@ -30,8 +29,6 @@ export function CustomizationPanel() {
       </div>
 
       <div className="mt-4 space-y-5" role="region" aria-label="Skin tone controls">
-        <ModelSelector />
-
         <div>
           <p className="mb-2 text-sm font-medium text-[#4f443f]">Skin depth</p>
           <p className="mb-3 text-xs text-[#897c74]">

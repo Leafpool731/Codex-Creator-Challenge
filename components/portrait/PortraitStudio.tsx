@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { LightingRail } from "@/components/LightingRail";
 import { PortraitImage } from "@/components/portrait/PortraitImage";
-import { StudioControls } from "@/components/StudioControls";
 import { usePortraitStudio } from "@/lib/portraitStudioStore";
 
 function titleCase(value: string): string {
@@ -17,14 +15,16 @@ export function PortraitStudio() {
     skinTones.find((tone) => tone.id === state.skinTone) ?? skinTones[0];
 
   return (
-    <div className="space-y-4">
+    <div className="min-w-0 space-y-6">
       <div className="relative overflow-hidden rounded-2xl border border-[#ddd2c9] bg-[#f2e8df] shadow-[0_24px_56px_rgba(85,63,50,0.14)]">
-        <LightingRail />
-        <div className="absolute right-4 top-4 z-20 flex flex-wrap justify-end gap-2">
+        <div className="pointer-events-none absolute inset-x-2 top-2 z-20 flex flex-wrap items-start justify-between gap-2 sm:inset-x-4 sm:top-4">
+          <div className="pointer-events-auto max-w-[min(100%,12rem)] rounded-full border border-[#dfd4ca] bg-white/78 px-2.5 py-1 text-[11px] font-medium text-[#51443d] backdrop-blur sm:max-w-none sm:px-3 sm:text-xs">
+            {titleCase(state.lightingPreset)}
+          </div>
           <button
             type="button"
             onClick={resetView}
-            className="rounded-lg border border-[#dfd4ca] bg-white/82 px-3 py-2 text-xs font-medium text-[#3b322d] shadow-sm backdrop-blur transition hover:bg-white"
+            className="pointer-events-auto min-h-[44px] shrink-0 rounded-lg border border-[#dfd4ca] bg-white/82 px-3 py-2 text-xs font-medium text-[#3b322d] shadow-sm backdrop-blur transition hover:bg-white sm:min-h-0"
           >
             Reset view
           </button>
@@ -44,31 +44,18 @@ export function PortraitStudio() {
           priority
         />
 
-        <div className="absolute bottom-4 right-4 z-20 flex flex-col gap-2">
+        <div className="absolute bottom-2 right-2 z-20 pb-[env(safe-area-inset-bottom)] sm:bottom-4 sm:right-4">
           <button
             type="button"
             onClick={() => setShowFullFrame((current) => !current)}
             aria-label={showFullFrame ? "Use cropped portrait view" : "Preview full frame"}
-            className="rounded-lg border border-[#dfd4ca] bg-white/82 px-2.5 py-2 text-[11px] font-semibold text-[#443a34] backdrop-blur transition hover:bg-white"
+            className="min-h-[44px] min-w-[44px] rounded-lg border border-[#dfd4ca] bg-white/82 px-2.5 py-2 text-[11px] font-semibold text-[#443a34] backdrop-blur transition hover:bg-white sm:min-h-0 sm:min-w-0"
           >
             {showFullFrame ? "Crop" : "Full"}
           </button>
-          <button
-            type="button"
-            onClick={resetView}
-            aria-label="Reset preview"
-            className="rounded-lg border border-[#dfd4ca] bg-white/82 px-2.5 py-2 text-[11px] font-semibold text-[#443a34] backdrop-blur transition hover:bg-white"
-          >
-            Reset
-          </button>
-        </div>
-
-        <div className="absolute left-4 top-4 z-20 rounded-full border border-[#dfd4ca] bg-white/78 px-3 py-1 text-xs font-medium text-[#51443d] backdrop-blur">
-          {titleCase(state.lightingPreset)}
         </div>
       </div>
 
-      <StudioControls />
     </div>
   );
 }

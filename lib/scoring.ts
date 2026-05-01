@@ -41,10 +41,7 @@ const maxScore = {
   skinDepth: 18,
   undertone: 28,
   chroma: 20,
-  contrast: 18,
-  eyes: 6,
-  eyeClarity: 4,
-  hair: 14
+  contrast: 18
 };
 
 const totalMaxScore = Object.values(maxScore).reduce(
@@ -191,10 +188,7 @@ function strongestReasons(
       season.profile.temperature
     )} seasonal temperature.`,
     Chroma: `${labels.chroma} chroma supports the ${season.profile.chroma} clarity expected for ${season.name}.`,
-    Contrast: `${labels.contrast} contrast matches the season's ${season.profile.contrast} contrast pattern.`,
-    Eyes: `${labels.eyeColor} eyes reinforce the season's depth and warmth/cool balance.`,
-    "Eye clarity": `${labels.eyeColor} eye chroma lines up with the ${season.profile.chroma} clarity this season expects.`,
-    Hair: `${labels.hairColor} hair keeps the overall depth and temperature in range.`
+    Contrast: `${labels.contrast} contrast matches the season's ${season.profile.contrast} contrast pattern.`
   };
 
   return ranked.map((item) => reasonMap[item.label]);
@@ -210,12 +204,8 @@ export function scoreSeason(
   const undertone = getAttributeOption("undertone", selections.undertone);
   const chroma = getAttributeOption("chroma", selections.chroma);
   const contrast = getAttributeOption("contrast", selections.contrast);
-  const eyes = getAttributeOption("eyeColor", selections.eyeColor);
-  const hair = getAttributeOption("hairColor", selections.hairColor);
 
   const skinDepthValue = skinDepth.depthValue ?? targetSeason.profile.idealDepth;
-  const eyeDepthValue = eyes.depthValue ?? targetSeason.profile.idealDepth;
-  const hairDepthValue = hair.depthValue ?? targetSeason.profile.idealDepth;
 
   const skinDepthPoints = depthScore(
     skinDepthValue,
@@ -237,41 +227,11 @@ export function scoreSeason(
     maxScore.contrast
   );
 
-  const eyeStructurePoints = roundScore(
-    depthScore(
-      eyeDepthValue,
-      targetSeason.profile.eyeDepthRange,
-      targetSeason.profile.idealDepth,
-      4
-    ) + temperatureScore(eyes.temperature, targetSeason.profile.temperature, 2)
-  );
-  const eyeClarityPoints = axisScore(
-    eyes.chroma,
-    targetSeason.profile.chroma,
-    chromaAxis,
-    maxScore.eyeClarity
-  );
-  const eyePoints = roundScore(eyeStructurePoints + eyeClarityPoints);
-
-  const hairPoints = roundScore(
-    depthScore(
-      hairDepthValue,
-      targetSeason.profile.hairDepthRange,
-      targetSeason.profile.idealDepth,
-      6
-    ) +
-      temperatureScore(hair.temperature, targetSeason.profile.temperature, 5) +
-      axisScore(hair.chroma, targetSeason.profile.chroma, chromaAxis, 3)
-  );
-
   const breakdown = [
     { label: "Skin depth", value: skinDepthPoints, max: maxScore.skinDepth },
     { label: "Undertone", value: undertonePoints, max: maxScore.undertone },
     { label: "Chroma", value: chromaPoints, max: maxScore.chroma },
-    { label: "Contrast", value: contrastPoints, max: maxScore.contrast },
-    { label: "Eyes", value: eyeStructurePoints, max: maxScore.eyes },
-    { label: "Eye clarity", value: eyeClarityPoints, max: maxScore.eyeClarity },
-    { label: "Hair", value: hairPoints, max: maxScore.hair }
+    { label: "Contrast", value: contrastPoints, max: maxScore.contrast }
   ];
 
   const score = roundScore(

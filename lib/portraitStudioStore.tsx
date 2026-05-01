@@ -16,6 +16,7 @@ export interface StudioState {
   undertone: Undertone;
   depth: number;
   saturation: number;
+  contrast: number;
   lightingPreset: LightingPreset;
   lightIntensity: number;
   environment: number;
@@ -58,6 +59,7 @@ const defaultState: StudioState = {
   undertone: "neutral",
   depth: 50,
   saturation: 50,
+  contrast: 50,
   lightingPreset: "daylight",
   lightIntensity: 72,
   environment: 68,
@@ -83,7 +85,8 @@ export const quickLookOptions: QuickLookOption[] = [
       skinTone: "porcelain",
       undertone: "cool",
       depth: 28,
-      saturation: 32
+      saturation: 32,
+      contrast: 28
     }
   },
   {
@@ -94,6 +97,7 @@ export const quickLookOptions: QuickLookOption[] = [
       undertone: "warm",
       depth: 38,
       saturation: 48,
+      contrast: 36,
       lightingPreset: "warm",
       ...presetValues.warm
     }
@@ -105,7 +109,8 @@ export const quickLookOptions: QuickLookOption[] = [
       skinTone: "light",
       undertone: "neutral",
       depth: 50,
-      saturation: 52
+      saturation: 52,
+      contrast: 50
     }
   },
   {
@@ -115,7 +120,8 @@ export const quickLookOptions: QuickLookOption[] = [
       skinTone: "medium",
       undertone: "warm",
       depth: 55,
-      saturation: 58
+      saturation: 58,
+      contrast: 54
     }
   },
   {
@@ -126,6 +132,7 @@ export const quickLookOptions: QuickLookOption[] = [
       undertone: "olive",
       depth: 58,
       saturation: 42,
+      contrast: 42,
       lightingPreset: "soft",
       ...presetValues.soft
     }
@@ -137,7 +144,8 @@ export const quickLookOptions: QuickLookOption[] = [
       skinTone: "tan",
       undertone: "warm",
       depth: 62,
-      saturation: 58
+      saturation: 58,
+      contrast: 58
     }
   },
   {
@@ -147,7 +155,8 @@ export const quickLookOptions: QuickLookOption[] = [
       skinTone: "deep",
       undertone: "neutral",
       depth: 68,
-      saturation: 48
+      saturation: 48,
+      contrast: 62
     }
   },
   {
@@ -158,6 +167,7 @@ export const quickLookOptions: QuickLookOption[] = [
       undertone: "cool",
       depth: 72,
       saturation: 44,
+      contrast: 76,
       lightingPreset: "cool",
       ...presetValues.cool
     }
@@ -170,6 +180,7 @@ export const quickLookOptions: QuickLookOption[] = [
       undertone: "warm",
       depth: 78,
       saturation: 58,
+      contrast: 82,
       lightingPreset: "evening",
       ...presetValues.evening
     }
@@ -208,6 +219,7 @@ export function studioStateToModelState(state: StudioState): ModelState {
     undertone: undertoneToNumber(state.undertone),
     skinDepth,
     chroma: state.saturation,
+    contrast: state.contrast,
     lightingPreset: state.lightingPreset,
     lightIntensity: state.lightIntensity,
     environmentBrightness: state.environment,

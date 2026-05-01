@@ -16,8 +16,7 @@ const config: Config = {
         coral: "#e4815d",
         saffron: "#d6a142",
         sage: "#7c9a84",
-        teal: "#327c83",
-        iris: "#5d5a91"
+        teal: "#327c83"
       },
       boxShadow: {
         soft: "0 24px 80px rgba(45, 32, 28, 0.14)"

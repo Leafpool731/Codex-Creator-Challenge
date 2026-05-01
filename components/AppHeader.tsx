@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function AppHeader() {
   return (
-    <header className="relative z-20 mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-5 sm:px-8">
+    <header className="relative z-20 mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-4 py-4 pt-[max(1rem,env(safe-area-inset-top))] sm:px-8 sm:py-5">
       <Link
         href="/"
         className="group inline-flex items-center gap-3 rounded-full text-ink"

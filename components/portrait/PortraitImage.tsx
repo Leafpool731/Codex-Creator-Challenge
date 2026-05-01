@@ -36,7 +36,7 @@ export function PortraitImage({
   warmth,
   priority = false,
   fit = "cover",
-  minHeightClassName = "min-h-[32rem] lg:min-h-[42rem]"
+  minHeightClassName = "min-h-[min(52vh,22rem)] sm:min-h-[28rem] lg:min-h-[42rem]"
 }: PortraitImageProps) {
   const [imageMissing, setImageMissing] = useState(false);
   const portraitSrc = getPortraitSrc(modelId);

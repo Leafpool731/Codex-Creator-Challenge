@@ -7,7 +7,21 @@ import type {
   UserSelections
 } from "@/lib/types";
 
-export const modelAttributes = modelAttributeData as ModelAttributeData;
+const activeAttributeKeys = new Set<AttributeKey>([
+  "skinDepth",
+  "undertone",
+  "chroma",
+  "contrast"
+]);
+
+const rawModelAttributes = modelAttributeData as ModelAttributeData;
+
+export const modelAttributes: ModelAttributeData = {
+  ...rawModelAttributes,
+  groups: rawModelAttributes.groups.filter((group) =>
+    activeAttributeKeys.has(group.id)
+  )
+};
 
 export const attributeOrder = modelAttributes.groups.map(
   (group) => group.id

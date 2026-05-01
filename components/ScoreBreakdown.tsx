@@ -12,9 +12,11 @@ export function ScoreBreakdown({ items }: ScoreBreakdownProps) {
 
         return (
           <div key={item.label} className="space-y-1.5">
-            <div className="flex items-center justify-between gap-4 text-sm">
-              <span className="font-medium text-ink">{item.label}</span>
-              <span className="text-ink/60">{ratio}%</span>
+            <div className="flex min-w-0 items-center justify-between gap-4 text-sm">
+              <span className="min-w-0 truncate font-medium text-ink" title={item.label}>
+                {item.label}
+              </span>
+              <span className="shrink-0 tabular-nums text-ink/60">{ratio}%</span>
             </div>
             <div className="h-2 overflow-hidden rounded-full bg-ink/10">
               <div

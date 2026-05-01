@@ -2,9 +2,7 @@ export type AttributeKey =
   | "skinDepth"
   | "undertone"
   | "chroma"
-  | "contrast"
-  | "eyeColor"
-  | "hairColor";
+  | "contrast";
 
 export type Temperature =
   | "cool"

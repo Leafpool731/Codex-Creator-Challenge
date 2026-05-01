@@ -31,25 +31,25 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
   const [topMatch, ...alternateMatches] = getSeasonMatches(selections, 3);
   const query = modelStateToSearchParams(modelState);
   return (
-    <main className="min-h-screen bg-paper">
+    <main className="min-h-dvh bg-paper pb-[max(2rem,env(safe-area-inset-bottom))]">
       <AppHeader />
 
-      <section className="mx-auto max-w-7xl px-5 pb-16 pt-6 sm:px-8">
-        <div className="grid gap-8 lg:grid-cols-[1fr_0.82fr]">
-          <div className="glass-panel rounded-2xl p-5 sm:p-7">
-            <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
-              <div>
+      <section className="mx-auto max-w-7xl px-4 pb-12 pt-4 sm:px-8 sm:pb-16 sm:pt-6">
+        <div className="grid min-w-0 gap-8 lg:grid-cols-[1fr_0.82fr]">
+          <div className="glass-panel min-w-0 rounded-2xl p-4 sm:p-7">
+            <div className="flex min-w-0 flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+              <div className="min-w-0">
                 <p className="text-sm font-semibold uppercase tracking-normal text-teal">
                   Top season match
                 </p>
-                <h1 className="mt-3 text-4xl font-semibold leading-tight tracking-normal text-ink sm:text-5xl">
+                <h1 className="mt-3 text-3xl font-semibold leading-tight tracking-normal text-ink sm:text-4xl lg:text-5xl">
                   {topMatch.season.name}
                 </h1>
                 <p className="mt-3 max-w-2xl text-lg leading-8 text-ink/70">
                   {topMatch.season.headline}
                 </p>
               </div>
-              <div className="rounded-xl border border-ink/10 bg-white px-5 py-4 text-center shadow-sm">
+              <div className="shrink-0 rounded-xl border border-ink/10 bg-white px-4 py-4 text-center shadow-sm sm:px-5">
                 <p className="text-3xl font-semibold text-ink">{topMatch.percent}%</p>
                 <p className="mt-1 text-xs font-semibold uppercase tracking-normal text-ink/50">
                   Rule fit
