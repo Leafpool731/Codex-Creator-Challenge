@@ -1,11 +1,6 @@
-import type { Metadata, Viewport } from "next";
+import type { Viewport } from "next";
+import { headers } from "next/headers";
 import "./globals.css";
-
-export const metadata: Metadata = {
-  title: "Chromi",
-  description:
-    "An image-free 16-season color analysis studio with a customizable virtual model."
-};
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -13,13 +8,16 @@ export const viewport: Viewport = {
   themeColor: "#fff9f2"
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headerList = await headers();
+  const locale = headerList.get("x-next-intl-locale") ?? "en";
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className="min-h-dvh overflow-x-hidden antialiased">{children}</body>
     </html>
   );

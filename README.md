@@ -15,6 +15,10 @@ so results stay explainable. Optional AI portrait tooling lives under
 
 Stack: **Next.js**, **React**, **TypeScript**, **Tailwind CSS**.
 
+## SEO
+
+Set **`NEXT_PUBLIC_SITE_URL`** to your canonical origin in production (for example `https://www.example.com`) so metadata, `sitemap.xml`, `robots.txt`, and JSON-LD use correct absolute URLs. Optional: **`NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`** for the Google Search Console meta tag.
+
 ## Codex skills
 
 This repository includes **Codex-style skill packages** under `skill-package/`.

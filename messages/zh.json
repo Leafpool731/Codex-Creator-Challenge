@@ -1,0 +1,150 @@
+{
+  "metadata": {
+    "title": "Chromi",
+    "description": "无需上传照片即可体验的 16 季型色彩分析工作室，搭配可自定义的虚拟模特。",
+    "organizationName": "Chromi",
+    "homeTitle": "无需照片的 16 季型色彩分析",
+    "homeDescription": "用 Chromi 找到更衬你的颜色——无需自拍。虚拟模特、透明规则打分与个性化色板。",
+    "studioTitle": "色彩分析工作室",
+    "studioDescription": "调整虚拟肤色档案，运行 Chromi 的 16 季型引擎，获得可解释的规则型打分。",
+    "resultsTitle": "你的季型结果",
+    "resultsDescription": "你的 Chromi 季型匹配、色板与得分明细。",
+    "keywords": "色彩分析,季型,16季型,虚拟色彩顾问,Chromi,肤色底色,色板,无需照片",
+    "ogImageAlt": "Chromi — 无需上传照片的季型色彩分析"
+  },
+  "nav": {
+    "studio": "工作室",
+    "homeAria": "Chromi 首页"
+  },
+  "lang": {
+    "en": "English",
+    "zh": "中文",
+    "switchToEn": "English",
+    "switchToZh": "中文"
+  },
+  "landing": {
+    "badge": "无需照片的色彩分析",
+    "headline": "找到最适合你的颜色。",
+    "headlineSub": "无需自拍。",
+    "intro": "选择最接近的写实模特锚点，调整肤色档案，并通过透明规则引擎获得 16 季型色板。",
+    "ctaPrimary": "开始分析",
+    "ctaSecondary": "查看示例结果",
+    "feature16": "16 季型体系",
+    "feature16Desc": "覆盖全部 16 种季型的细致分析",
+    "featureScore": "可解释的打分",
+    "featureScoreDesc": "了解为何你的结果相互匹配",
+    "featureRec": "个性化建议",
+    "featureRecDesc": "为你推荐色彩、妆容、发色与配饰",
+    "copyright": "(c) 2026 Chromi"
+  },
+  "studio": {
+    "virtualSetup": "虚拟模特设置",
+    "skinProfile": "肤色档案",
+    "skinProfileIntro": "选择最接近的肖像锚点，然后调节深浅、底色、饱和度与对比度，供 16 季型引擎使用。",
+    "modelAnchor": "模特锚点",
+    "addPortrait": "添加肖像",
+    "skinDepth": "肤色深浅",
+    "fair": "浅",
+    "dark": "深",
+    "undertone": "底色",
+    "saturation": "饱和度",
+    "muted": "柔和",
+    "vibrant": "鲜艳",
+    "contrast": "对比度",
+    "soft": "柔和",
+    "defined": "分明",
+    "analyzeCta": "分析我的季型",
+    "privacyNote": "设计上无需上传照片，你的选择仅保留在本地流程中。",
+    "undertoneCool": "冷",
+    "undertoneNeutral": "中性",
+    "undertoneWarm": "暖",
+    "undertoneOlive": "橄榄"
+  },
+  "portrait": {
+    "resetView": "重置视图",
+    "crop": "裁切",
+    "full": "全身",
+    "ariaCrop": "使用裁切肖像视图",
+    "ariaFull": "预览全身画面",
+    "alt": "写实风格肖像模特",
+    "missing": "请在 /public/models 添加写实肖像以启用模特工作室。"
+  },
+  "results": {
+    "topMatch": "最佳季型匹配",
+    "ruleFit": "规则契合度",
+    "disclaimer": "这是基于透明规则的契合度参考，并非临床或基因诊断。请结合镜中观感，作为造型方向的参考。",
+    "colorPalette": "色板",
+    "colorPaletteSub": "属于你季型的代表色。",
+    "whySeason": "为何是这一季",
+    "alternate": "备选季型",
+    "alternateSub": "同一次分析中的接近选项。",
+    "makeup": "妆容",
+    "makeupLips": "唇妆",
+    "makeupCheeks": "腮红",
+    "makeupEyes": "眼妆",
+    "makeupAvoid": "避免",
+    "jewelry": "首饰",
+    "cosmeticSection": "彩妆参考色",
+    "selectedAttrs": "已选参数",
+    "selectedAttrsSub": "传入打分引擎的数值。",
+    "scoreDetail": "得分明细",
+    "scoreDetailSub": "同一引擎为全部 16 种季型配置打分。",
+    "refineModel": "调整模特"
+  },
+  "cosmetic": {
+    "title": "彩妆参考色",
+    "subtitle": "64 个参考色，涵盖修容、唇颊、眼影与点缀。",
+    "categories": {
+      "neutrals": "修容 / 棕色系",
+      "blushAndLips": "腮红与唇色",
+      "eyeshadowCore": "眼影中性色",
+      "eyeshadowAccent": "眼影点缀色",
+      "deepDefinition": "深邃轮廓",
+      "boldAccents": "大胆点缀"
+    }
+  },
+  "scoring": {
+    "intro": "加权规则覆盖肤色深浅、底色（冷、中性、暖与橄榄）、彩度、对比度、眼型结构、眼清澈度，以及发色深浅与冷暖。"
+  },
+  "attributes": {
+    "skinDepth": {
+      "label": "肤色深浅",
+      "options": {
+        "porcelain": "瓷白",
+        "fair": "白皙",
+        "light": "浅",
+        "medium": "中等",
+        "tan": "小麦",
+        "deep": "深",
+        "rich-deep": "极深"
+      }
+    },
+    "undertone": {
+      "label": "底色",
+      "options": {
+        "cool": "冷调",
+        "neutral-cool": "中性偏冷",
+        "neutral": "中性",
+        "neutral-warm": "中性偏暖",
+        "warm": "暖调",
+        "olive": "橄榄"
+      }
+    },
+    "chroma": {
+      "label": "彩度",
+      "options": {
+        "soft": "柔和",
+        "medium": "中等",
+        "bright": "明亮"
+      }
+    },
+    "contrast": {
+      "label": "对比度",
+      "options": {
+        "low": "低",
+        "medium": "中等",
+        "high": "高"
+      }
+    }
+  }
+}

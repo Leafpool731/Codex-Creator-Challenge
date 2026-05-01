@@ -1,0 +1,150 @@
+{
+  "metadata": {
+    "title": "Chromi",
+    "description": "An image-free 16-season color analysis studio with a customizable virtual model.",
+    "organizationName": "Chromi",
+    "homeTitle": "Image-free 16-season color analysis",
+    "homeDescription": "Find your most flattering colors with Chromi—no selfie required. Virtual model, transparent rule-based scoring, and personalized palettes.",
+    "studioTitle": "Color analysis studio",
+    "studioDescription": "Tune a virtual skin profile and run Chromi’s 16-season engine with transparent, rule-based scoring.",
+    "resultsTitle": "Your season results",
+    "resultsDescription": "Your personalized Chromi season match, palette, and score breakdown.",
+    "keywords": "color analysis, seasonal color, 16 season color analysis, virtual color consultant, Chromi, skin undertone, color palette, no photo",
+    "ogImageAlt": "Chromi — image-free seasonal color analysis"
+  },
+  "nav": {
+    "studio": "Studio",
+    "homeAria": "Chromi home"
+  },
+  "lang": {
+    "en": "English",
+    "zh": "中文",
+    "switchToEn": "English",
+    "switchToZh": "中文"
+  },
+  "landing": {
+    "badge": "Image-free color analysis",
+    "headline": "Find your most flattering colors.",
+    "headlineSub": "No selfie required.",
+    "intro": "Choose a photorealistic model anchor, refine your skin profile, and discover a 16-season palette with transparent rule-based scoring.",
+    "ctaPrimary": "Start analysis",
+    "ctaSecondary": "View sample result",
+    "feature16": "16-Season System",
+    "feature16Desc": "Detailed analysis across all 16 seasons",
+    "featureScore": "Transparent Scoring",
+    "featureScoreDesc": "Understand why your results are a match",
+    "featureRec": "Personalized Recommendations",
+    "featureRecDesc": "Colors, makeup, hair, and jewelry for you",
+    "copyright": "(c) 2026 Chromi"
+  },
+  "studio": {
+    "virtualSetup": "Virtual model setup",
+    "skinProfile": "Skin Profile",
+    "skinProfileIntro": "Select the closest portrait anchor, then tune depth, undertone, saturation, and contrast for the 16-season engine.",
+    "modelAnchor": "Model anchor",
+    "addPortrait": "Add portrait",
+    "skinDepth": "Skin depth",
+    "fair": "Fair",
+    "dark": "Dark",
+    "undertone": "Undertone",
+    "saturation": "Saturation",
+    "muted": "Muted",
+    "vibrant": "Vibrant",
+    "contrast": "Contrast",
+    "soft": "Soft",
+    "defined": "Defined",
+    "analyzeCta": "Analyze My Season",
+    "privacyNote": "Image-free by design. Your choices stay private.",
+    "undertoneCool": "Cool",
+    "undertoneNeutral": "Neutral",
+    "undertoneWarm": "Warm",
+    "undertoneOlive": "Olive"
+  },
+  "portrait": {
+    "resetView": "Reset view",
+    "crop": "Crop",
+    "full": "Full",
+    "ariaCrop": "Use cropped portrait view",
+    "ariaFull": "Preview full frame",
+    "alt": "Photorealistic portrait model",
+    "missing": "Add realistic portraits to /public/models to enable the model studio."
+  },
+  "results": {
+    "topMatch": "Top season match",
+    "ruleFit": "Rule fit",
+    "disclaimer": "This is a transparent rule-based fit, not a clinical or genetic diagnosis. Use it as a styling compass alongside what you see in the mirror.",
+    "colorPalette": "Color palette",
+    "colorPaletteSub": "Signature hues for your season.",
+    "whySeason": "Why this season",
+    "alternate": "Alternate seasons",
+    "alternateSub": "Close runners-up from the same analysis.",
+    "makeup": "Makeup",
+    "makeupLips": "Lips",
+    "makeupCheeks": "Cheeks",
+    "makeupEyes": "Eyes",
+    "makeupAvoid": "Avoid",
+    "jewelry": "Jewelry",
+    "cosmeticSection": "Cosmetic palette",
+    "selectedAttrs": "Selected attributes",
+    "selectedAttrsSub": "Values passed into the scoring engine.",
+    "scoreDetail": "Score detail",
+    "scoreDetailSub": "The same engine scored all 16 seasonal profiles.",
+    "refineModel": "Refine model"
+  },
+  "cosmetic": {
+    "title": "Cosmetic palette",
+    "subtitle": "64 color references for contour, lips, blush, eyes, and accents.",
+    "categories": {
+      "neutrals": "Contour / Browns",
+      "blushAndLips": "Blush & Lips",
+      "eyeshadowCore": "Eyeshadow Neutrals",
+      "eyeshadowAccent": "Eyeshadow Accents",
+      "deepDefinition": "Deep Definition",
+      "boldAccents": "Bold Accents"
+    }
+  },
+  "scoring": {
+    "intro": "Weighted rules across skin depth, undertone (cool, neutral, warm, and olive), chroma, contrast, eye structure, eye clarity, and hair depth and temperature."
+  },
+  "attributes": {
+    "skinDepth": {
+      "label": "Skin depth",
+      "options": {
+        "porcelain": "Porcelain",
+        "fair": "Fair",
+        "light": "Light",
+        "medium": "Medium",
+        "tan": "Tan",
+        "deep": "Deep",
+        "rich-deep": "Rich deep"
+      }
+    },
+    "undertone": {
+      "label": "Undertone",
+      "options": {
+        "cool": "Cool",
+        "neutral-cool": "Neutral cool",
+        "neutral": "Neutral",
+        "neutral-warm": "Neutral warm",
+        "warm": "Warm",
+        "olive": "Olive"
+      }
+    },
+    "chroma": {
+      "label": "Chroma",
+      "options": {
+        "soft": "Soft",
+        "medium": "Medium",
+        "bright": "Bright"
+      }
+    },
+    "contrast": {
+      "label": "Contrast",
+      "options": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High"
+      }
+    }
+  }
+}

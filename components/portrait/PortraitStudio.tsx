@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { PortraitImage } from "@/components/portrait/PortraitImage";
 import { usePortraitStudio } from "@/lib/portraitStudioStore";
@@ -9,6 +10,7 @@ function titleCase(value: string): string {
 }
 
 export function PortraitStudio() {
+  const t = useTranslations("portrait");
   const { state, resetView, skinTones } = usePortraitStudio();
   const [showFullFrame, setShowFullFrame] = useState(false);
   const selectedTone =
@@ -26,7 +28,7 @@ export function PortraitStudio() {
             onClick={resetView}
             className="pointer-events-auto min-h-[44px] shrink-0 rounded-lg border border-[#dfd4ca] bg-white/82 px-3 py-2 text-xs font-medium text-[#3b322d] shadow-sm backdrop-blur transition hover:bg-white sm:min-h-0"
           >
-            Reset view
+            {t("resetView")}
           </button>
         </div>
 
@@ -48,14 +50,13 @@ export function PortraitStudio() {
           <button
             type="button"
             onClick={() => setShowFullFrame((current) => !current)}
-            aria-label={showFullFrame ? "Use cropped portrait view" : "Preview full frame"}
+            aria-label={showFullFrame ? t("ariaCrop") : t("ariaFull")}
             className="min-h-[44px] min-w-[44px] rounded-lg border border-[#dfd4ca] bg-white/82 px-2.5 py-2 text-[11px] font-semibold text-[#443a34] backdrop-blur transition hover:bg-white sm:min-h-0 sm:min-w-0"
           >
-            {showFullFrame ? "Crop" : "Full"}
+            {showFullFrame ? t("crop") : t("full")}
           </button>
         </div>
       </div>
-
     </div>
   );
 }

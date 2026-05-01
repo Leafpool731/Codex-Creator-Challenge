@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
+import { Link } from "@/i18n/navigation";
 import { SegmentedControl } from "@/components/SegmentedControl";
 import { SliderControl } from "@/components/SliderControl";
 import {
@@ -11,13 +12,6 @@ import {
   usePortraitStudio,
   type Undertone
 } from "@/lib/portraitStudioStore";
-
-const undertoneOptions: Array<{ id: Undertone; label: string }> = [
-  { id: "cool", label: "Cool" },
-  { id: "neutral", label: "Neutral" },
-  { id: "warm", label: "Warm" },
-  { id: "olive", label: "Olive" }
-];
 
 function skinToneIdFromDepth(depth: number): string {
   if (depth < 16) return "porcelain";
@@ -30,31 +24,38 @@ function skinToneIdFromDepth(depth: number): string {
 }
 
 export function SkinProfilePanel() {
+  const t = useTranslations("studio");
   const { state, setState } = usePortraitStudio();
   const [failedIds, setFailedIds] = useState<string[]>([]);
   const resultQuery = useMemo(() => studioStateToSearchParams(state), [state]);
+
+  const undertoneOptions = useMemo(
+    () =>
+      [
+        { id: "cool" as const, label: t("undertoneCool") },
+        { id: "neutral" as const, label: t("undertoneNeutral") },
+        { id: "warm" as const, label: t("undertoneWarm") },
+        { id: "olive" as const, label: t("undertoneOlive") }
+      ] satisfies Array<{ id: Undertone; label: string }>,
+    [t]
+  );
 
   return (
     <aside className="min-w-0 rounded-2xl border border-[#ddd2c9] bg-[#fcf8f3]/95 p-4 shadow-[0_18px_44px_rgba(85,63,50,0.1)] backdrop-blur sm:p-6 lg:p-8">
       <div>
         <p className="text-xs font-semibold uppercase tracking-wide text-[#8a7b72]">
-          Virtual model setup
+          {t("virtualSetup")}
         </p>
-        <h2 className="mt-2 text-2xl font-semibold leading-tight text-[#302823]">
-          Skin Profile
-        </h2>
-        <p className="mt-3 text-base leading-relaxed text-[#766861]">
-          Select the closest portrait anchor, then tune depth, undertone, saturation,
-          and contrast for the 16-season engine.
-        </p>
+        <h2 className="mt-2 text-2xl font-semibold leading-tight text-[#302823]">{t("skinProfile")}</h2>
+        <p className="mt-3 text-base leading-relaxed text-[#766861]">{t("skinProfileIntro")}</p>
       </div>
 
-      <div className="mt-8 space-y-8" role="region" aria-label="Skin profile controls">
+      <div className="mt-8 space-y-8" role="region" aria-label={t("skinProfile")}>
         <div>
-          <p className="mb-4 text-sm font-medium text-[#4f443f]">Model anchor</p>
+          <p className="mb-4 text-sm font-medium text-[#4f443f]">{t("modelAnchor")}</p>
           <div
             className="grid grid-cols-3 gap-2 sm:gap-3"
-            aria-label="Photorealistic model anchors"
+            aria-label={t("modelAnchor")}
           >
             {portraitModels.map((model) => {
               const failed = failedIds.includes(model.id);
@@ -65,7 +66,7 @@ export function SkinProfilePanel() {
                   key={model.id}
                   type="button"
                   onClick={() => setState({ modelId: model.id })}
-                  aria-label={`Use ${model.label} model anchor`}
+                  aria-label={`${model.label}`}
                   aria-pressed={active}
                   className={`group overflow-hidden rounded-2xl border bg-[#ede2d8] text-left transition ${
                     active
@@ -76,7 +77,7 @@ export function SkinProfilePanel() {
                   <span className="relative block aspect-[4/5] overflow-hidden">
                     {failed ? (
                       <span className="grid h-full place-items-center px-2 text-center text-xs leading-5 text-[#756961]">
-                        Add portrait
+                        {t("addPortrait")}
                       </span>
                     ) : (
                       <Image
@@ -101,15 +102,15 @@ export function SkinProfilePanel() {
         </div>
 
         <SliderControl
-          label="Skin depth"
+          label={t("skinDepth")}
           value={state.depth}
           onChange={(depth) => setState({ depth, skinTone: skinToneIdFromDepth(depth) })}
-          minLabel="Fair"
-          maxLabel="Dark"
+          minLabel={t("fair")}
+          maxLabel={t("dark")}
         />
 
         <div>
-          <p className="mb-3 text-sm font-medium text-[#4f443f]">Undertone</p>
+          <p className="mb-3 text-sm font-medium text-[#4f443f]">{t("undertone")}</p>
           <SegmentedControl
             value={state.undertone}
             options={undertoneOptions}
@@ -118,19 +119,19 @@ export function SkinProfilePanel() {
         </div>
 
         <SliderControl
-          label="Saturation"
+          label={t("saturation")}
           value={state.saturation}
           onChange={(saturation) => setState({ saturation })}
-          minLabel="Muted"
-          maxLabel="Vibrant"
+          minLabel={t("muted")}
+          maxLabel={t("vibrant")}
         />
 
         <SliderControl
-          label="Contrast"
+          label={t("contrast")}
           value={state.contrast}
           onChange={(contrast) => setState({ contrast })}
-          minLabel="Soft"
-          maxLabel="Defined"
+          minLabel={t("soft")}
+          maxLabel={t("defined")}
         />
       </div>
 
@@ -139,11 +140,9 @@ export function SkinProfilePanel() {
           href={`/results?${resultQuery}`}
           className="flex w-full items-center justify-center rounded-2xl bg-[#2f2723] px-6 py-4 text-base font-semibold text-[#fff8f1] shadow-[0_18px_38px_rgba(47,39,35,0.24)] transition hover:bg-[#463a33]"
         >
-          Analyze My Season
+          {t("analyzeCta")}
         </Link>
-        <p className="mt-4 text-center text-sm leading-relaxed text-[#897c74]">
-          Image-free by design. Your choices stay private.
-        </p>
+        <p className="mt-4 text-center text-sm leading-relaxed text-[#897c74]">{t("privacyNote")}</p>
       </div>
     </aside>
   );

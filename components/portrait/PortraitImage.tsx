@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import {
   PortraitOverlays,
@@ -41,6 +42,7 @@ export function PortraitImage({
   minHeightClassName = "min-h-[min(52vh,22rem)] sm:min-h-[28rem] lg:min-h-[42rem]",
   variant = "studio"
 }: PortraitImageProps) {
+  const t = useTranslations("portrait");
   const [imageMissing, setImageMissing] = useState(false);
   const portraitSrc = getPortraitSrc(modelId);
 
@@ -57,7 +59,7 @@ export function PortraitImage({
 
   const missingPlaceholder = (
     <div className="grid w-full place-items-center p-8 text-center text-sm leading-6 text-[#6f635c]">
-      Add realistic portraits to /public/models to enable the model studio.
+      {t("missing")}
     </div>
   );
 
@@ -72,7 +74,7 @@ export function PortraitImage({
           <div className="relative mx-auto aspect-[3/4] w-full max-w-md max-h-[min(72vh,520px)] min-h-[200px] sm:max-h-[520px]">
             <Image
               src={portraitSrc}
-              alt="Photorealistic portrait model"
+              alt={t("alt")}
               fill
               priority={priority}
               sizes="(min-width: 1024px) 28rem, (min-width: 768px) 40vw, 90vw"
@@ -99,13 +101,13 @@ export function PortraitImage({
     <div className={`relative aspect-[4/5] ${minHeightClassName}`}>
       {imageMissing ? (
         <div className="grid h-full place-items-center p-8 text-center text-sm leading-6 text-[#6f635c]">
-          Add realistic portraits to /public/models to enable the model studio.
+          {t("missing")}
         </div>
       ) : (
         <>
           <Image
             src={portraitSrc}
-            alt="Photorealistic portrait model"
+            alt={t("alt")}
             fill
             priority={priority}
             sizes="(min-width: 1280px) 48vw, (min-width: 768px) 64vw, 100vw"
