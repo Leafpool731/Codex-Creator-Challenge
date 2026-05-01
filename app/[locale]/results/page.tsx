@@ -200,6 +200,15 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
                     </p>
                   </div>
                 ))}
+                <div className="border-t border-ink/10 pt-6">
+                  <p className="text-sm leading-relaxed text-ink/70">{t("makeupLookbookIntro")}</p>
+                  <Link
+                    href="/makeup-looks"
+                    className="mt-3 inline-flex items-center justify-center rounded-full border border-teal/25 bg-teal/[0.08] px-4 py-2 text-sm font-semibold text-ink transition hover:border-teal/45 hover:bg-teal/[0.12]"
+                  >
+                    {t("viewMakeupLooks")}
+                  </Link>
+                </div>
               </div>
             </div>
 

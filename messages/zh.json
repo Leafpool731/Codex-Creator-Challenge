@@ -9,11 +9,15 @@
     "studioDescription": "调整虚拟肤色档案，运行 Chromi 的 16 季型引擎，获得可解释的规则型打分。",
     "resultsTitle": "你的季型结果",
     "resultsDescription": "你的 Chromi 季型匹配、色板与得分明细。",
+    "makeupLooksIndexTitle": "妆容灵感",
+    "makeupLooksIndexDescription": "浏览图解式妆容流程，含分区示意与产品参考。",
+    "makeupLookDetailTitle": "妆容灵感",
     "keywords": "色彩分析,季型,16季型,虚拟色彩顾问,Chromi,肤色底色,色板,无需照片",
     "ogImageAlt": "Chromi — 无需上传照片的季型色彩分析"
   },
   "nav": {
     "studio": "工作室",
+    "makeupLooks": "妆容灵感",
     "homeAria": "Chromi 首页"
   },
   "lang": {
@@ -89,7 +93,31 @@
     "selectedAttrsSub": "传入打分引擎的数值。",
     "scoreDetail": "得分明细",
     "scoreDetailSub": "同一引擎为全部 16 种季型配置打分。",
-    "refineModel": "调整模特"
+    "refineModel": "调整模特",
+    "makeupLookbookIntro": "查看完整图解：面部分区、步骤拆解与产品灵感。",
+    "viewMakeupLooks": "浏览妆容灵感"
+  },
+  "makeupLooks": {
+    "pageTitle": "妆容灵感",
+    "pageSubtitle": "图解式教程：分区示意、步骤流程与产品参考，把季型建议落到日常妆容。",
+    "viewFullGuide": "查看完整指南",
+    "backToAll": "返回全部灵感",
+    "detailDisclaimer": "图示仅供灵感参考。Chromi 与图中出现的品牌或产品无任何商业关联。",
+    "oliveNeutral": {
+      "title": "中性橄榄光泽",
+      "description": "柔和日常中性妆，强调橄榄底色下的平衡暖调与立体层次。",
+      "imageAlt": "中性橄榄光泽妆容信息图，含分区示意与产品排布"
+    },
+    "purpleRadiance": {
+      "title": "紫韵光感",
+      "description": "适合较深肤色的浓郁紫调妆，高光透亮、轮廓分明。",
+      "imageAlt": "紫韵光感妆容信息图，深肤暖调"
+    },
+    "icyRose": {
+      "title": "冰玫玫瑰",
+      "description": "冷调浪漫光泽：冰感玫瑰腮红、珍珠高光与柔粉唇。",
+      "imageAlt": "冰玫玫瑰冷调妆容信息图与分区示意"
+    }
   },
   "cosmetic": {
     "title": "彩妆参考色",

@@ -9,11 +9,15 @@
     "studioDescription": "Tune a virtual skin profile and run Chromi’s 16-season engine with transparent, rule-based scoring.",
     "resultsTitle": "Your season results",
     "resultsDescription": "Your personalized Chromi season match, palette, and score breakdown.",
+    "makeupLooksIndexTitle": "Makeup looks",
+    "makeupLooksIndexDescription": "Browse illustrated makeup routines with placement guides and product inspiration.",
+    "makeupLookDetailTitle": "Makeup look",
     "keywords": "color analysis, seasonal color, 16 season color analysis, virtual color consultant, Chromi, skin undertone, color palette, no photo",
     "ogImageAlt": "Chromi — image-free seasonal color analysis"
   },
   "nav": {
     "studio": "Studio",
+    "makeupLooks": "Makeup looks",
     "homeAria": "Chromi home"
   },
   "lang": {
@@ -89,7 +93,31 @@
     "selectedAttrsSub": "Values passed into the scoring engine.",
     "scoreDetail": "Score detail",
     "scoreDetailSub": "The same engine scored all 16 seasonal profiles.",
-    "refineModel": "Refine model"
+    "refineModel": "Refine model",
+    "makeupLookbookIntro": "See full illustrated guides with face maps, steps, and product ideas.",
+    "viewMakeupLooks": "Browse makeup looks"
+  },
+  "makeupLooks": {
+    "pageTitle": "Makeup looks",
+    "pageSubtitle": "Illustrated routines with placement guides, step-by-step flow, and product notes—perfect for translating your season into real life.",
+    "viewFullGuide": "View full guide",
+    "backToAll": "All makeup looks",
+    "detailDisclaimer": "Visual guides for inspiration. Chromi is not affiliated with any brands or products shown in the artwork.",
+    "oliveNeutral": {
+      "title": "Neutral Olive Glow",
+      "description": "A soft everyday neutral look that enhances olive undertones with balanced warmth and dimension.",
+      "imageAlt": "Neutral olive glow makeup look infographic with placement guide and L’Oréal product row"
+    },
+    "purpleRadiance": {
+      "title": "Purple Radiance",
+      "description": "A bold purple look for deeper skin with luminous highlights and confident dimension.",
+      "imageAlt": "Purple radiance makeup look infographic for dark skin with warm undertone"
+    },
+    "icyRose": {
+      "title": "Icy Rose",
+      "description": "A cool romantic glow with icy rose blush, pearl highlight, and soft pink lips.",
+      "imageAlt": "Icy rose cool-toned makeup look infographic with placement guide"
+    }
   },
   "cosmetic": {
     "title": "Cosmetic palette",

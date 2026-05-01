@@ -29,6 +29,12 @@ export function AppHeader() {
       >
         <LanguageSwitcher />
         <Link
+          href="/makeup-looks"
+          className="rounded-full border border-ink/10 bg-paper/80 px-3 py-2 text-sm font-semibold text-ink shadow-sm transition hover:border-teal/40 hover:bg-white sm:px-4"
+        >
+          {t("makeupLooks")}
+        </Link>
+        <Link
           href="/studio"
           className="rounded-full border border-ink/10 bg-paper/80 px-4 py-2 text-sm font-semibold text-ink shadow-sm transition hover:border-teal/40 hover:bg-white"
         >
