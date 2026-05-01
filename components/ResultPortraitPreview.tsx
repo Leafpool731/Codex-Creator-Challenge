@@ -38,19 +38,23 @@ function depthSliderFromModel(state: ModelState): number {
 
 export function ResultPortraitPreview({ state }: ResultPortraitPreviewProps) {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-[#ddd2c9] bg-[#f2e8df] shadow-[0_24px_56px_rgba(85,63,50,0.12)]">
-      <PortraitImage
-        modelId={state.modelId}
-        skinToneHex={getHex(state.skinTone)}
-        undertone={numericUndertoneToMode(state.undertone)}
-        depth={depthSliderFromModel(state)}
-        saturation={state.chroma}
-        lightingPreset={state.lightingPreset}
-        lightIntensity={state.lightIntensity}
-        environment={state.environmentBrightness}
-        warmth={state.lightWarmth}
-        minHeightClassName="min-h-[min(48vh,20rem)] sm:min-h-[24rem] lg:min-h-[28rem]"
-      />
+    <div className="relative overflow-hidden rounded-2xl border border-[#ddd2c9] bg-gradient-to-b from-[#F5EFEA] to-[#EFE7E2] shadow-[0_24px_56px_rgba(85,63,50,0.12)]">
+      <div className="p-5 sm:p-7 md:p-8">
+        <PortraitImage
+          variant="results"
+          modelId={state.modelId}
+          skinToneHex={getHex(state.skinTone)}
+          undertone={numericUndertoneToMode(state.undertone)}
+          depth={depthSliderFromModel(state)}
+          saturation={state.chroma}
+          lightingPreset={state.lightingPreset}
+          lightIntensity={state.lightIntensity}
+          environment={state.environmentBrightness}
+          warmth={state.lightWarmth}
+          fit="contain"
+          minHeightClassName="min-h-[min(44vh,16rem)] sm:min-h-[20rem] md:min-h-[22rem]"
+        />
+      </div>
     </div>
   );
 }

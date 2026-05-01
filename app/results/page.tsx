@@ -62,24 +62,24 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
               </div>
             </div>
 
-            <div className="mt-10 grid gap-10 lg:mt-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12">
+            <div className="mt-10 grid gap-12 lg:mt-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
               <div className="min-w-0">
                 <ResultPortraitPreview state={modelState} />
               </div>
-              <div className="flex min-w-0 flex-col gap-10">
+              <div className="flex min-w-0 flex-col gap-10 lg:gap-12">
                 <div>
-                  <h2 className="text-lg font-semibold tracking-tight text-ink sm:text-xl">
+                  <h2 className="text-2xl font-semibold tracking-tight text-ink">
                     Color palette
                   </h2>
-                  <p className="mt-1 text-sm leading-relaxed text-ink/55">
+                  <p className="mt-2 max-w-md text-sm leading-relaxed text-ink/50">
                     Signature hues for your season.
                   </p>
-                  <div className="mt-6">
+                  <div className="mt-8">
                     <PaletteSwatches palette={topMatch.season.palette} />
                   </div>
                 </div>
                 <div className="rounded-2xl border border-ink/10 bg-white/80 p-5 sm:p-6">
-                  <h2 className="text-lg font-semibold tracking-tight text-ink sm:text-xl">
+                  <h2 className="text-2xl font-semibold tracking-tight text-ink">
                     Why this season
                   </h2>
                   <p className="mt-4 text-sm leading-relaxed text-ink/70 sm:text-base sm:leading-7">
