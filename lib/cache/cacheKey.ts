@@ -23,7 +23,13 @@ export interface PortraitEditResponse {
   editType: PortraitEditType;
   imageUrl: string;
   status: PortraitEditStatus;
-  source: "static" | "memory" | "persistent" | "remote" | "css-preview";
+  source:
+    | "static"
+    | "memory"
+    | "persistent"
+    | "remote"
+    | "css-preview"
+    | "original";
   aiRefined: boolean;
   cacheHit: boolean;
   message?: string;
@@ -72,6 +78,33 @@ export function slugifyValue(value: string): string {
     .replace(/^-+|-+$/g, "");
 
   return slug || "default";
+}
+
+export function normalizeHairModelId(modelId: string): string {
+  const normalized = slugifyValue(modelId);
+
+  return /^model-\d{2}$/.test(normalized) ? normalized : "model-01";
+}
+
+export function getHairColorSlug(colorName: string, colorHex: string): string {
+  return slugifyValue(colorName || colorHex);
+}
+
+export function createHairColorCacheKey({
+  modelId,
+  colorName,
+  colorHex
+}: {
+  modelId: string;
+  colorName: string;
+  colorHex: string;
+}): string {
+  return [
+    normalizeHairModelId(modelId),
+    "hair",
+    getHairColorSlug(colorName, colorHex),
+    colorHex.trim().toLowerCase()
+  ].join(":");
 }
 
 export function normalizeHex(value?: string): string {
@@ -138,6 +171,16 @@ export function getGeneratedPortraitObjectKey(
   descriptor: PortraitEditDescriptor
 ): string {
   return getGeneratedPortraitPath(descriptor).replace(/^\//, "");
+}
+
+export function getGeneratedMaskedFeaturePath(
+  modelId: string,
+  editType: "eyes" | "lips",
+  valueName: string,
+  valueHex: string
+): string {
+  const slug = getHairColorSlug(valueName, valueHex);
+  return `/generated/${normalizeHairModelId(modelId)}/${editType}/${slug}.png`;
 }
 
 export const COMMON_PREGENERATED_VARIANTS: PortraitVariantPreset[] = [

@@ -2,38 +2,27 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { FeatureEditor } from "@/components/FeatureEditor";
+import { ModelSelector } from "@/components/ModelSelector";
 import { QuickLooks } from "@/components/QuickLooks";
-import { SegmentedControl } from "@/components/SegmentedControl";
-import { SliderControl } from "@/components/SliderControl";
-import { SwatchSelector } from "@/components/SwatchSelector";
 import { preloadPortraitEdit } from "@/hooks/usePortraitEdit";
+import type { PortraitEditUiState } from "@/hooks/usePortraitEdit";
 import { PORTRAIT_BASE_IMAGE_VERSION } from "@/lib/cache/cacheKey";
 import {
   getPortraitSrc,
   studioStateToSearchParams,
-  usePortraitStudio,
-  type Undertone
+  usePortraitStudio
 } from "@/lib/portraitStudioStore";
-
-const undertoneOptions: Array<{ id: Undertone; label: string }> = [
-  { id: "cool", label: "Cool" },
-  { id: "neutral", label: "Neutral" },
-  { id: "warm", label: "Warm" },
-  { id: "olive", label: "Olive" }
-];
 
 const tabs = ["Skin", "Hair", "Eyes", "Features"] as const;
 type Tab = (typeof tabs)[number];
 
-export function CustomizationPanel() {
-  const {
-    state,
-    setState,
-    skinTones,
-    hairColors,
-    eyeColors,
-    lipColors
-  } = usePortraitStudio();
+interface CustomizationPanelProps {
+  portraitEdit: PortraitEditUiState;
+}
+
+export function CustomizationPanel({ portraitEdit }: CustomizationPanelProps) {
+  const { state, hairColors, eyeColors, lipColors } = usePortraitStudio();
   const [activeTab, setActiveTab] = useState<Tab>("Skin");
   const resultQuery = useMemo(() => studioStateToSearchParams(state), [state]);
 
@@ -74,18 +63,37 @@ export function CustomizationPanel() {
           })
         );
     }
+
+    if (activeTab === "Features") {
+      ["rose-balm", "coral-gloss", "berry-veil"]
+        .map((id) => lipColors.find((option) => option.id === id))
+        .filter((option): option is NonNullable<typeof option> => Boolean(option))
+        .forEach((option) =>
+          preloadPortraitEdit({
+            ...base,
+            editType: "lips",
+            valueName: option.label,
+            valueHex: option.hex,
+            intensity: state.lipTint
+          })
+        );
+    }
   }, [
     activeTab,
     eyeColors,
     hairColors,
+    lipColors,
     state.hairIntensity,
     state.lightingPreset,
+    state.lipTint,
     state.modelId
   ]);
 
   return (
     <aside className="rounded-2xl border border-[#ddd2c9] bg-[#fcf8f3]/96 p-4 shadow-[0_18px_44px_rgba(85,63,50,0.1)] backdrop-blur">
-      <div className="grid grid-cols-4 border-b border-[#e1d7ce] pb-3" role="tablist">
+      <ModelSelector />
+
+      <div className="mt-5 grid grid-cols-4 border-b border-[#e1d7ce] pb-3" role="tablist">
         {tabs.map((tab) => {
           const active = tab === activeTab;
 
@@ -108,126 +116,8 @@ export function CustomizationPanel() {
         })}
       </div>
 
-      <div className="mt-4 min-h-[25rem] space-y-4" role="tabpanel">
-        {activeTab === "Skin" ? (
-          <>
-            <div>
-              <p className="mb-2 text-sm font-medium text-[#4f443f]">Skin tone</p>
-              <SwatchSelector
-                value={state.skinTone}
-                options={skinTones}
-                onChange={(skinTone) => setState({ skinTone })}
-              />
-            </div>
-
-            <div>
-              <p className="mb-2 text-sm font-medium text-[#4f443f]">Undertone</p>
-              <SegmentedControl
-                value={state.undertone}
-                options={undertoneOptions}
-                onChange={(undertone) =>
-                  setState({ undertone: undertone as Undertone })
-                }
-              />
-            </div>
-
-            <SliderControl
-              label="Depth"
-              value={state.depth}
-              onChange={(depth) => setState({ depth })}
-              minLabel="Fair"
-              maxLabel="Deep"
-            />
-            <SliderControl
-              label="Saturation"
-              value={state.saturation}
-              onChange={(saturation) => setState({ saturation })}
-              minLabel="Muted"
-              maxLabel="Vibrant"
-            />
-            <SliderControl
-              label="Freckles"
-              value={state.freckles}
-              onChange={(freckles) => setState({ freckles })}
-              minLabel="0%"
-              maxLabel="100%"
-            />
-            <SliderControl
-              label="Blush"
-              value={state.blush}
-              onChange={(blush) => setState({ blush })}
-              minLabel="0%"
-              maxLabel="100%"
-            />
-          </>
-        ) : null}
-
-        {activeTab === "Hair" ? (
-          <div className="space-y-4">
-            <div>
-              <p className="mb-2 text-sm font-medium text-[#4f443f]">Hair color</p>
-              <SwatchSelector
-                value={state.hairColor}
-                options={hairColors}
-                onChange={(hairColor) => setState({ hairColor })}
-              />
-            </div>
-            <SliderControl
-              label="Hair intensity"
-              value={state.hairIntensity}
-              onChange={(hairIntensity) => setState({ hairIntensity })}
-              minLabel="Subtle"
-              maxLabel="Strong"
-            />
-          </div>
-        ) : null}
-
-        {activeTab === "Eyes" ? (
-          <div className="space-y-4">
-            <div>
-              <p className="mb-2 text-sm font-medium text-[#4f443f]">Eye color</p>
-              <SwatchSelector
-                value={state.eyeColor}
-                options={eyeColors}
-                onChange={(eyeColor) => setState({ eyeColor })}
-              />
-            </div>
-          </div>
-        ) : null}
-
-        {activeTab === "Features" ? (
-          <div className="space-y-4">
-            <div>
-              <p className="mb-2 text-sm font-medium text-[#4f443f]">Lip color</p>
-              <SwatchSelector
-                value={state.lipColor}
-                options={lipColors}
-                onChange={(lipColor) => setState({ lipColor })}
-              />
-            </div>
-            <SliderControl
-              label="Lip tint"
-              value={state.lipTint}
-              onChange={(lipTint) => setState({ lipTint })}
-              minLabel="Bare"
-              maxLabel="Tinted"
-            />
-            <SliderControl
-              label="Freckles"
-              value={state.freckles}
-              onChange={(freckles) => setState({ freckles })}
-              minLabel="0%"
-              maxLabel="100%"
-            />
-            <SliderControl
-              label="Blush"
-              value={state.blush}
-              onChange={(blush) => setState({ blush })}
-              minLabel="0%"
-              maxLabel="100%"
-            />
-          </div>
-        ) : null}
+      <div className="mt-4 min-h-[25rem]" role="tabpanel">
+        <FeatureEditor activeTab={activeTab} aiState={portraitEdit} />
       </div>
 
       <div className="mt-5 border-t border-[#e1d7ce] pt-4">

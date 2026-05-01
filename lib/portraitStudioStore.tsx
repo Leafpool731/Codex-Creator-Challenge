@@ -57,15 +57,15 @@ interface StudioContextValue {
 }
 
 export const portraitModels: PortraitModelOption[] = [
-  { id: "model-01", src: "/models/model-01.png", label: "Porcelain neutral" },
-  { id: "model-02", src: "/models/model-02.png", label: "Fair golden" },
-  { id: "model-03", src: "/models/model-03.png", label: "Light neutral" },
-  { id: "model-04", src: "/models/model-04.png", label: "Medium warm" },
-  { id: "model-05", src: "/models/model-05.png", label: "Tan olive" },
-  { id: "model-06", src: "/models/model-06.png", label: "Deep warm" },
-  { id: "model-07", src: "/models/model-07.png", label: "Deep bronze" },
-  { id: "model-08", src: "/models/model-08.png", label: "Rich deep cool" },
-  { id: "model-09", src: "/models/model-09.png", label: "Rich deep warm" }
+  { id: "model-01", src: "/models/model-01.png", label: "Fair Cool" },
+  { id: "model-02", src: "/models/model-02.png", label: "Fair Warm" },
+  { id: "model-03", src: "/models/model-03.png", label: "Medium Cool" },
+  { id: "model-04", src: "/models/model-04.png", label: "Medium Warm" },
+  { id: "model-05", src: "/models/model-05.png", label: "Medium Olive" },
+  { id: "model-06", src: "/models/model-06.png", label: "Tan Warm" },
+  { id: "model-07", src: "/models/model-07.png", label: "Tan Neutral" },
+  { id: "model-08", src: "/models/model-08.png", label: "Deep Cool" },
+  { id: "model-09", src: "/models/model-09.png", label: "Deep Warm" }
 ];
 
 const defaultState: StudioState = {

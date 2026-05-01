@@ -3,7 +3,6 @@
 import { BlushOverlay } from "@/components/portrait/BlushOverlay";
 import { EyeColorOverlay } from "@/components/portrait/EyeColorOverlay";
 import { FrecklesOverlay } from "@/components/portrait/FrecklesOverlay";
-import { HairColorOverlay } from "@/components/portrait/HairColorOverlay";
 import { LightingOverlay, getLightingOverlay } from "@/components/portrait/LightingOverlay";
 import { LipTintOverlay } from "@/components/portrait/LipTintOverlay";
 import { SkinToneOverlay } from "@/components/portrait/SkinToneOverlay";
@@ -153,12 +152,6 @@ export function PortraitOverlays(props: PortraitOverlaysProps) {
       {props.refinedEditType !== "blush" ? <BlushOverlay blush={props.blush} /> : null}
       {props.refinedEditType !== "freckles" ? (
         <FrecklesOverlay freckles={props.freckles} />
-      ) : null}
-      {props.refinedEditType !== "hair" ? (
-        <HairColorOverlay
-          color={props.hairColor ?? "#2A211D"}
-          intensity={props.hairIntensity}
-        />
       ) : null}
       {props.refinedEditType !== "eyes" ? (
         <EyeColorOverlay color={props.eyeColor ?? "#5A3825"} />

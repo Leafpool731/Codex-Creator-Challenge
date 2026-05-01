@@ -4,7 +4,7 @@ import { CosmeticPalette } from "@/components/CosmeticPalette";
 import { PaletteSwatches } from "@/components/PaletteSwatches";
 import { ResultPortraitPreview } from "@/components/ResultPortraitPreview";
 import { ResultsPalettePreloader } from "@/components/portrait/ResultsPalettePreloader";
-import { ScoreBreakdown } from "@/components/ScoreBreakdown";
+import { SeasonScoringEngine } from "@/components/SeasonScoringEngine";
 import {
   getSelectionLabels,
   normalizeSelections
@@ -14,6 +14,7 @@ import {
   modelStateToSearchParams,
   modelStateToSelections
 } from "@/lib/modelState";
+import { formatConfidenceDisclaimer } from "@/lib/engines/seasonScoringEngine";
 import { buildResultExplanation, getSeasonMatches } from "@/lib/scoring";
 import { getLipColors } from "@/src/data/seasonPalettes";
 import type { AttributeKey } from "@/lib/types";
@@ -62,6 +63,9 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
                 <p className="text-3xl font-semibold text-ink">{topMatch.percent}%</p>
                 <p className="mt-1 text-xs font-semibold uppercase tracking-normal text-ink/50">
                   Rule fit
+                </p>
+                <p className="mt-3 max-w-[14rem] text-left text-[11px] leading-5 text-ink/55">
+                  {formatConfidenceDisclaimer()}
                 </p>
               </div>
             </div>
@@ -183,7 +187,7 @@ export default async function ResultsPage({ searchParams }: ResultsPageProps) {
               </Link>
             </div>
             <div className="mt-5">
-              <ScoreBreakdown items={topMatch.breakdown} />
+              <SeasonScoringEngine items={topMatch.breakdown} />
             </div>
           </section>
         </div>

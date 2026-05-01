@@ -11,24 +11,40 @@ export function AIGenerationStatus({ state }: AIGenerationStatusProps) {
     return null;
   }
 
+  const hairMaskNeeded =
+    state.editType === "hair" &&
+    state.status === "fallback" &&
+    state.message?.toLowerCase().includes("hair mask needed");
   const label =
-    state.status === "optimistic"
-      ? "Instant preview"
+    hairMaskNeeded
+      ? "Mask needed"
+      : state.status === "optimistic"
+        ? state.editType === "hair"
+          ? "Preparing recolor"
+          : "Instant preview"
       : state.status === "loading"
-        ? "AI refining..."
+        ? state.editType === "hair"
+          ? "Recoloring hair..."
+          : "AI refining..."
         : state.aiRefined
-          ? "AI refined"
+          ? state.editType === "hair"
+            ? "Hair refined"
+            : "AI refined"
           : state.status === "error"
             ? "Preview only"
             : "CSS preview";
 
   const detail =
-    state.status === "cached"
+    hairMaskNeeded
+      ? "Original"
+      : state.status === "cached"
       ? state.source === "static"
         ? "Precomputed"
         : "Cached"
       : state.status === "refined"
-        ? "Generated"
+        ? state.editType === "hair"
+          ? "Pixel mask"
+          : "Generated"
         : state.status === "loading"
           ? "Debounced"
           : state.status === "error"

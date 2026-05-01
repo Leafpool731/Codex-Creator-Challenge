@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { CustomizationPanel } from "@/components/CustomizationPanel";
 import { FeatureCard } from "@/components/FeatureCard";
-import { PortraitStudio } from "@/components/portrait/PortraitStudio";
+import { ShadeSeasonStudioLayout } from "@/components/ShadeSeasonStudioLayout";
 import { PortraitStudioProvider } from "@/lib/portraitStudioStore";
 
 export function ShadeSeasonPage() {
@@ -28,7 +27,7 @@ export function ShadeSeasonPage() {
 
             <p className="mt-5 max-w-[24rem] text-[15px] leading-7 text-[#6f625a]">
               Customize a realistic model, tune the lighting, and discover your
-              16-season palette with transparent, science-backed results.
+              16-season palette with transparent rule-based scoring.
             </p>
 
             <div className="mt-6 space-y-2">
@@ -66,8 +65,7 @@ export function ShadeSeasonPage() {
             </p>
           </section>
 
-          <PortraitStudio />
-          <CustomizationPanel />
+          <ShadeSeasonStudioLayout />
         </div>
       </main>
     </PortraitStudioProvider>

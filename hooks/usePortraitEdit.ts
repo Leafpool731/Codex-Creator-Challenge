@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  createHairColorCacheKey,
   createPortraitEditCacheKey,
   normalizePortraitEditDescriptor,
   type PortraitEditDescriptor,
@@ -36,6 +37,20 @@ interface UsePortraitEditOptions {
 const clientPortraitEditCache = new Map<string, PortraitEditResponse>();
 const preloadRequests = new Map<string, Promise<void>>();
 
+function getPortraitEditClientCacheKey(descriptor: PortraitEditDescriptor): string {
+  const normalized = normalizePortraitEditDescriptor(descriptor);
+
+  if (normalized.editType === "hair") {
+    return createHairColorCacheKey({
+      modelId: normalized.modelId,
+      colorName: descriptor.valueName,
+      colorHex: descriptor.valueHex ?? normalized.valueHex
+    });
+  }
+
+  return createPortraitEditCacheKey(normalized);
+}
+
 function responseToUiState(response: PortraitEditResponse): PortraitEditUiState {
   return {
     status: response.aiRefined
@@ -57,10 +72,26 @@ async function requestPortraitEdit(
   descriptor: PortraitEditDescriptor,
   signal?: AbortSignal
 ): Promise<PortraitEditResponse> {
-  const response = await fetch("/api/edit-portrait", {
+  const normalized = normalizePortraitEditDescriptor(descriptor);
+  const response = await fetch("/api/edit-feature", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(normalizePortraitEditDescriptor(descriptor)),
+    body: JSON.stringify({
+      feature: normalized.editType,
+      modelId: descriptor.modelId,
+      baseImageVersion: normalized.baseImageVersion,
+      valueName: descriptor.valueName,
+      valueHex:
+        descriptor.valueHex ??
+        (normalized.valueHex !== "none" ? normalized.valueHex : undefined),
+      intensity: descriptor.intensity ?? normalized.intensity,
+      lightingPreset: normalized.lightingPreset,
+      currentImageUrl: descriptor.currentImageUrl,
+      strength:
+        normalized.editType === "hair"
+          ? Math.max(0, Math.min(1, (descriptor.intensity ?? 88) / 100))
+          : undefined
+    }),
     signal
   });
 
@@ -72,14 +103,13 @@ async function requestPortraitEdit(
 }
 
 export function preloadPortraitEdit(descriptor: PortraitEditDescriptor): void {
-  const normalized = normalizePortraitEditDescriptor(descriptor);
-  const cacheKey = createPortraitEditCacheKey(normalized);
+  const cacheKey = getPortraitEditClientCacheKey(descriptor);
 
   if (clientPortraitEditCache.has(cacheKey) || preloadRequests.has(cacheKey)) {
     return;
   }
 
-  const preload = requestPortraitEdit(normalized)
+  const preload = requestPortraitEdit(descriptor)
     .then((response) => {
       clientPortraitEditCache.set(response.cacheKey, response);
     })
@@ -98,7 +128,7 @@ export function usePortraitEdit(
   { enabled = true, debounceMs = 625 }: UsePortraitEditOptions = {}
 ): PortraitEditUiState {
   const cacheKey = useMemo(() => {
-    return descriptor ? createPortraitEditCacheKey(descriptor) : null;
+    return descriptor ? getPortraitEditClientCacheKey(descriptor) : null;
   }, [descriptor]);
   const latestKeyRef = useRef<string | null>(null);
   const [state, setState] = useState<PortraitEditUiState>({
