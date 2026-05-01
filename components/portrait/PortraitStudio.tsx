@@ -48,6 +48,7 @@ export function PortraitStudio() {
           undertone={state.undertone}
           depth={state.depth}
           skinAdjustments={skinAdjustments}
+          overlaysEnabled={state.portraitOverlays}
           lightingPreset={state.lightingPreset}
           lightIntensity={state.lightIntensity}
           environment={state.environment}

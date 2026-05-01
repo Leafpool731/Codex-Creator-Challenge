@@ -72,7 +72,9 @@
     "undertoneCool": "Cool",
     "undertoneNeutral": "Neutral",
     "undertoneWarm": "Warm",
-    "undertoneOlive": "Olive"
+    "undertoneOlive": "Olive",
+    "portraitOverlayLabel": "Show skin & lighting preview on model",
+    "portraitOverlayHint": "Turn off to see the original portrait without tint or lighting overlays."
   },
   "portrait": {
     "resetView": "Reset view",

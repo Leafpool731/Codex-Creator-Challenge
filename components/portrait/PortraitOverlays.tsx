@@ -16,9 +16,15 @@ export interface PortraitOverlaysProps {
   lightIntensity: number;
   environment: number;
   warmth: number;
+  /** When false, render nothing (original photo only). */
+  enabled?: boolean;
 }
 
 export function PortraitOverlays(props: PortraitOverlaysProps) {
+  if (props.enabled === false) {
+    return null;
+  }
+
   const lighting = getLightingOverlay(
     props.lightingPreset,
     props.lightIntensity,

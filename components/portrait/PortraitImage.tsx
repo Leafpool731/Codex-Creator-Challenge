@@ -21,6 +21,7 @@ interface PortraitImageProps {
   lightIntensity: number;
   environment: number;
   warmth: number;
+  overlaysEnabled?: boolean;
   priority?: boolean;
   fit?: "cover" | "contain";
   minHeightClassName?: string;
@@ -38,6 +39,7 @@ export function PortraitImage({
   lightIntensity,
   environment,
   warmth,
+  overlaysEnabled = true,
   priority = false,
   fit = "cover",
   minHeightClassName = "min-h-[min(52vh,22rem)] sm:min-h-[28rem] lg:min-h-[42rem]",
@@ -83,6 +85,7 @@ export function PortraitImage({
               onError={() => setImageMissing(true)}
             />
             <PortraitOverlays
+              enabled={overlaysEnabled}
               skinToneHex={skinToneHex}
               undertone={undertone}
               depth={depth}
@@ -116,6 +119,7 @@ export function PortraitImage({
             onError={() => setImageMissing(true)}
           />
           <PortraitOverlays
+            enabled={overlaysEnabled}
             skinToneHex={skinToneHex}
             undertone={undertone}
             depth={depth}

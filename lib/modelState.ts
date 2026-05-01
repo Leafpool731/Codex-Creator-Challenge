@@ -22,6 +22,8 @@ export interface ModelState {
   lightIntensity: number;
   environmentBrightness: number;
   lightWarmth: number;
+  /** When false, portrait shows the raw photo (no skin tint or lighting overlay). */
+  portraitOverlays: boolean;
 }
 
 export interface SkinToneOption {
@@ -113,7 +115,8 @@ export const defaultModelState: ModelState = {
   lightingPreset: "daylight",
   lightIntensity: 72,
   environmentBrightness: 82,
-  lightWarmth: 50
+  lightWarmth: 50,
+  portraitOverlays: true
 };
 
 export const quickLookPresets: QuickLookPreset[] = [
@@ -312,6 +315,10 @@ export function modelStateToSearchParams(state: ModelState): string {
     params.set(key, state[key]);
   });
 
+  if (!state.portraitOverlays) {
+    params.set("portraitOverlays", "0");
+  }
+
   return params.toString();
 }
 
@@ -353,6 +360,14 @@ export function modelStateFromSearchParams(
       next[key] = value as never;
     }
   });
+
+  const overlayRaw = input.portraitOverlays;
+  const overlayVal = Array.isArray(overlayRaw) ? overlayRaw[0] : overlayRaw;
+  if (overlayVal === "0" || String(overlayVal).toLowerCase() === "false") {
+    next.portraitOverlays = false;
+  } else if (overlayVal === "1" || String(overlayVal).toLowerCase() === "true") {
+    next.portraitOverlays = true;
+  }
 
   const legacySelections = getInitialSelections();
 

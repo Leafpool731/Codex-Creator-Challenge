@@ -73,6 +73,16 @@ export function CustomizationPanel() {
           />
         </div>
 
+        <label className="flex cursor-pointer items-center gap-2 text-sm text-[#4f443f]">
+          <input
+            type="checkbox"
+            className="h-4 w-4 rounded border-[#c4b5a8] accent-[#2f2723]"
+            checked={state.portraitOverlays}
+            onChange={(e) => setState({ portraitOverlays: e.target.checked })}
+          />
+          Preview overlay on model
+        </label>
+
         <SliderControl
           label="Depth"
           value={state.depth}

@@ -119,6 +119,23 @@ export function SkinProfilePanel() {
           />
         </div>
 
+        <div className="rounded-xl border border-[#e8dfd6] bg-white/60 px-4 py-3">
+          <label className="flex cursor-pointer items-start gap-3">
+            <input
+              type="checkbox"
+              className="mt-1 h-4 w-4 shrink-0 rounded border-[#c4b5a8] accent-[#2f2723]"
+              checked={state.portraitOverlays}
+              onChange={(e) => setState({ portraitOverlays: e.target.checked })}
+            />
+            <span>
+              <span className="block text-sm font-medium text-[#4f443f]">{t("portraitOverlayLabel")}</span>
+              <span className="mt-1 block text-xs leading-relaxed text-[#897c74]">
+                {t("portraitOverlayHint")}
+              </span>
+            </span>
+          </label>
+        </div>
+
         <p className="text-xs leading-relaxed text-[#897c74]">{t("skinToneFineTuneIntro")}</p>
 
         <FineTuneSlider

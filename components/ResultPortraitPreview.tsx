@@ -62,6 +62,7 @@ export function ResultPortraitPreview({ state }: ResultPortraitPreviewProps) {
           lightIntensity={state.lightIntensity}
           environment={state.environmentBrightness}
           warmth={state.lightWarmth}
+          overlaysEnabled={state.portraitOverlays}
           fit="contain"
           minHeightClassName="min-h-[min(44vh,16rem)] sm:min-h-[20rem] md:min-h-[22rem]"
         />

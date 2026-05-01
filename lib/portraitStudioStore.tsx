@@ -28,6 +28,8 @@ export interface StudioState {
   lightIntensity: number;
   environment: number;
   warmth: number;
+  /** When false, show the model image without skin/lighting overlays. */
+  portraitOverlays: boolean;
 }
 
 export interface PortraitModelOption {
@@ -73,7 +75,8 @@ const defaultState: StudioState = {
   lightingPreset: "daylight",
   lightIntensity: 72,
   environment: 68,
-  warmth: 49
+  warmth: 49,
+  portraitOverlays: true
 };
 
 const presetValues: Record<
@@ -263,7 +266,8 @@ export function studioStateToModelState(state: StudioState): ModelState {
     lightingPreset: state.lightingPreset,
     lightIntensity: state.lightIntensity,
     environmentBrightness: state.environment,
-    lightWarmth: state.warmth
+    lightWarmth: state.warmth,
+    portraitOverlays: state.portraitOverlays
   };
 }
 
