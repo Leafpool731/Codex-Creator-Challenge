@@ -23,10 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     metadataBase: new URL(site),
-    title: {
-      default: t("title"),
-      template: "%s · Chromi"
-    },
+    title: t("title"),
     description: t("description"),
     applicationName: "Chromi",
     authors: [{ name: "Chromi", url: site }],

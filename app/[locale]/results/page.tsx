@@ -35,7 +35,6 @@ export async function generateMetadata({
   const canonical = canonicalUrl(locale, "/results");
 
   return {
-    title: t("resultsTitle"),
     description: t("resultsDescription"),
     robots: {
       index: false,

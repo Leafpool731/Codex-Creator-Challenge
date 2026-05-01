@@ -17,7 +17,6 @@ export async function generateMetadata({
     .filter(Boolean);
 
   return {
-    title: t("homeTitle"),
     description: t("homeDescription"),
     keywords,
     alternates: {

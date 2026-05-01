@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata" });
   const canonical = canonicalUrl(locale, "/makeup-looks");
-  const title = t("makeupLooksIndexTitle");
+  const pageTitle = t("makeupLooksIndexTitle");
   const description = t("makeupLooksIndexDescription");
   const keywords = t("keywords")
     .split(/[,，]/)
@@ -24,7 +24,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .filter(Boolean);
 
   return {
-    title,
     description,
     keywords,
     alternates: {
@@ -32,13 +31,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: buildLanguageAlternates("/makeup-looks").languages
     },
     openGraph: {
-      title,
+      title: pageTitle,
       description,
       url: canonical,
       type: "website"
     },
     twitter: {
-      title,
+      title: pageTitle,
       description
     }
   };
