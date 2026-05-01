@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .glass-panel {
+    @apply border border-ink/10 bg-white/60 shadow-soft backdrop-blur-md;
+  }
+}
+
 :root {
   --background: #fff9f2;
   --foreground: #231916;
