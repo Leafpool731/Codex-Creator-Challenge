@@ -73,8 +73,8 @@
     "undertoneNeutral": "中性",
     "undertoneWarm": "暖",
     "undertoneOlive": "橄榄",
-    "portraitOverlayLabel": "在模特上显示肤色与光线预览",
-    "portraitOverlayHint": "关闭即可查看原始肖像，无调色与光效叠加。"
+    "portraitOverlayLabel": "预览肤色调整",
+    "portraitOverlayHint": "在原图与调色效果之间切换。"
   },
   "portrait": {
     "resetView": "重置视图",

@@ -27,7 +27,7 @@ export function SkinToneOverlay({
   skinAdjustments
 }: SkinToneOverlayProps) {
   const fill = compositeSkinColor(skinToneHex, undertone, depth, skinAdjustments);
-  const opacity = skinToneLayerOpacity(depth);
+  const opacity = skinToneLayerOpacity(skinAdjustments.mutedClear);
 
   return (
     <div
@@ -42,7 +42,7 @@ export function SkinToneOverlay({
         maskRepeat: "no-repeat",
         backgroundColor: fill,
         opacity,
-        mixBlendMode: "color"
+        mixBlendMode: "soft-light"
       }}
     />
   );

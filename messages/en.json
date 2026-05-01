@@ -73,8 +73,8 @@
     "undertoneNeutral": "Neutral",
     "undertoneWarm": "Warm",
     "undertoneOlive": "Olive",
-    "portraitOverlayLabel": "Show skin & lighting preview on model",
-    "portraitOverlayHint": "Turn off to see the original portrait without tint or lighting overlays."
+    "portraitOverlayLabel": "Preview skin adjustment",
+    "portraitOverlayHint": "Toggle original portrait vs adjusted tone."
   },
   "portrait": {
     "resetView": "Reset view",
