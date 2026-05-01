@@ -1,10 +1,14 @@
 "use client";
 
-import type { ColorOption, SkinToneOption } from "@/lib/modelState";
+interface SwatchLike {
+  id: string;
+  label: string;
+  hex: string;
+}
 
 interface ColorSwatchGroupProps {
   label: string;
-  options: Array<ColorOption | SkinToneOption>;
+  options: SwatchLike[];
   value: string;
   onChange: (value: string) => void;
   columns?: "compact" | "wide";

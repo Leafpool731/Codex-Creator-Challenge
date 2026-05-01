@@ -4,33 +4,21 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import {
   PortraitOverlays,
-  getPortraitFilter,
   type LightingPreset,
   type Undertone
 } from "@/components/portrait/PortraitOverlays";
-import type { PortraitEditType } from "@/lib/cache/cacheKey";
 import { getPortraitSrc } from "@/lib/portraitStudioStore";
 
 interface PortraitImageProps {
   modelId: string;
-  skinTone: string;
+  skinToneHex: string;
   undertone: Undertone;
   depth: number;
   saturation: number;
-  blush: number;
-  freckles: number;
-  hairColor: string;
-  hairIntensity?: number;
-  eyeColor: string;
-  lipColor: string;
-  lipTint?: number;
   lightingPreset: LightingPreset;
   lightIntensity: number;
   environment: number;
   warmth: number;
-  refinedImageUrl?: string;
-  refinedEditType?: PortraitEditType;
-  showMasks?: boolean;
   priority?: boolean;
   fit?: "cover" | "contain";
   minHeightClassName?: string;
@@ -38,49 +26,27 @@ interface PortraitImageProps {
 
 export function PortraitImage({
   modelId,
-  skinTone,
+  skinToneHex,
   undertone,
   depth,
   saturation,
-  blush,
-  freckles,
-  hairColor,
-  hairIntensity,
-  eyeColor,
-  lipColor,
-  lipTint,
   lightingPreset,
   lightIntensity,
   environment,
   warmth,
-  refinedImageUrl,
-  refinedEditType,
-  showMasks = false,
   priority = false,
   fit = "cover",
   minHeightClassName = "min-h-[32rem] lg:min-h-[42rem]"
 }: PortraitImageProps) {
   const [imageMissing, setImageMissing] = useState(false);
-  const [refinedImageMissing, setRefinedImageMissing] = useState(false);
   const portraitSrc = getPortraitSrc(modelId);
-  const portraitFilter = getPortraitFilter({
-    depth,
-    saturation,
-    lightingPreset
-  });
 
   useEffect(() => {
     setImageMissing(false);
   }, [portraitSrc]);
 
-  useEffect(() => {
-    setRefinedImageMissing(false);
-  }, [refinedImageUrl]);
-
   const imageFitClass =
     fit === "contain" ? "object-contain object-top" : "object-cover object-top";
-  const visibleRefinedImageUrl =
-    refinedImageUrl && !refinedImageMissing ? refinedImageUrl : undefined;
 
   return (
     <div className={`relative aspect-[4/5] ${minHeightClassName}`}>
@@ -97,37 +63,17 @@ export function PortraitImage({
             priority={priority}
             sizes="(min-width: 1280px) 48vw, (min-width: 768px) 64vw, 100vw"
             className={imageFitClass}
-            style={{ filter: portraitFilter }}
             onError={() => setImageMissing(true)}
           />
-          {visibleRefinedImageUrl ? (
-            <img
-              src={visibleRefinedImageUrl}
-              alt=""
-              aria-hidden="true"
-              className={`absolute inset-0 h-full w-full ${imageFitClass}`}
-              style={{ filter: portraitFilter }}
-              onError={() => setRefinedImageMissing(true)}
-            />
-          ) : null}
           <PortraitOverlays
-            skinTone={skinTone}
+            skinToneHex={skinToneHex}
             undertone={undertone}
             depth={depth}
             saturation={saturation}
-            blush={blush}
-            freckles={freckles}
-            hairColor={hairColor}
-            hairIntensity={hairIntensity}
-            eyeColor={eyeColor}
-            lipColor={lipColor}
-            lipTint={lipTint}
             lightingPreset={lightingPreset}
             lightIntensity={lightIntensity}
             environment={environment}
             warmth={warmth}
-            refinedEditType={visibleRefinedImageUrl ? refinedEditType : undefined}
-            showMasks={showMasks}
           />
         </>
       )}

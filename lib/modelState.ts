@@ -1,20 +1,15 @@
-import { getAttributeOption, getInitialSelections } from "@/lib/attributes";
+import { getInitialSelections } from "@/lib/attributes";
 import type { ContrastValue, UserSelections } from "@/lib/types";
 
 export type LightingPresetId = "daylight" | "warm" | "cool" | "soft" | "evening";
 
+/** Matrix-driven skin depth bands (see data/skinDepthHex.json). */
 export interface ModelState {
   modelId: string;
   skinTone: string;
   undertone: number;
   skinDepth: number;
   chroma: number;
-  freckles: number;
-  blush: number;
-  hairIntensity: number;
-  hairColor: string;
-  eyeColor: string;
-  lipColor: string;
   lightingPreset: LightingPresetId;
   lightIntensity: number;
   environmentBrightness: number;
@@ -26,12 +21,6 @@ export interface SkinToneOption {
   label: string;
   hex: string;
   depth: number;
-}
-
-export interface ColorOption {
-  id: string;
-  label: string;
-  hex: string;
 }
 
 export interface LightingPreset {
@@ -51,49 +40,13 @@ export interface QuickLookPreset {
 }
 
 export const skinToneOptions: SkinToneOption[] = [
-  { id: "porcelain", label: "Porcelain", hex: "#f1d6ce", depth: 0 },
-  { id: "fair", label: "Fair", hex: "#e8c0ad", depth: 1 },
-  { id: "light", label: "Light", hex: "#d7a17c", depth: 2 },
-  { id: "medium", label: "Medium", hex: "#b97756", depth: 3 },
-  { id: "tan", label: "Tan", hex: "#92593d", depth: 4 },
-  { id: "deep", label: "Deep", hex: "#653a2c", depth: 5 },
-  { id: "rich-deep", label: "Rich deep", hex: "#3d241f", depth: 6 }
-];
-
-export const hairColorOptions: ColorOption[] = [
-  { id: "black", label: "Black", hex: "#18110d" },
-  { id: "soft-black", label: "Soft black", hex: "#2a211d" },
-  { id: "espresso", label: "Espresso brown", hex: "#3a241a" },
-  { id: "dark-brown", label: "Dark brown", hex: "#4a2d1f" },
-  { id: "chestnut", label: "Chestnut", hex: "#6a3f28" },
-  { id: "auburn", label: "Auburn", hex: "#7a3528" },
-  { id: "copper", label: "Copper", hex: "#b85a32" },
-  { id: "golden-brown", label: "Golden brown", hex: "#8a5a32" },
-  { id: "dark-blonde", label: "Dark blonde", hex: "#a77a45" },
-  { id: "golden-blonde", label: "Golden blonde", hex: "#c89a52" },
-  { id: "ash-blonde", label: "Ash blonde", hex: "#b7a78a" },
-  { id: "platinum-blonde", label: "Platinum blonde", hex: "#e8dfcc" }
-];
-
-export const eyeColorOptions: ColorOption[] = [
-  { id: "brown", label: "Brown", hex: "#5a3825" },
-  { id: "deep-brown", label: "Dark brown", hex: "#2e1d14" },
-  { id: "hazel", label: "Hazel", hex: "#8a6b35" },
-  { id: "amber", label: "Amber", hex: "#b27632" },
-  { id: "green", label: "Green", hex: "#4f7a55" },
-  { id: "olive-green", label: "Olive green", hex: "#6f7a45" },
-  { id: "clear-blue", label: "Blue", hex: "#527daa" },
-  { id: "blue-gray", label: "Gray blue", hex: "#7f99aa" },
-  { id: "gray", label: "Gray", hex: "#8a9296" }
-];
-
-export const lipColorOptions: ColorOption[] = [
-  { id: "rose-balm", label: "Rose balm", hex: "#b86a72" },
-  { id: "peach-nude", label: "Peach nude", hex: "#c67b62" },
-  { id: "berry-veil", label: "Berry veil", hex: "#8d4057" },
-  { id: "coral-gloss", label: "Coral gloss", hex: "#d46155" },
-  { id: "cocoa-rose", label: "Cocoa rose", hex: "#8f5a58" },
-  { id: "clear-red", label: "Clear red", hex: "#b9283d" }
+  { id: "porcelain", label: "Porcelain", hex: "#FFF0E8", depth: 0 },
+  { id: "fair", label: "Fair", hex: "#FFD6B2", depth: 1 },
+  { id: "light", label: "Light", hex: "#E8B895", depth: 2 },
+  { id: "medium", label: "Medium", hex: "#D0A582", depth: 3 },
+  { id: "tan", label: "Tan", hex: "#7D5939", depth: 4 },
+  { id: "deep", label: "Deep", hex: "#442708", depth: 5 },
+  { id: "rich-deep", label: "Rich Deep", hex: "#2A1508", depth: 6 }
 ];
 
 export const lightingPresets: LightingPreset[] = [
@@ -145,12 +98,6 @@ export const defaultModelState: ModelState = {
   undertone: 58,
   skinDepth: 2,
   chroma: 54,
-  freckles: 14,
-  blush: 28,
-  hairIntensity: 75,
-  hairColor: "chestnut",
-  eyeColor: "hazel",
-  lipColor: "rose-balm",
   lightingPreset: "daylight",
   lightIntensity: 72,
   environmentBrightness: 82,
@@ -161,15 +108,12 @@ export const quickLookPresets: QuickLookPreset[] = [
   {
     id: "soft-cool",
     label: "Soft cool",
-    note: "Muted rose, ash hair",
+    note: "Fair, cool-neutral",
     state: {
       skinTone: "fair",
       skinDepth: 1,
       undertone: 28,
       chroma: 28,
-      hairColor: "ash-blonde",
-      eyeColor: "blue-gray",
-      lipColor: "rose-balm",
       lightingPreset: "soft",
       lightIntensity: 54,
       environmentBrightness: 78,
@@ -179,17 +123,12 @@ export const quickLookPresets: QuickLookPreset[] = [
   {
     id: "sunlit-warm",
     label: "Sunlit warm",
-    note: "Golden skin, copper hair",
+    note: "Medium depth, warm",
     state: {
       skinTone: "medium",
       skinDepth: 3,
       undertone: 82,
       chroma: 68,
-      freckles: 36,
-      blush: 34,
-      hairColor: "copper",
-      eyeColor: "amber",
-      lipColor: "coral-gloss",
       lightingPreset: "warm",
       lightIntensity: 74,
       environmentBrightness: 76,
@@ -199,17 +138,12 @@ export const quickLookPresets: QuickLookPreset[] = [
   {
     id: "clear-deep",
     label: "Clear deep",
-    note: "High contrast, jewel eyes",
+    note: "Tan, higher chroma",
     state: {
       skinTone: "tan",
       skinDepth: 4,
       undertone: 40,
       chroma: 82,
-      freckles: 4,
-      blush: 18,
-      hairColor: "soft-black",
-      eyeColor: "clear-blue",
-      lipColor: "berry-veil",
       lightingPreset: "daylight",
       lightIntensity: 76,
       environmentBrightness: 78,
@@ -222,22 +156,12 @@ const numberKeys = [
   "undertone",
   "skinDepth",
   "chroma",
-  "freckles",
-  "blush",
-  "hairIntensity",
   "lightIntensity",
   "environmentBrightness",
   "lightWarmth"
 ] as const;
 
-const stringKeys = [
-  "modelId",
-  "skinTone",
-  "hairColor",
-  "eyeColor",
-  "lipColor",
-  "lightingPreset"
-] as const;
+const stringKeys = ["modelId", "skinTone", "lightingPreset"] as const;
 
 function clamp(value: number, min = 0, max = 100): number {
   return Math.max(min, Math.min(max, value));
@@ -287,24 +211,21 @@ function undertoneToSelection(undertone: number): string {
   return "warm";
 }
 
+/** Contrast from chroma when hair/eye are not modeled in the studio. */
 function contrastFromModel(state: ModelState): ContrastValue {
-  const hairDepth =
-    getAttributeOption("hairColor", state.hairColor).depthValue ?? state.skinDepth;
-  const eyeDepth =
-    getAttributeOption("eyeColor", state.eyeColor).depthValue ?? state.skinDepth;
-  const deepestFeature = Math.max(hairDepth, eyeDepth);
-  const contrast = Math.abs(deepestFeature - state.skinDepth);
+  if (state.chroma <= 36) {
+    return "low";
+  }
 
-  if (contrast >= 3.2) {
+  if (state.chroma >= 68) {
     return "high";
   }
 
-  if (contrast >= 1.6) {
-    return "medium";
-  }
-
-  return "low";
+  return "medium";
 }
+
+const DEFAULT_HAIR_FOR_SCORING = "chestnut";
+const DEFAULT_EYE_FOR_SCORING = "brown";
 
 export function getLightingPreset(id: LightingPresetId): LightingPreset {
   return lightingPresets.find((preset) => preset.id === id) ?? lightingPresets[0];
@@ -334,8 +255,8 @@ export function modelStateToSelections(state: ModelState): UserSelections {
     undertone: undertoneToSelection(state.undertone),
     chroma: chromaToSelection(state.chroma),
     contrast: contrastFromModel(state),
-    eyeColor: state.eyeColor,
-    hairColor: state.hairColor
+    hairColor: DEFAULT_HAIR_FOR_SCORING,
+    eyeColor: DEFAULT_EYE_FOR_SCORING
   };
 }
 
@@ -356,10 +277,10 @@ export function modelStateToSearchParams(state: ModelState): string {
 export function modelStateFromSearchParams(
   input?: Partial<Record<string, string | string[] | undefined>>
 ): ModelState {
-  const state: ModelState = { ...defaultModelState };
+  const next: ModelState = { ...defaultModelState };
 
   if (!input) {
-    return state;
+    return next;
   }
 
   numberKeys.forEach((key) => {
@@ -368,7 +289,7 @@ export function modelStateFromSearchParams(
     const parsed = value ? Number(value) : NaN;
 
     if (Number.isFinite(parsed)) {
-      state[key] = key === "skinDepth" ? clamp(parsed, 0, 6) : clamp(parsed);
+      next[key] = key === "skinDepth" ? clamp(parsed, 0, 6) : clamp(parsed);
     }
   });
 
@@ -377,7 +298,7 @@ export function modelStateFromSearchParams(
     const value = Array.isArray(raw) ? raw[0] : raw;
 
     if (value) {
-      state[key] = value as never;
+      next[key] = value as never;
     }
   });
 
@@ -394,8 +315,8 @@ export function modelStateFromSearchParams(
     if (key === "skinDepth") {
       const tone = skinToneOptions.find((option) => option.id === value);
       if (tone) {
-        state.skinTone = tone.id;
-        state.skinDepth = tone.depth;
+        next.skinTone = tone.id;
+        next.skinDepth = tone.depth;
       }
     }
 
@@ -408,26 +329,14 @@ export function modelStateFromSearchParams(
         warm: 90,
         olive: 52
       };
-      state.undertone = map[value] ?? state.undertone;
+      next.undertone = map[value] ?? next.undertone;
     }
 
     if (key === "chroma") {
       const map: Record<string, number> = { soft: 24, medium: 54, bright: 82 };
-      state.chroma = map[value] ?? state.chroma;
-    }
-
-    if (key === "eyeColor") {
-      state.eyeColor = value;
-    }
-
-    if (key === "hairColor") {
-      state.hairColor = value;
+      next.chroma = map[value] ?? next.chroma;
     }
   });
 
-  return state;
-}
-
-export function getOptionHex(options: ColorOption[], id: string): string {
-  return options.find((option) => option.id === id)?.hex ?? options[0].hex;
+  return next;
 }

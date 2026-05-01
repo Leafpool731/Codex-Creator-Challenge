@@ -1,0 +1,12 @@
+{
+  "description": "Matrix-driven base hex per skin depth band (face overlay only).",
+  "depths": [
+    { "id": "porcelain", "label": "Porcelain", "hex": "#FFF0E8" },
+    { "id": "fair", "label": "Fair", "hex": "#FFD6B2" },
+    { "id": "light", "label": "Light", "hex": "#E8B895" },
+    { "id": "medium", "label": "Medium", "hex": "#D0A582" },
+    { "id": "tan", "label": "Tan", "hex": "#7D5939" },
+    { "id": "deep", "label": "Deep", "hex": "#442708" },
+    { "id": "rich-deep", "label": "Rich Deep", "hex": "#2A1508" }
+  ]
+}

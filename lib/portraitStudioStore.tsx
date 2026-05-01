@@ -1,19 +1,14 @@
 "use client";
 
 import { createContext, useContext, useMemo, useState } from "react";
+import type { LightingPreset, Undertone } from "@/components/portrait/featureMasks";
 import {
-  eyeColorOptions,
-  hairColorOptions,
-  lipColorOptions,
   modelStateToSearchParams,
   skinToneOptions,
-  type ColorOption,
   type ModelState
 } from "@/lib/modelState";
-import type { PortraitEditType } from "@/lib/cache/cacheKey";
 
-export type Undertone = "cool" | "neutral" | "warm" | "olive";
-export type LightingPreset = "daylight" | "warm" | "cool" | "soft" | "evening";
+export type { LightingPreset, Undertone };
 
 export interface StudioState {
   modelId: string;
@@ -21,14 +16,6 @@ export interface StudioState {
   undertone: Undertone;
   depth: number;
   saturation: number;
-  freckles: number;
-  blush: number;
-  hairIntensity: number;
-  hairColor: string;
-  eyeColor: string;
-  lipColor: string;
-  lipTint: number;
-  lastEditType: PortraitEditType | null;
   lightingPreset: LightingPreset;
   lightIntensity: number;
   environment: number;
@@ -48,9 +35,6 @@ export interface QuickLookOption extends PortraitModelOption {
 interface StudioContextValue {
   state: StudioState;
   skinTones: typeof skinToneOptions;
-  hairColors: ColorOption[];
-  eyeColors: ColorOption[];
-  lipColors: ColorOption[];
   setState: (patch: Partial<StudioState>) => void;
   setLightingPreset: (preset: LightingPreset) => void;
   resetView: () => void;
@@ -72,16 +56,8 @@ const defaultState: StudioState = {
   modelId: "model-01",
   skinTone: "light",
   undertone: "neutral",
-  depth: 36,
-  saturation: 46,
-  freckles: 12,
-  blush: 28,
-  hairIntensity: 75,
-  hairColor: "chestnut",
-  eyeColor: "hazel",
-  lipColor: "rose-balm",
-  lipTint: 42,
-  lastEditType: null,
+  depth: 50,
+  saturation: 50,
   lightingPreset: "daylight",
   lightIntensity: 72,
   environment: 68,
@@ -106,12 +82,8 @@ export const quickLookOptions: QuickLookOption[] = [
       modelId: "model-01",
       skinTone: "porcelain",
       undertone: "cool",
-      depth: 14,
-      saturation: 30,
-      hairColor: "chestnut",
-      eyeColor: "hazel",
-      lipColor: "rose-balm",
-      blush: 22
+      depth: 28,
+      saturation: 32
     }
   },
   {
@@ -120,11 +92,8 @@ export const quickLookOptions: QuickLookOption[] = [
       modelId: "model-02",
       skinTone: "fair",
       undertone: "warm",
-      depth: 24,
-      saturation: 44,
-      hairColor: "golden-blonde",
-      eyeColor: "amber",
-      lipColor: "peach-nude",
+      depth: 38,
+      saturation: 48,
       lightingPreset: "warm",
       ...presetValues.warm
     }
@@ -135,11 +104,8 @@ export const quickLookOptions: QuickLookOption[] = [
       modelId: "model-03",
       skinTone: "light",
       undertone: "neutral",
-      depth: 36,
-      saturation: 50,
-      hairColor: "espresso",
-      eyeColor: "brown",
-      lipColor: "rose-balm"
+      depth: 50,
+      saturation: 52
     }
   },
   {
@@ -148,11 +114,8 @@ export const quickLookOptions: QuickLookOption[] = [
       modelId: "model-04",
       skinTone: "medium",
       undertone: "warm",
-      depth: 50,
-      saturation: 58,
-      hairColor: "espresso",
-      eyeColor: "brown",
-      lipColor: "coral-gloss"
+      depth: 55,
+      saturation: 58
     }
   },
   {
@@ -161,11 +124,8 @@ export const quickLookOptions: QuickLookOption[] = [
       modelId: "model-05",
       skinTone: "tan",
       undertone: "olive",
-      depth: 62,
-      saturation: 38,
-      hairColor: "soft-black",
-      eyeColor: "deep-brown",
-      lipColor: "cocoa-rose",
+      depth: 58,
+      saturation: 42,
       lightingPreset: "soft",
       ...presetValues.soft
     }
@@ -176,11 +136,8 @@ export const quickLookOptions: QuickLookOption[] = [
       modelId: "model-06",
       skinTone: "tan",
       undertone: "warm",
-      depth: 70,
-      saturation: 62,
-      hairColor: "soft-black",
-      eyeColor: "brown",
-      lipColor: "coral-gloss"
+      depth: 62,
+      saturation: 58
     }
   },
   {
@@ -188,12 +145,9 @@ export const quickLookOptions: QuickLookOption[] = [
     state: {
       modelId: "model-07",
       skinTone: "deep",
-      undertone: "warm",
-      depth: 78,
-      saturation: 52,
-      hairColor: "soft-black",
-      eyeColor: "deep-brown",
-      lipColor: "cocoa-rose"
+      undertone: "neutral",
+      depth: 68,
+      saturation: 48
     }
   },
   {
@@ -202,11 +156,8 @@ export const quickLookOptions: QuickLookOption[] = [
       modelId: "model-08",
       skinTone: "rich-deep",
       undertone: "cool",
-      depth: 90,
-      saturation: 42,
-      hairColor: "soft-black",
-      eyeColor: "deep-brown",
-      lipColor: "berry-veil",
+      depth: 72,
+      saturation: 44,
       lightingPreset: "cool",
       ...presetValues.cool
     }
@@ -217,11 +168,8 @@ export const quickLookOptions: QuickLookOption[] = [
       modelId: "model-09",
       skinTone: "rich-deep",
       undertone: "warm",
-      depth: 95,
-      saturation: 62,
-      hairColor: "soft-black",
-      eyeColor: "deep-brown",
-      lipColor: "clear-red",
+      depth: 78,
+      saturation: 58,
       lightingPreset: "evening",
       ...presetValues.evening
     }
@@ -245,43 +193,21 @@ function undertoneToNumber(undertone: Undertone): number {
   return values[undertone];
 }
 
-function getPatchEditType(patch: Partial<StudioState>): PortraitEditType | null {
-  if ("hairColor" in patch || "hairIntensity" in patch) {
-    return "hair";
-  }
-
-  if ("eyeColor" in patch) {
-    return "eyes";
-  }
-
-  if ("lipColor" in patch || "lipTint" in patch) {
-    return "lips";
-  }
-
-  if ("blush" in patch) {
-    return "blush";
-  }
-
-  if ("freckles" in patch) {
-    return "freckles";
-  }
-
-  return null;
-}
-
 export function studioStateToModelState(state: StudioState): ModelState {
+  const skinToneMeta =
+    skinToneOptions.find((o) => o.id === state.skinTone) ?? skinToneOptions[2];
+  const fine = (state.depth - 50) / 100;
+  const skinDepth = Math.max(
+    0,
+    Math.min(6, skinToneMeta.depth + fine * 0.45)
+  );
+
   return {
     modelId: state.modelId,
     skinTone: state.skinTone,
     undertone: undertoneToNumber(state.undertone),
-    skinDepth: Math.round((state.depth / 100) * 60) / 10,
+    skinDepth,
     chroma: state.saturation,
-    freckles: state.freckles,
-    blush: state.blush,
-    hairIntensity: state.hairIntensity,
-    hairColor: state.hairColor,
-    eyeColor: state.eyeColor,
-    lipColor: state.lipColor,
     lightingPreset: state.lightingPreset,
     lightIntensity: state.lightIntensity,
     environmentBrightness: state.environment,
@@ -304,19 +230,11 @@ export function PortraitStudioProvider({
     () => ({
       state,
       skinTones: skinToneOptions,
-      hairColors: hairColorOptions,
-      eyeColors: eyeColorOptions,
-      lipColors: lipColorOptions,
       setState: (patch) =>
-        setLocalState((current) => {
-          const lastEditType = getPatchEditType(patch);
-
-          return {
-            ...current,
-            ...patch,
-            lastEditType: lastEditType ?? current.lastEditType
-          };
-        }),
+        setLocalState((current) => ({
+          ...current,
+          ...patch
+        })),
       setLightingPreset: (lightingPreset) =>
         setLocalState((current) => ({
           ...current,

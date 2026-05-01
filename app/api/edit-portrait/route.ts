@@ -1,3 +1,5 @@
+// TODO: Reintroduce when AI-based hair / eyes / lips editing returns to the product.
+
 import { NextResponse } from "next/server";
 import { editPortraitWithAI } from "@/lib/ai/editPortrait";
 import {

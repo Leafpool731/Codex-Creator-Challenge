@@ -1,3 +1,9 @@
+// TODO: Reintroduce AI-based feature editing for:
+// - hair (segmentation)
+// - eyes (iris mask)
+// - lips (cosmetic rendering)
+// (Studio UI currently skin-only; endpoints retained for future use.)
+
 import { NextResponse } from "next/server";
 import { editPortraitWithAI } from "@/lib/ai/editPortrait";
 import {

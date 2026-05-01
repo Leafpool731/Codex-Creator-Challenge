@@ -1,126 +1,98 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
-import { FeatureEditor } from "@/components/FeatureEditor";
+import { useMemo } from "react";
 import { ModelSelector } from "@/components/ModelSelector";
 import { QuickLooks } from "@/components/QuickLooks";
-import { preloadPortraitEdit } from "@/hooks/usePortraitEdit";
-import type { PortraitEditUiState } from "@/hooks/usePortraitEdit";
-import { PORTRAIT_BASE_IMAGE_VERSION } from "@/lib/cache/cacheKey";
+import { SegmentedControl } from "@/components/SegmentedControl";
+import { SliderControl } from "@/components/SliderControl";
 import {
-  getPortraitSrc,
   studioStateToSearchParams,
-  usePortraitStudio
+  usePortraitStudio,
+  type Undertone
 } from "@/lib/portraitStudioStore";
 
-const tabs = ["Skin", "Hair", "Eyes", "Features"] as const;
-type Tab = (typeof tabs)[number];
+const undertoneOptions: Array<{ id: Undertone; label: string }> = [
+  { id: "cool", label: "Cool" },
+  { id: "neutral", label: "Neutral" },
+  { id: "warm", label: "Warm" },
+  { id: "olive", label: "Olive" }
+];
 
-interface CustomizationPanelProps {
-  portraitEdit: PortraitEditUiState;
-}
-
-export function CustomizationPanel({ portraitEdit }: CustomizationPanelProps) {
-  const { state, hairColors, eyeColors, lipColors } = usePortraitStudio();
-  const [activeTab, setActiveTab] = useState<Tab>("Skin");
+export function CustomizationPanel() {
+  const { state, setState, skinTones } = usePortraitStudio();
   const resultQuery = useMemo(() => studioStateToSearchParams(state), [state]);
-
-  useEffect(() => {
-    const base = {
-      modelId: state.modelId,
-      baseImageVersion: PORTRAIT_BASE_IMAGE_VERSION,
-      lightingPreset: state.lightingPreset,
-      currentImageUrl: getPortraitSrc(state.modelId)
-    };
-
-    if (activeTab === "Hair") {
-      ["black", "espresso", "chestnut", "golden-blonde"]
-        .map((id) => hairColors.find((option) => option.id === id))
-        .filter((option): option is NonNullable<typeof option> => Boolean(option))
-        .forEach((option) =>
-          preloadPortraitEdit({
-            ...base,
-            editType: "hair",
-            valueName: option.label,
-            valueHex: option.hex,
-            intensity: state.hairIntensity
-          })
-        );
-    }
-
-    if (activeTab === "Eyes") {
-      ["brown", "hazel", "green", "clear-blue", "gray"]
-        .map((id) => eyeColors.find((option) => option.id === id))
-        .filter((option): option is NonNullable<typeof option> => Boolean(option))
-        .forEach((option) =>
-          preloadPortraitEdit({
-            ...base,
-            editType: "eyes",
-            valueName: option.label,
-            valueHex: option.hex,
-            intensity: 75
-          })
-        );
-    }
-
-    if (activeTab === "Features") {
-      ["rose-balm", "coral-gloss", "berry-veil"]
-        .map((id) => lipColors.find((option) => option.id === id))
-        .filter((option): option is NonNullable<typeof option> => Boolean(option))
-        .forEach((option) =>
-          preloadPortraitEdit({
-            ...base,
-            editType: "lips",
-            valueName: option.label,
-            valueHex: option.hex,
-            intensity: state.lipTint
-          })
-        );
-    }
-  }, [
-    activeTab,
-    eyeColors,
-    hairColors,
-    lipColors,
-    state.hairIntensity,
-    state.lightingPreset,
-    state.lipTint,
-    state.modelId
-  ]);
 
   return (
     <aside className="rounded-2xl border border-[#ddd2c9] bg-[#fcf8f3]/96 p-4 shadow-[0_18px_44px_rgba(85,63,50,0.1)] backdrop-blur">
-      <ModelSelector />
-
-      <div className="mt-5 grid grid-cols-4 border-b border-[#e1d7ce] pb-3" role="tablist">
-        {tabs.map((tab) => {
-          const active = tab === activeTab;
-
-          return (
-            <button
-              type="button"
-              key={tab}
-              role="tab"
-              aria-selected={active}
-              onClick={() => setActiveTab(tab)}
-              className={`pb-2 text-xs font-medium transition ${
-                active
-                  ? "border-b-2 border-[#3d322c] text-[#2f2723]"
-                  : "text-[#8f8178] hover:text-[#3d322c]"
-              }`}
-            >
-              {tab}
-            </button>
-          );
-        })}
+      <div className="border-b border-[#e1d7ce] pb-3">
+        <p className="text-xs font-semibold uppercase tracking-wide text-[#6b5e56]">Skin</p>
       </div>
 
-      <div className="mt-4 min-h-[25rem]" role="tabpanel">
-        <FeatureEditor activeTab={activeTab} aiState={portraitEdit} />
+      <div className="mt-4 space-y-5" role="region" aria-label="Skin tone controls">
+        <ModelSelector />
+
+        <div>
+          <p className="mb-2 text-sm font-medium text-[#4f443f]">Skin depth</p>
+          <p className="mb-3 text-xs text-[#897c74]">
+            Matrix-driven base color — then fine-tune depth and saturation.
+          </p>
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-4">
+            {skinTones.map((tone) => {
+              const active = state.skinTone === tone.id;
+
+              return (
+                <button
+                  key={tone.id}
+                  type="button"
+                  onClick={() => setState({ skinTone: tone.id })}
+                  className={`flex flex-col items-center gap-1.5 rounded-xl border px-2 py-2 text-center transition ${
+                    active
+                      ? "border-[#3d322c] bg-[#f5ebe3] ring-2 ring-[#d7cab8]"
+                      : "border-[#e5dcd4] bg-white/70 hover:border-[#c4b5a8]"
+                  }`}
+                >
+                  <span
+                    className="h-9 w-9 shrink-0 rounded-full border-2 border-white/90 shadow-inner"
+                    style={{ backgroundColor: tone.hex }}
+                    aria-hidden
+                  />
+                  <span className="text-[11px] font-medium leading-tight text-[#3d322c]">
+                    {tone.label}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div>
+          <p className="mb-2 text-sm font-medium text-[#4f443f]">Undertone</p>
+          <SegmentedControl
+            value={state.undertone}
+            options={undertoneOptions}
+            onChange={(undertone) => setState({ undertone: undertone as Undertone })}
+          />
+        </div>
+
+        <SliderControl
+          label="Depth"
+          value={state.depth}
+          onChange={(depth) => setState({ depth })}
+          minLabel="Lighter"
+          maxLabel="Deeper"
+        />
+
+        <SliderControl
+          label="Saturation"
+          value={state.saturation}
+          onChange={(saturation) => setState({ saturation })}
+          minLabel="Muted"
+          maxLabel="Bright"
+        />
       </div>
 
-      <div className="mt-5 border-t border-[#e1d7ce] pt-4">
+      <div className="mt-6 border-t border-[#e1d7ce] pt-4">
         <QuickLooks />
         <Link
           href={`/results?${resultQuery}`}

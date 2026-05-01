@@ -1,76 +1,49 @@
+"use client";
+
+import {
+  compositeSkinColor,
+  skinToneLayerOpacity
+} from "@/lib/skinTone/compositeSkinColor";
 import type { Undertone } from "@/components/portrait/featureMasks";
 
-export function getUndertoneOverlay(undertone: Undertone): {
-  primary: string;
-  secondary: string;
-} {
-  if (undertone === "cool") {
-    return {
-      primary: "rgba(214, 164, 178, 0.2)",
-      secondary: "rgba(180, 200, 235, 0.12)"
-    };
-  }
-
-  if (undertone === "warm") {
-    return {
-      primary: "rgba(226, 174, 104, 0.2)",
-      secondary: "rgba(255, 210, 145, 0.12)"
-    };
-  }
-
-  if (undertone === "olive") {
-    return {
-      primary: "rgba(166, 155, 105, 0.2)",
-      secondary: "rgba(120, 125, 95, 0.12)"
-    };
-  }
-
-  return {
-    primary: "rgba(214, 184, 160, 0.11)",
-    secondary: "rgba(214, 184, 160, 0.06)"
-  };
-}
+/** Elliptical mask: face only; hair/background stay out of the skin tint. */
+const FACE_MASK =
+  "radial-gradient(ellipse 68% 76% at 50% 44%, #000 0%, #000 52%, transparent 74%)";
 
 interface SkinToneOverlayProps {
-  skinTone: string;
+  /** Matrix-driven base hex (see data/skinDepthHex.json) */
+  skinToneHex: string;
   undertone: Undertone;
-  opacity: number;
+  /** Fine depth tuning 0–100 */
+  depth: number;
+  /** Chroma 0–100 */
+  saturation: number;
 }
 
 export function SkinToneOverlay({
-  skinTone,
+  skinToneHex,
   undertone,
-  opacity
+  depth,
+  saturation
 }: SkinToneOverlayProps) {
-  const undertoneOverlay = getUndertoneOverlay(undertone);
+  const fill = compositeSkinColor(skinToneHex, undertone, depth, saturation);
+  const opacity = skinToneLayerOpacity(depth);
 
   return (
-    <>
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          borderRadius: "inherit",
-          backgroundColor: skinTone,
-          opacity,
-          mixBlendMode: "color"
-        }}
-      />
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          borderRadius: "inherit",
-          backgroundColor: undertoneOverlay.primary,
-          mixBlendMode: "soft-light"
-        }}
-      />
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          borderRadius: "inherit",
-          backgroundColor: undertoneOverlay.secondary,
-          mixBlendMode: "overlay"
-        }}
-      />
-    </>
+    <div
+      className="pointer-events-none absolute inset-0"
+      style={{
+        borderRadius: "inherit",
+        WebkitMaskImage: FACE_MASK,
+        maskImage: FACE_MASK,
+        WebkitMaskSize: "100% 100%",
+        maskSize: "100% 100%",
+        WebkitMaskRepeat: "no-repeat",
+        maskRepeat: "no-repeat",
+        backgroundColor: fill,
+        opacity,
+        mixBlendMode: "color"
+      }}
+    />
   );
 }

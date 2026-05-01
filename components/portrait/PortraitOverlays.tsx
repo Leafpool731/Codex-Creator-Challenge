@@ -1,143 +1,29 @@
 "use client";
 
-import { BlushOverlay } from "@/components/portrait/BlushOverlay";
-import { EyeColorOverlay } from "@/components/portrait/EyeColorOverlay";
-import { FrecklesOverlay } from "@/components/portrait/FrecklesOverlay";
 import { LightingOverlay, getLightingOverlay } from "@/components/portrait/LightingOverlay";
-import { LipTintOverlay } from "@/components/portrait/LipTintOverlay";
 import { SkinToneOverlay } from "@/components/portrait/SkinToneOverlay";
-import {
-  FEATURE_MASKS,
-  clamp,
-  regionStyle,
-  type LightingPreset,
-  type Undertone
-} from "@/components/portrait/featureMasks";
-import type { PortraitEditType } from "@/lib/cache/cacheKey";
+import { clamp, type LightingPreset, type Undertone } from "@/components/portrait/featureMasks";
 
 export type { LightingPreset, Undertone } from "@/components/portrait/featureMasks";
 
 export interface PortraitOverlaysProps {
-  skinTone: string;
+  skinToneHex: string;
   undertone: Undertone;
   depth: number;
   saturation: number;
-  blush: number;
-  freckles: number;
-  hairColor?: string;
-  hairIntensity?: number;
-  eyeColor?: string;
-  lipColor?: string;
-  lipTint?: number;
   lightingPreset: LightingPreset;
   lightIntensity: number;
   environment: number;
   warmth: number;
-  showMasks?: boolean;
-  refinedEditType?: PortraitEditType;
-}
-
-export function getPortraitFilter(settings: Pick<
-  PortraitOverlaysProps,
-  "depth" | "saturation" | "lightingPreset"
->): string {
-  const depth = clamp(settings.depth);
-  const saturation = clamp(settings.saturation);
-  const depthBrightness = 1.08 - depth * 0.0035;
-  const depthContrast = 0.96 + depth * 0.004;
-  const saturationValue = 0.75 + saturation * 0.008;
-  const presetFilter =
-    settings.lightingPreset === "warm"
-      ? "sepia(0.08)"
-      : settings.lightingPreset === "cool"
-        ? "sepia(0.02)"
-        : settings.lightingPreset === "soft"
-          ? "contrast(0.98)"
-          : "sepia(0)";
-
-  return [
-    `brightness(${depthBrightness.toFixed(3)})`,
-    `contrast(${depthContrast.toFixed(3)})`,
-    `saturate(${saturationValue.toFixed(3)})`,
-    presetFilter
-  ].join(" ");
-}
-
-function FeatureMaskDebug() {
-  const outlineBase = {
-    backgroundColor: "transparent",
-    borderStyle: "solid",
-    borderWidth: 1,
-    opacity: 0.72
-  };
-
-  return (
-    <>
-      <div
-        className="pointer-events-none absolute"
-        style={{
-          ...regionStyle(FEATURE_MASKS.hair),
-          ...outlineBase,
-          borderColor: "rgba(0, 100, 255, 0.62)",
-          borderRadius: "48% 48% 42% 42%"
-        }}
-      />
-      {[FEATURE_MASKS.leftIris, FEATURE_MASKS.rightIris].map((region, index) => (
-        <div
-          key={index === 0 ? "left-iris" : "right-iris"}
-          className="pointer-events-none absolute"
-          style={{
-            ...regionStyle(region),
-            ...outlineBase,
-            borderColor: "rgba(0, 160, 90, 0.72)",
-            borderRadius: "999px"
-          }}
-        />
-      ))}
-      <div
-        className="pointer-events-none absolute"
-        style={{
-          ...regionStyle(FEATURE_MASKS.lips),
-          ...outlineBase,
-          borderColor: "rgba(220, 40, 40, 0.68)",
-          borderRadius: "999px"
-        }}
-      />
-      {[FEATURE_MASKS.leftCheek, FEATURE_MASKS.rightCheek].map((region, index) => (
-        <div
-          key={index === 0 ? "left-cheek" : "right-cheek"}
-          className="pointer-events-none absolute"
-          style={{
-            ...regionStyle(region),
-            ...outlineBase,
-            borderColor: "rgba(220, 75, 145, 0.55)",
-            borderRadius: "999px"
-          }}
-        />
-      ))}
-      <div
-        className="pointer-events-none absolute"
-        style={{
-          ...regionStyle(FEATURE_MASKS.freckles),
-          ...outlineBase,
-          borderColor: "rgba(220, 120, 20, 0.58)",
-          borderRadius: "999px"
-        }}
-      />
-    </>
-  );
 }
 
 export function PortraitOverlays(props: PortraitOverlaysProps) {
-  const depth = clamp(props.depth);
   const lighting = getLightingOverlay(
     props.lightingPreset,
     props.lightIntensity,
     props.environment,
     props.warmth
   );
-  const depthOverlayOpacity = 0.04 + depth * 0.002;
-  const skinAlpha = Math.max(0.08, Math.min(0.34, 0.15 + depthOverlayOpacity * 0.45));
 
   return (
     <div
@@ -145,22 +31,12 @@ export function PortraitOverlays(props: PortraitOverlaysProps) {
       style={{ borderRadius: "inherit" }}
     >
       <SkinToneOverlay
-        skinTone={props.skinTone}
+        skinToneHex={props.skinToneHex}
         undertone={props.undertone}
-        opacity={skinAlpha}
+        depth={clamp(props.depth)}
+        saturation={clamp(props.saturation)}
       />
-      {props.refinedEditType !== "blush" ? <BlushOverlay blush={props.blush} /> : null}
-      {props.refinedEditType !== "freckles" ? (
-        <FrecklesOverlay freckles={props.freckles} />
-      ) : null}
-      {props.refinedEditType !== "eyes" ? (
-        <EyeColorOverlay color={props.eyeColor ?? "#5A3825"} />
-      ) : null}
-      {props.refinedEditType !== "lips" ? (
-        <LipTintOverlay color={props.lipColor ?? "#9E484E"} tint={props.lipTint} />
-      ) : null}
       <LightingOverlay lighting={lighting} />
-      {props.showMasks ? <FeatureMaskDebug /> : null}
     </div>
   );
 }

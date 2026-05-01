@@ -2,23 +2,14 @@
 
 import { PortraitImage } from "@/components/portrait/PortraitImage";
 import type { Undertone } from "@/components/portrait/PortraitOverlays";
-import {
-  eyeColorOptions,
-  hairColorOptions,
-  lipColorOptions,
-  skinToneOptions,
-  type ModelState
-} from "@/lib/modelState";
+import { skinToneOptions, type ModelState } from "@/lib/modelState";
 
 interface ResultPortraitPreviewProps {
   state: ModelState;
 }
 
-function getHex<T extends { id: string; hex: string }>(
-  options: T[],
-  id: string
-): string {
-  return options.find((option) => option.id === id)?.hex ?? options[0].hex;
+function getHex(id: string): string {
+  return skinToneOptions.find((option) => option.id === id)?.hex ?? skinToneOptions[0].hex;
 }
 
 function numericUndertoneToMode(value: number): Undertone {
@@ -37,24 +28,23 @@ function numericUndertoneToMode(value: number): Undertone {
   return "neutral";
 }
 
-export function ResultPortraitPreview({ state }: ResultPortraitPreviewProps) {
-  const depth = Math.round((state.skinDepth / 6) * 100);
+/** Invert studio mapping: skinDepth ≈ band.depth + ((depthSlider - 50) / 100) * 0.45 */
+function depthSliderFromModel(state: ModelState): number {
+  const band =
+    skinToneOptions.find((o) => o.id === state.skinTone) ?? skinToneOptions[2];
+  const fine = (state.skinDepth - band.depth) / 0.45;
+  return Math.round(Math.max(0, Math.min(100, 50 + fine * 100)));
+}
 
+export function ResultPortraitPreview({ state }: ResultPortraitPreviewProps) {
   return (
     <div className="relative overflow-hidden rounded-2xl border border-[#ddd2c9] bg-[#f2e8df] shadow-[0_24px_56px_rgba(85,63,50,0.12)]">
       <PortraitImage
         modelId={state.modelId}
-        skinTone={getHex(skinToneOptions, state.skinTone)}
+        skinToneHex={getHex(state.skinTone)}
         undertone={numericUndertoneToMode(state.undertone)}
-        depth={depth}
+        depth={depthSliderFromModel(state)}
         saturation={state.chroma}
-        blush={state.blush}
-        freckles={state.freckles}
-        hairColor={getHex(hairColorOptions, state.hairColor)}
-        hairIntensity={state.hairIntensity}
-        eyeColor={getHex(eyeColorOptions, state.eyeColor)}
-        lipColor={getHex(lipColorOptions, state.lipColor)}
-        lipTint={44}
         lightingPreset={state.lightingPreset}
         lightIntensity={state.lightIntensity}
         environment={state.environmentBrightness}
