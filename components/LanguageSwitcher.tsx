@@ -1,8 +1,7 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
 
 export function LanguageSwitcher({ className = "" }: { className?: string }) {
   const locale = useLocale();
@@ -16,8 +15,7 @@ export function LanguageSwitcher({ className = "" }: { className?: string }) {
     <Link
       href={pathname}
       locale={other}
-      className={`inline-flex items-center rounded-full border border-ink/15 bg-white/90 px-3 py-1.5 text-xs font-semibold text-ink shadow-sm transition hover:border-teal/40 hover:bg-white ${className}`}
-      prefetch
+      className={`inline-flex items-center rounded-full border border-line bg-surface px-3 py-1.5 text-xs font-semibold text-ink transition hover:border-ink/30 ${className}`}
     >
       {label}
     </Link>

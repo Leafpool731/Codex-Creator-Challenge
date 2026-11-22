@@ -54,7 +54,7 @@ export default async function MakeupLooksPage({ params }: Props) {
 
       <section className="mx-auto max-w-7xl px-4 pb-14 pt-5 sm:px-8 sm:pb-20 sm:pt-8">
         <header className="max-w-2xl space-y-3">
-          <h1 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+          <h1 className="font-serif text-4xl tracking-tight text-ink sm:text-5xl">
             {t("pageTitle")}
           </h1>
           <p className="text-base leading-relaxed text-ink/65 sm:text-lg">
