@@ -19,7 +19,10 @@
     "studio": "Studio",
     "makeupLooks": "Makeup looks",
     "homeAria": "Chromi home",
-    "start": "Start analysis"
+    "start": "Start analysis",
+    "about": "About",
+    "privacy": "Privacy",
+    "disclosure": "Affiliate disclosure"
   },
   "lang": {
     "en": "English",

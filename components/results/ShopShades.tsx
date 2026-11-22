@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
+import { Link } from "@/i18n/navigation";
 import {
   matchProducts,
   products,
@@ -25,6 +26,7 @@ const tabs: { id: ProductCategory; label: "lips" | "cheeks" | "eyeMakeup" }[] = 
 
 export function ShopShades({ season, activeLip, onTryLip }: ShopShadesProps) {
   const t = useTranslations("results");
+  const tn = useTranslations("nav");
   const [tab, setTab] = useState<ProductCategory>("lips");
   const matches = useMemo(() => matchProducts(season, tab), [season, tab]);
   const showingSamples = products.some((p) => p.sample);
@@ -37,7 +39,12 @@ export function ShopShades({ season, activeLip, onTryLip }: ShopShadesProps) {
             {t("shopTitle")}
           </h2>
           <p className="mt-1.5 text-sm leading-relaxed text-muted">{t("shopHint")}</p>
-          <p className="mt-3 rounded-xl bg-paper px-3 py-2 text-xs leading-relaxed text-muted">{t("disclosure")}</p>
+          <p className="mt-3 rounded-xl bg-paper px-3 py-2 text-xs leading-relaxed text-muted">
+            {t("disclosure")}{" "}
+            <Link href="/disclosure" className="font-medium text-ink underline underline-offset-2">
+              {tn("disclosure")}
+            </Link>
+          </p>
         </div>
         <div className="inline-flex rounded-full border border-line bg-paper p-1 text-xs font-semibold" role="tablist">
           {tabs.map((x) => (

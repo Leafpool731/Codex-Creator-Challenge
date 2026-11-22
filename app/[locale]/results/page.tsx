@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppHeader } from "@/components/AppHeader";
 import { ResultsView } from "@/components/results/ResultsView";
+import { SiteFooter } from "@/components/SiteFooter";
 import { buildLanguageAlternates, canonicalUrl } from "@/lib/seo/alternates";
 import { hasProfileParams, profileForModel, profileFromSearchParams } from "@/lib/profile";
 
@@ -37,6 +38,7 @@ export default async function ResultsPage({ params, searchParams }: Props) {
     <main className="min-h-dvh">
       <AppHeader />
       <ResultsView profile={profile} example={example} />
+      <SiteFooter />
     </main>
   );
 }

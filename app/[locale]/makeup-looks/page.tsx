@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppHeader } from "@/components/AppHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import {
   makeupLookImages,
   makeupLookMessageKey,
@@ -107,6 +108,7 @@ export default async function MakeupLooksPage({ params }: Props) {
           })}
         </ul>
       </section>
+      <SiteFooter />
     </main>
   );
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { AppHeader, Logo } from "@/components/AppHeader";
+import { AppHeader } from "@/components/AppHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import { HeroPortraits } from "@/components/landing/HeroPortraits";
 import { SeasonGrid } from "@/components/landing/SeasonGrid";
 import { Link } from "@/i18n/navigation";
@@ -105,12 +106,7 @@ export default async function LandingPage({ params }: Props) {
         </div>
       </section>
 
-      <footer className="border-t border-line">
-        <div className="mx-auto flex w-full max-w-[1280px] flex-wrap items-center justify-between gap-4 px-4 py-8 text-xs text-muted sm:px-6 lg:px-8">
-          <Logo />
-          <p>{t("footer")}</p>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

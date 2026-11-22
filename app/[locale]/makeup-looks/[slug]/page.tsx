@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppHeader } from "@/components/AppHeader";
+import { SiteFooter } from "@/components/SiteFooter";
 import {
   isMakeupLookSlug,
   makeupLookImages,
@@ -118,6 +119,7 @@ export default async function MakeupLookDetailPage({ params }: Props) {
           {t("detailDisclaimer")}
         </p>
       </article>
+      <SiteFooter />
     </main>
   );
 }

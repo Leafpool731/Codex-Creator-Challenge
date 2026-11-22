@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AppHeader } from "@/components/AppHeader";
 import { Studio } from "@/components/studio/Studio";
+import { SiteFooter } from "@/components/SiteFooter";
 import { buildLanguageAlternates, canonicalUrl } from "@/lib/seo/alternates";
 import { defaultProfile, hasProfileParams, profileFromSearchParams } from "@/lib/profile";
 
@@ -38,6 +39,9 @@ export default async function StudioPage({ params, searchParams }: Props) {
     <main className="min-h-dvh">
       <AppHeader />
       <Studio initial={initial} />
+      <div className="pb-20 lg:pb-0">
+        <SiteFooter />
+      </div>
     </main>
   );
 }

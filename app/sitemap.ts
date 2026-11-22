@@ -5,7 +5,7 @@ import { getSiteUrl } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = getSiteUrl();
-  const staticPaths = ["", "/studio", "/makeup-looks"];
+  const staticPaths = ["", "/studio", "/makeup-looks", "/about", "/privacy", "/disclosure"];
   const lookPaths = makeupLookSlugs.map((slug) => `/makeup-looks/${slug}`);
 
   const entries: MetadataRoute.Sitemap = [];
@@ -17,7 +17,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url,
         lastModified: new Date(),
         changeFrequency: "weekly",
-        priority: path === "" ? 1 : path === "/studio" ? 0.9 : 0.75
+        priority:
+          path === "" ? 1 : path === "/studio" ? 0.9 : ["/about", "/privacy", "/disclosure"].includes(path) ? 0.3 : 0.75
       });
     }
     for (const path of lookPaths) {
