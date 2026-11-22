@@ -85,7 +85,7 @@ export default async function MakeupLookDetailPage({ params }: Props) {
             <p className="text-xs font-semibold uppercase tracking-widest text-teal">
               {t("pageTitle")}
             </p>
-            <h1 className="text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
+            <h1 className="font-serif text-3xl tracking-tight text-ink sm:text-4xl">
               {t(`${key}.title`)}
             </h1>
             <p className="max-w-xl text-sm leading-relaxed text-ink/65 sm:text-base">

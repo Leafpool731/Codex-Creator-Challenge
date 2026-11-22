@@ -2,16 +2,97 @@
 
 ## What it is
 
-Chromi is a **browser-based 16-season color analysis studio**. You pick a
-photorealistic portrait anchor, tune a **skin profile** (depth, undertone,
-saturation, contrast), and run a **rule-based scoring engine** over JSON-backed
-season definitions. There is **no photo upload** in the main flow: the model is
-virtual, and your choices drive the analysis.
+Chromi is a **browser-based 16-season color analysis studio**. You pick the
+portrait closest to you, tune skin depth, undertone, olive cast, hair, eyes and
+color clarity, and the portrait's skin is recolored **pixel by pixel** to match.
+Results include a live **drape test** (best vs. avoid colors at the neckline),
+**lipstick try-on**, a generated palette, makeup, metals and an axis breakdown.
+There is **no photo upload**: everything runs in the browser.
 
-The app surfaces **top and alternate season matches**, **color palettes**,
-makeup and jewelry notes, a **cosmetic reference grid**, and a **score breakdown**
-so results stay explainable. Optional AI portrait tooling lives under
-`src/experimental` and is separate from the core studio.
+### How it works
+
+- **Analysis space** (`lib/profile.ts`, `lib/analysis.ts`): every season is a point
+  in a continuous 4-axis space (temperature, value, chroma, contrast). The profile
+  is projected into it (contrast is derived from hair/eye lightness vs. skin) and
+  seasons are ranked by weighted distance. Confidence comes from the margin
+  between #1 and #2.
+- **Palettes** (`lib/palette.ts`): generated in OKLCH from season coordinates —
+  hue between each color family's cool and warm pole, lightness from value,
+  spread from contrast, chroma from clarity — then gamut-mapped by reducing chroma
+  only.
+- **Portrait renderer** (`lib/portrait/renderer.ts`): uses a per-model region mask
+  (`public/masks/*.png`: R = skin, G = hair, B = lips). Skin is shifted in OKLab
+  from the photo's measured mean to the target, preserving each pixel's deviation
+  (texture, shading). Lips follow a lip model fitted to the nine portraits. Edges
+  are refined by color (hairline unmixing, chroma-gated sclera/background).
+  Drapes are fitted to the shoulder line found in the mask, with fold shading,
+  a contact shadow and color bounce onto the neck.
+
+### Product matching ("Shop your shades")
+
+Products live in `data/products.json`. Each has one measured shade colour; a
+product matches a season when its shade is close, in OKLab, to one of the season's
+target lip / cheek / eye shades (`cosmeticsForSeason` in `lib/palette.ts`).
+Matching is in `lib/products.ts`; ranking is by colour distance only.
+
+```json
+{
+  "id": "brand-product-shade",
+  "category": "lips",
+  "brand": "Brand",
+  "name": "Product name",
+  "shade": "Shade name",
+  "hex": "#b4505f",
+  "finish": "satin",
+  "retailer": "Sephora",
+  "url": "https://your-affiliate-link"
+}
+```
+
+Add a product by measuring its swatch image (median of the centre region):
+
+```bash
+node scripts/add-product.mjs swatch.png --category lips --brand "Brand" --name "Product" --shade "Shade" --retailer "Sephora" --url "https://..." --write
+```
+
+or pass `--hex "#aabbcc"` instead of an image. Without `--write` it only prints.
+The shipped entries marked `"sample": true` are placeholders spread across the
+shade space; remove them when real products are in:
+
+```bash
+node -e "const f='data/products.json',fs=require('fs');fs.writeFileSync(f,JSON.stringify(JSON.parse(fs.readFileSync(f)).filter(p=>!p.sample),null,2)+'\n')"
+```
+
+Product links open with `rel="sponsored"`, and the results page carries an
+affiliate disclosure.
+
+### Validating against professional analysts
+
+The season model is tuned to be consistent, not yet proven against real
+analyses. To measure agreement, have people who've had a professional analysis
+set up their profile in the studio, copy the URL, and record it in a CSV next to
+the season they were given (`scripts/validation-template.csv`):
+
+```bash
+npm run validate -- results.csv
+```
+
+It reports exact, top-3 and same-family agreement and the most common
+disagreements (12-season names like "Deep Winter" or "Clear Spring" are mapped).
+Use those to recalibrate `data/seasons.json` coordinates and the weights in
+`lib/analysis.ts`. Until then, results are shown as fit labels, not percentages.
+
+### Regenerating masks
+
+Masks come from MediaPipe's selfie multiclass segmenter plus face/iris landmarks,
+via `scripts/mask-generator/index.html`. To add a model: put the photo in
+`public/models/`, serve the generator page from the dev server alongside a small
+dev-only POST endpoint that writes `public/masks/<id>.png`, run it, then add the
+model to `portraitModels` in `lib/profile.ts` with its measured mean skin color.
+
+Optional AI portrait tooling lives under `src/experimental` (excluded from the
+build). It still imports the previous studio modules, which were removed, and
+needs updating before it can be used again.
 
 Stack: **Next.js**, **React**, **TypeScript**, **Tailwind CSS**.
 

@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Chromi mask generator</title>
+<style>
+  body { font: 13px system-ui, sans-serif; margin: 16px; background: #222; color: #eee; }
+  canvas { max-width: 280px; margin: 4px; border: 1px solid #444; }
+  #log { white-space: pre-wrap; }
+</style>
+</head>
+<body>
+<p>
+  Generates per-model region masks for the Chromi portrait renderer.<br />
+  Output PNG channels: <b>R</b> = skin (face, brows, lips, neck, shoulders &mdash; minus the eye openings),
+  <b>G</b> = hair, <b>B</b> = lips. Saved to <code>public/masks/&lt;model&gt;.png</code>.
+</p>
+<div id="log"></div>
+<div id="out"></div>
+<script type="module">
+import {
+  FilesetResolver,
+  ImageSegmenter,
+  FaceLandmarker
+} from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs";
+
+const log = (m) => (document.getElementById("log").textContent += m + "\n");
+const MODELS = Array.from({ length: 9 }, (_, i) => `model-0${i + 1}`);
+
+const LIPS = [61,185,40,39,37,0,267,269,270,409,291,375,321,405,314,17,84,181,91,146];
+const LEFT_EYE = [33,246,161,160,159,158,157,173,133,155,154,153,145,144,163,7];
+const RIGHT_EYE = [263,466,388,387,386,385,384,398,362,382,381,380,374,373,390,249];
+
+const vision = await FilesetResolver.forVisionTasks(
+  "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm"
+);
+const segmenter = await ImageSegmenter.createFromOptions(vision, {
+  baseOptions: {
+    modelAssetPath:
+      "https://storage.googleapis.com/mediapipe-models/image_segmenter/selfie_multiclass_256x256/float32/latest/selfie_multiclass_256x256.tflite"
+  },
+  runningMode: "IMAGE",
+  outputConfidenceMasks: true,
+  outputCategoryMask: false
+});
+const landmarker = await FaceLandmarker.createFromOptions(vision, {
+  baseOptions: {
+    modelAssetPath:
+      "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/latest/face_landmarker.task"
+  },
+  runningMode: "IMAGE",
+  numFaces: 1
+});
+log("models loaded");
+
+function loadImage(src) {
+  return new Promise((res, rej) => {
+    const img = new Image();
+    img.onload = () => res(img);
+    img.onerror = rej;
+    img.src = src;
+  });
+}
+
+function polygonMask(w, h, pts, { dilate = 0, erode = 0, blur = 0 }) {
+  const c = new OffscreenCanvas(w, h);
+  const g = c.getContext("2d");
+  g.filter = blur ? `blur(${blur}px)` : "none";
+  g.fillStyle = "#fff";
+  g.strokeStyle = "#fff";
+  g.lineJoin = "round";
+  g.lineWidth = dilate * 2;
+  g.beginPath();
+  pts.forEach(([x, y], i) => (i ? g.lineTo(x, y) : g.moveTo(x, y)));
+  g.closePath();
+  g.fill();
+  if (dilate) g.stroke();
+  if (erode) {
+    g.globalCompositeOperation = "destination-out";
+    g.lineWidth = erode * 2;
+    g.stroke();
+  }
+  return g.getImageData(0, 0, w, h).data;
+}
+
+function smooth(a, b, v) {
+  const t = Math.max(0, Math.min(1, (v - a) / (b - a)));
+  return t * t * (3 - 2 * t);
+}
+
+async function processModel(id) {
+  const img = await loadImage(`/models/${id}.png`);
+  const w = img.naturalWidth;
+  const h = img.naturalHeight;
+
+  const seg = segmenter.segment(img);
+  // categories: 0 bg, 1 hair, 2 body-skin, 3 face-skin, 4 clothes, 5 others
+  const conf = seg.confidenceMasks.map((m) => m.getAsFloat32Array());
+  const mw = seg.confidenceMasks[0].width;
+  const mh = seg.confidenceMasks[0].height;
+
+  const face = landmarker.detect(img).faceLandmarks[0];
+  if (!face) throw new Error(`no face in ${id}`);
+  const P = (idx) => idx.map((i) => [face[i].x * w, face[i].y * h]);
+  const eyeW = Math.hypot(face[33].x * w - face[133].x * w, face[33].y * h - face[133].y * h);
+
+  const lips = polygonMask(w, h, P(LIPS), { dilate: 0, blur: eyeW * 0.025 });
+
+  // Eye protection is semantic, not geometric: inside each eye contour only the iris
+  // (circle from MediaPipe's iris landmarks) and sclera-like pixels (light, near-neutral)
+  // are excluded from skin. The pink waterline, lid margin and lashes stay skin, so they
+  // shift with skin depth instead of leaving a pale rim. Brows and lips stay skin too.
+  const eyeZones = [
+    polygonMask(w, h, P(LEFT_EYE), { dilate: eyeW * 0.02, blur: eyeW * 0.015 }),
+    polygonMask(w, h, P(RIGHT_EYE), { dilate: eyeW * 0.02, blur: eyeW * 0.015 })
+  ];
+  const irisCanvas = new OffscreenCanvas(w, h);
+  const ig = irisCanvas.getContext("2d");
+  ig.filter = `blur(${eyeW * 0.012}px)`;
+  ig.fillStyle = "#fff";
+  for (const [c, ring] of [[468, [469, 470, 471, 472]], [473, [474, 475, 476, 477]]]) {
+    const cx = face[c].x * w;
+    const cy = face[c].y * h;
+    const r = ring.reduce((s, k) => s + Math.hypot(face[k].x * w - cx, face[k].y * h - cy), 0) / ring.length;
+    ig.beginPath();
+    ig.arc(cx, cy, r * 1.04, 0, Math.PI * 2);
+    ig.fill();
+  }
+  const iris = ig.getImageData(0, 0, w, h).data;
+  const photoCanvas = new OffscreenCanvas(w, h);
+  const pg = photoCanvas.getContext("2d");
+  pg.drawImage(img, 0, 0);
+  const photo = pg.getImageData(0, 0, w, h).data;
+  const lin = (u) => {
+    u /= 255;
+    return u <= 0.04045 ? u / 12.92 : ((u + 0.055) / 1.055) ** 2.4;
+  };
+  function scleraLikeness(i) {
+    const r = lin(photo[i]), g = lin(photo[i + 1]), b = lin(photo[i + 2]);
+    const l = Math.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b);
+    const m = Math.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b);
+    const s = Math.cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b);
+    const L = 0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s;
+    const A = 1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s;
+    const B = 0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s;
+    return (1 - smooth(0.03, 0.058, Math.hypot(A, B))) * smooth(0.5, 0.64, L);
+  }
+  const exclusionAt = (i) => {
+    const zone = Math.max(eyeZones[0][i], eyeZones[1][i]) / 255;
+    if (zone <= 0) return 0;
+    return zone * Math.max(iris[i] / 255, scleraLikeness(i));
+  };
+
+  const out = new ImageData(w, h);
+  const sx = mw / w;
+  const sy = mh / h;
+  for (let y = 0; y < h; y++) {
+    const my = Math.min(mh - 1, Math.floor(y * sy));
+    for (let x = 0; x < w; x++) {
+      const mx = Math.min(mw - 1, Math.floor(x * sx));
+      const mi = my * mw + mx;
+      const i = (y * w + x) * 4;
+      let skin = smooth(0.18, 0.82, conf[2][mi] + conf[3][mi]);
+      const hair = smooth(0.18, 0.82, conf[1][mi]);
+      skin = Math.max(0, Math.min(1, skin)) * (1 - exclusionAt(i));
+      out.data[i] = Math.round(skin * 255);
+      out.data[i + 1] = Math.round(Math.min(1, hair) * 255);
+      out.data[i + 2] = lips[i];
+      out.data[i + 3] = 255;
+    }
+  }
+  seg.close?.();
+
+  const canvas = document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+  canvas.getContext("2d").putImageData(out, 0, 0);
+  document.getElementById("out").appendChild(canvas);
+
+  const blob = await new Promise((r) => canvas.toBlob(r, "image/png"));
+  const res = await fetch(`/api/dev-save-mask?id=${id}`, { method: "POST", body: blob });
+  log(`${id}: ${w}x${h} seg=${mw}x${mh} -> ${res.status}`);
+}
+
+for (const id of MODELS) {
+  try {
+    await processModel(id);
+  } catch (e) {
+    log(`${id}: ERROR ${e}`);
+  }
+}
+log("done");
+window.__done = true;
+</script>
+</body>
+</html>
