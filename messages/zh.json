@@ -101,6 +101,47 @@
       "light-brown": "浅棕色",
       "dark-brown": "深棕色",
       "black-brown": "黑棕色"
+    },
+    "fit": "契合",
+    "quizCta": "不确定？回答 5 个小问题",
+    "quizTitle": "五个小问题",
+    "quizIntro": "回想在日光下各种颜色在你身上的效果。不确定时请选“不确定”——系统不会替你猜。",
+    "quizApply": "设置我的档案",
+    "quizCancel": "取消",
+    "quizApplied": "已根据 {count} 个回答设置。如果肖像看起来不对，可用滑块微调。",
+    "notSure": "不确定",
+    "q": {
+      "metal": {
+        "q": "哪种金属更衬你的肤色？",
+        "gold": "金色",
+        "silver": "银色",
+        "both": "都好看"
+      },
+      "white": {
+        "q": "哪种白色靠近脸部更好看？",
+        "pure": "明亮的纯白",
+        "ivory": "柔和的象牙白 / 奶油白",
+        "same": "没有区别"
+      },
+      "vivid": {
+        "q": "穿紫红色或钴蓝色等鲜艳颜色时……",
+        "glow": "脸色更亮",
+        "wears": "颜色压过了我",
+        "depends": "取决于具体颜色"
+      },
+      "blush": {
+        "q": "哪种腮红在你脸上更自然？",
+        "pink": "粉色 / 玫瑰色",
+        "peach": "桃色 / 珊瑚色",
+        "both": "都可以"
+      },
+      "foundation": {
+        "q": "粉底色号不合适时，通常是……",
+        "pinkWrong": "太粉",
+        "yellowWrong": "太黄",
+        "bothOff": "都不对——显得发灰",
+        "neutralFine": "中性色号都还好"
+      }
     }
   },
   "axes": {
@@ -162,7 +203,18 @@
     "sampleNote": "当前显示示例色号。将 data/products.json 替换为真实产品即可上线。",
     "noMatches": "目录中暂无与该季型匹配的产品。",
     "disclosure": "部分链接为联盟链接：通过这些链接购买，Chromi 可能获得佣金，你无需额外付费。产品仅按色彩匹配度排序，与佣金无关。",
-    "matchLabel": "色号匹配"
+    "matchLabel": "色号匹配",
+    "fit_strong": "高度契合",
+    "fit_good": "较为契合",
+    "fit_possible": "可能契合",
+    "fit_weak": "契合度低",
+    "shade_veryClose": "色号非常接近",
+    "shade_close": "色号接近",
+    "shade_similar": "同一色系",
+    "startingPoint": "结果基于你填写的信息。请把它当作可靠的起点，再在日光下用真实布料确认。",
+    "screenNote": "不同屏幕显示的颜色会有差异。色块仅供参考，购买前请在日光下确认色号。",
+    "viewProduct": "查看产品",
+    "affiliateTag": "联盟链接"
   },
   "makeupLooks": {
     "pageTitle": "妆容灵感",

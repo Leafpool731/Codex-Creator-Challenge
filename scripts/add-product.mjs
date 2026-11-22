@@ -9,7 +9,8 @@
  *   --brand "Brand" --name "Product" --shade "Shade name"
  *   --finish matte|satin|...      optional
  *   --retailer "Sephora"          optional, shown on the Shop button
- *   --url "https://..."           your affiliate link
+ *   --url "https://..."           your affiliate link (or a plain product link)
+ *   --no-affiliate                the url is a plain link, not an affiliate one
  *   --region 0.3                  fraction of the image (centred) to sample, default 0.3
  *   --hex "#aabbcc"               skip measuring and use this colour instead
  *   --write                       append to data/products.json (otherwise just prints)
@@ -108,7 +109,8 @@ const product = {
   hex: hex.toLowerCase(),
   ...(opt("finish") ? { finish: opt("finish") } : {}),
   retailer: opt("retailer", ""),
-  url: opt("url", "")
+  url: opt("url", ""),
+  ...(flag("no-affiliate") ? { affiliate: false } : {})
 };
 
 if (!flag("write")) {

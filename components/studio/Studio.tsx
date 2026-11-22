@@ -5,10 +5,11 @@ import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 import { AxisChart } from "@/components/AxisChart";
 import { PortraitCanvas } from "@/components/portrait/PortraitCanvas";
+import { Questionnaire } from "@/components/studio/Questionnaire";
 import { RangeField } from "@/components/ui/RangeField";
 import { SwatchPicker } from "@/components/ui/SwatchPicker";
 import { Link } from "@/i18n/navigation";
-import { analyse } from "@/lib/analysis";
+import { analyse, fitLevel } from "@/lib/analysis";
 import { paletteForSeason } from "@/lib/palette";
 import {
   eyeOptions,
@@ -39,6 +40,8 @@ export function Studio({ initial }: { initial: Profile }) {
   const tr = useTranslations("results");
   const [profile, setProfile] = useState<Profile>(initial);
   const [showOriginal, setShowOriginal] = useState(false);
+  const [quizOpen, setQuizOpen] = useState(false);
+  const [quizAnswered, setQuizAnswered] = useState(0);
   // Skin changes may hand the preview to a closer real portrait (see closestPortrait).
   const update = (patch: Partial<Profile>) => setProfile((p) => withClosestPortrait({ ...p, ...patch }));
 
@@ -153,6 +156,31 @@ export function Studio({ initial }: { initial: Profile }) {
           </Section>
 
           <Section title={t("skin")}>
+            {quizOpen ? (
+              <Questionnaire
+                onCancel={() => setQuizOpen(false)}
+                onApply={({ patch, answered }) => {
+                  update(patch);
+                  setQuizAnswered(answered);
+                  setQuizOpen(false);
+                }}
+              />
+            ) : (
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setQuizOpen(true)}
+                  className="w-full rounded-2xl border border-dashed border-ink/25 px-4 py-3 text-left text-sm font-medium transition hover:border-ink/50 hover:bg-paper"
+                >
+                  {t("quizCta")} <span aria-hidden="true">→</span>
+                </button>
+                {quizAnswered > 0 && (
+                  <p className="mt-2 text-xs leading-relaxed text-muted" role="status">
+                    {t("quizApplied", { count: quizAnswered })}
+                  </p>
+                )}
+              </div>
+            )}
             <RangeField
               label={t("depth")}
               value={profile.skinDepth}
@@ -238,7 +266,7 @@ export function Studio({ initial }: { initial: Profile }) {
           <div className="min-w-0">
             <p className="text-[11px] text-muted">{t("leading")}</p>
             <p className="truncate text-sm font-semibold">
-              {top.season.name} · {top.match}% {tr("match")}
+              {top.season.name} · {tr(`fit_${fitLevel(top.match)}`)}
             </p>
           </div>
           <Link href={`/results?${query}`} className="btn-primary shrink-0">
@@ -269,7 +297,7 @@ function LiveReading({
           <p className="mt-1 text-sm text-muted">{top.season.headline}</p>
         </div>
         <div className="text-right">
-          <p className="font-serif text-3xl tabular-nums leading-tight">{top.match}%</p>
+          <p className="text-sm font-semibold leading-tight">{tr(`fit_${fitLevel(top.match)}`)}</p>
           <p className="text-[11px] text-muted">{tr(`confidence_${analysis.confidence}`)}</p>
         </div>
       </div>

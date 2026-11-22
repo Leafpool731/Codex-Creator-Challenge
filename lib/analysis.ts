@@ -83,6 +83,20 @@ export function analyse(profile: Profile): Analysis {
   return { coordinates, matches, top, confidence, margin };
 }
 
+export type FitLevel = "strong" | "good" | "possible" | "weak";
+
+/**
+ * Words instead of percentages: the inputs are self-reported and the model isn't yet
+ * validated against professional analysts, so a number like "87%" would overstate
+ * precision. The underlying match value is still used for ranking.
+ */
+export function fitLevel(match: number): FitLevel {
+  if (match >= 85) return "strong";
+  if (match >= 70) return "good";
+  if (match >= 55) return "possible";
+  return "weak";
+}
+
 /** Human-readable position on each axis, for result copy. */
 export function describeAxis(axis: Axis, value: number): string {
   switch (axis) {

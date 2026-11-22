@@ -101,6 +101,47 @@
       "light-brown": "Light brown",
       "dark-brown": "Dark brown",
       "black-brown": "Black-brown"
+    },
+    "fit": "fit",
+    "quizCta": "Not sure? Answer 5 quick questions",
+    "quizTitle": "Five quick questions",
+    "quizIntro": "Think about how colors behave on you in daylight. Pick “Not sure” whenever you are — it won’t be guessed.",
+    "quizApply": "Set my profile",
+    "quizCancel": "Cancel",
+    "quizApplied": "Set from {count} answers. Fine-tune with the sliders if the portrait looks off.",
+    "notSure": "Not sure",
+    "q": {
+      "metal": {
+        "q": "Which metal looks better against your skin?",
+        "gold": "Gold",
+        "silver": "Silver",
+        "both": "Both look good"
+      },
+      "white": {
+        "q": "Which white looks better near your face?",
+        "pure": "Bright pure white",
+        "ivory": "Soft ivory / cream",
+        "same": "No difference"
+      },
+      "vivid": {
+        "q": "In vivid colors like fuchsia or cobalt…",
+        "glow": "My face looks brighter",
+        "wears": "The color wears me",
+        "depends": "It depends on the color"
+      },
+      "blush": {
+        "q": "Which blush looks more natural on you?",
+        "pink": "Pink / rose",
+        "peach": "Peach / coral",
+        "both": "Both work"
+      },
+      "foundation": {
+        "q": "When foundation shades look wrong on you, they are usually…",
+        "pinkWrong": "Too pink",
+        "yellowWrong": "Too yellow",
+        "bothOff": "Both — they look grey or ashy",
+        "neutralFine": "Neutral shades are fine"
+      }
     }
   },
   "axes": {
@@ -162,7 +203,18 @@
     "sampleNote": "Showing sample shades. Replace data/products.json with real products to go live.",
     "noMatches": "Nothing in the catalog matches this season yet.",
     "disclosure": "Some links are affiliate links: Chromi may earn a commission if you buy through them, at no extra cost to you. Products are ranked by color match only, never by commission.",
-    "matchLabel": "shade match"
+    "matchLabel": "shade match",
+    "fit_strong": "Strong fit",
+    "fit_good": "Good fit",
+    "fit_possible": "Possible fit",
+    "fit_weak": "Weak fit",
+    "shade_veryClose": "Very close shade",
+    "shade_close": "Close shade",
+    "shade_similar": "Same family",
+    "startingPoint": "Based on what you entered. Treat it as a strong starting point, then confirm with real fabric in daylight.",
+    "screenNote": "Screens show color differently. Use swatches as a guide and check shades in daylight before you buy.",
+    "viewProduct": "View product",
+    "affiliateTag": "Affiliate link"
   },
   "makeupLooks": {
     "pageTitle": "Makeup looks",

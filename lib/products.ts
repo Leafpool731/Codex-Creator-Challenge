@@ -24,8 +24,13 @@ export interface Product {
   hex: string;
   finish?: string;
   retailer?: string;
-  /** Affiliate link. Leave empty until the product has one. */
+  /** Product link. Leave empty until the product has one. */
   url?: string;
+  /**
+   * Whether `url` earns a commission (default true). Set false for plain links so
+   * good shades without an affiliate program still rank and show normally.
+   */
+  affiliate?: boolean;
   /** Placeholder entries shipped for development; flagged in the UI. */
   sample?: boolean;
 }
@@ -82,6 +87,18 @@ const TOLERANCE = 0.075;
 
 export function scoreFromDistance(d: number): number {
   return Math.round(100 * Math.exp(-((d / TOLERANCE) ** 2)));
+}
+
+export type ShadeCloseness = "veryClose" | "close" | "similar";
+
+/**
+ * OKLab distance bands. ~0.02 is about the smallest difference people reliably notice
+ * side by side; swatch photos and screens add more error than that, so bands stay coarse.
+ */
+export function shadeCloseness(distance: number): ShadeCloseness {
+  if (distance < 0.03) return "veryClose";
+  if (distance < 0.055) return "close";
+  return "similar";
 }
 
 export function matchProducts(

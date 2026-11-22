@@ -2,7 +2,13 @@
 
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
-import { matchProducts, products, type ProductCategory, type ProductMatch } from "@/lib/products";
+import {
+  matchProducts,
+  products,
+  shadeCloseness,
+  type ProductCategory,
+  type ProductMatch
+} from "@/lib/products";
 import type { Season } from "@/lib/seasons";
 
 interface ShopShadesProps {
@@ -31,6 +37,7 @@ export function ShopShades({ season, activeLip, onTryLip }: ShopShadesProps) {
             {t("shopTitle")}
           </h2>
           <p className="mt-1.5 text-sm leading-relaxed text-muted">{t("shopHint")}</p>
+          <p className="mt-3 rounded-xl bg-paper px-3 py-2 text-xs leading-relaxed text-muted">{t("disclosure")}</p>
         </div>
         <div className="inline-flex rounded-full border border-line bg-paper p-1 text-xs font-semibold" role="tablist">
           {tabs.map((x) => (
@@ -65,7 +72,7 @@ export function ShopShades({ season, activeLip, onTryLip }: ShopShadesProps) {
 
       <div className="mt-6 space-y-1.5 border-t border-line pt-4 text-xs leading-relaxed text-faint">
         {showingSamples && <p>{t("sampleNote")}</p>}
-        <p>{t("disclosure")}</p>
+        <p>{t("screenNote")}</p>
       </div>
     </section>
   );
@@ -73,7 +80,8 @@ export function ShopShades({ season, activeLip, onTryLip }: ShopShadesProps) {
 
 function ProductCard({ match, trying, onTry }: { match: ProductMatch; trying: boolean; onTry?: () => void }) {
   const t = useTranslations("results");
-  const { product, score, target } = match;
+  const { product, distance, target } = match;
+  const affiliate = product.affiliate !== false;
   return (
     <li className="flex gap-4 rounded-2xl border border-line p-4 transition hover:border-ink/25">
       <span
@@ -98,13 +106,8 @@ function ProductCard({ match, trying, onTry }: { match: ProductMatch; trying: bo
           )}
         </div>
 
-        <div className="mt-2.5 flex items-center gap-2" title={`${score}% ${t("matchLabel")}`}>
-          <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-sunk">
-            <span className="block h-full rounded-full bg-ink" style={{ width: `${score}%` }} />
-          </span>
-          <span className="text-xs font-semibold tabular-nums">{score}%</span>
-        </div>
-        <p className="mt-1.5 flex items-center gap-1.5 text-xs text-muted">
+        <p className="mt-2 text-xs font-semibold">{t(`shade_${shadeCloseness(distance)}`)}</p>
+        <p className="mt-1 flex items-center gap-1.5 text-xs text-muted">
           <span className="h-2.5 w-2.5 rounded-full ring-1 ring-ink/10" style={{ backgroundColor: target.hex }} />
           {t("closeTo", { name: target.name })}
         </p>
@@ -123,14 +126,22 @@ function ProductCard({ match, trying, onTry }: { match: ProductMatch; trying: bo
             </button>
           )}
           {product.url ? (
-            <a
-              href={product.url}
-              target="_blank"
-              rel="sponsored nofollow noopener noreferrer"
-              className="rounded-full bg-ink px-3 py-1.5 text-xs font-semibold text-paper transition hover:bg-[#3a332e]"
-            >
-              {product.retailer ? t("shopAt", { retailer: product.retailer }) : t("shop")} ↗
-            </a>
+            <>
+              <a
+                href={product.url}
+                target="_blank"
+                rel={affiliate ? "sponsored nofollow noopener noreferrer" : "noopener noreferrer"}
+                className="rounded-full bg-ink px-3 py-1.5 text-xs font-semibold text-paper transition hover:bg-[#3a332e]"
+              >
+                {affiliate
+                  ? product.retailer
+                    ? t("shopAt", { retailer: product.retailer })
+                    : t("shop")
+                  : t("viewProduct")}{" "}
+                ↗
+              </a>
+              {affiliate && <span className="self-center text-[10px] font-medium text-faint">{t("affiliateTag")}</span>}
+            </>
           ) : (
             <span className="rounded-full border border-dashed border-line px-3 py-1.5 text-xs font-medium text-faint">
               {t("linkSoon")}

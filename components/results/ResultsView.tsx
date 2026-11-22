@@ -6,7 +6,7 @@ import { AxisChart } from "@/components/AxisChart";
 import { PortraitCanvas } from "@/components/portrait/PortraitCanvas";
 import { ShopShades } from "@/components/results/ShopShades";
 import { Link } from "@/i18n/navigation";
-import { analyse } from "@/lib/analysis";
+import { analyse, fitLevel } from "@/lib/analysis";
 import { readableTextOn } from "@/lib/color/oklab";
 import { avoidPalette, cosmeticsForSeason, paletteForSeason, type Swatch } from "@/lib/palette";
 import { profileToSearchParams, type Profile } from "@/lib/profile";
@@ -202,9 +202,8 @@ export function ResultsView({ profile, example = false }: { profile: Profile; ex
           <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted">{season.headline}</p>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
-            <span className="inline-flex items-baseline gap-1.5 rounded-full bg-ink px-4 py-2 text-paper">
-              <span className="font-serif text-2xl leading-none tabular-nums">{top.match}%</span>
-              <span className="text-xs font-medium opacity-80">{t("match")}</span>
+            <span className="inline-flex items-center rounded-full bg-ink px-4 py-2 text-sm font-semibold text-paper">
+              {t(`fit_${fitLevel(top.match)}`)}
             </span>
             <span className="chip py-2">
               <span
@@ -216,6 +215,7 @@ export function ResultsView({ profile, example = false }: { profile: Profile; ex
             </span>
           </div>
           <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-ink/80">{season.rationale}</p>
+          <p className="mt-3 max-w-xl text-xs leading-relaxed text-muted">{t("startingPoint")}</p>
 
           <div className="mt-10">
             <div className="flex items-end justify-between gap-4">
@@ -341,7 +341,7 @@ export function ResultsView({ profile, example = false }: { profile: Profile; ex
                     <p className="font-semibold leading-tight">{m.season.name}</p>
                     <p className="truncate text-sm text-muted">{m.season.headline}</p>
                   </div>
-                  <span className="shrink-0 font-serif text-xl tabular-nums">{m.match}%</span>
+                  <span className="shrink-0 text-xs font-semibold text-muted">{t(`fit_${fitLevel(m.match)}`)}</span>
                 </li>
               );
             })}

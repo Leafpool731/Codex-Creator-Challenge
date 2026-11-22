@@ -66,6 +66,22 @@ node -e "const f='data/products.json',fs=require('fs');fs.writeFileSync(f,JSON.s
 Product links open with `rel="sponsored"`, and the results page carries an
 affiliate disclosure.
 
+### Validating against professional analysts
+
+The season model is tuned to be consistent, not yet proven against real
+analyses. To measure agreement, have people who've had a professional analysis
+set up their profile in the studio, copy the URL, and record it in a CSV next to
+the season they were given (`scripts/validation-template.csv`):
+
+```bash
+npm run validate -- results.csv
+```
+
+It reports exact, top-3 and same-family agreement and the most common
+disagreements (12-season names like "Deep Winter" or "Clear Spring" are mapped).
+Use those to recalibrate `data/seasons.json` coordinates and the weights in
+`lib/analysis.ts`. Until then, results are shown as fit labels, not percentages.
+
 ### Regenerating masks
 
 Masks come from MediaPipe's selfie multiclass segmenter plus face/iris landmarks,
